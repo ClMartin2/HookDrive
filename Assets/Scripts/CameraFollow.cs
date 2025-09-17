@@ -1,9 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private float smoothTime = 0.0001f;
+
+    private Vector3 velocity = Vector3.zero;
 
     [ContextMenu("Reset To player position")]
     private void ResetToPlayerPosition()
@@ -13,7 +16,9 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 velocity = Vector3.zero;
-        transform.position = Vector3.SmoothDamp(transform.position, player.position, ref velocity, smoothTime);
+        Vector3 playerPosition = player.position;
+        Vector3 targetPosition = Vector3.SmoothDamp(transform.position, playerPosition, ref velocity, smoothTime);
+
+        transform.position = new Vector3(targetPosition.x, playerPosition.y, targetPosition.z);
     }
 }

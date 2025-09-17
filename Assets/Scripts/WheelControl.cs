@@ -22,7 +22,7 @@ public class WheelControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         // Get the Wheel collider's world pose values and
         // use them to set the wheel model's position and rotation
