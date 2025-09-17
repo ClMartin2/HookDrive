@@ -1,26 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarControl : MonoBehaviour
 {
     [SerializeField] private float horizontalTorque = 100;
 
     [Header("Car Properties")]
-    public float motorTorque = 2000f;
-    public float brakeTorque = 2000f;
-    public float maxSpeed = 20f;
-    public float steeringRange = 30f;
-    public float steeringRangeAtMaxSpeed = 10f;
-    public float centreOfGravityOffset = -1f;
+    [SerializeField] private float motorTorque = 2000f;
+    [SerializeField] private float brakeTorque = 2000f;
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float centreOfGravityOffset = -1f;
 
     private WheelControl[] wheels;
     private Rigidbody rb;
 
-    private IA_Player carControls; // Reference to the new input system
+    private IA_Player carControls;
 
     void Awake()
     {
-        carControls = new IA_Player(); // Initialize Input Actions
+        carControls = new IA_Player();
     }
+
     void OnEnable()
     {
         carControls.Enable();
@@ -31,7 +30,6 @@ public class CarControl : MonoBehaviour
         carControls.Disable();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,67 +43,49 @@ public class CarControl : MonoBehaviour
         wheels = GetComponentsInChildren<WheelControl>();
     }
 
-    // FixedUpdate is called at a fixed time interval
     void FixedUpdate()
     {
-        // Read the Vector2 input from the new Input System
         Vector2 inputVector = carControls.Car.Movement.ReadValue<Vector2>();
 
-        // Get player input for acceleration and steering
-        float vInput = inputVector.y; // Forward/backward input
-        float hInput = inputVector.x; // Steering input
+        float vInput = inputVector.y;
+        float hInput = inputVector.x; 
 
-        //Rotation test !!!!!!
         Vector3 localTorque = new Vector3(hInput * horizontalTorque,0,0);
-
-        // Debug s�curisation
-        if (float.IsNaN(localTorque.x) || float.IsNaN(localTorque.y) || float.IsNaN(localTorque.z) ||
-            float.IsInfinity(localTorque.x) || float.IsInfinity(localTorque.y) || float.IsInfinity(localTorque.z))
-        {
-            Debug.LogError($"Invalid torque vector: {localTorque}, hInput={hInput}, horizontalTorque={horizontalTorque}, transform.right={transform.right}");
-        }
-        else
-        {
-            rb.AddRelativeTorque(localTorque, ForceMode.Acceleration);
-        }
+        rb.AddRelativeTorque(localTorque, ForceMode.Acceleration);
 
         // Calculate current speed along the car's forward axis
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
 
-        Debug.Log("Linear velocity : " + rb.linearVelocity);
-        Debug.Log("Forward speed : " + forwardSpeed);
-        Debug.Log("Speed Factor : " + speedFactor);
-
         // Reduce motor torque and steering at high speeds for better handling
         float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
 
-        Debug.Log("Current MotorTorque : " + currentMotorTorque);
-
         // Determine if the player is accelerating or trying to reverse
-        bool isAccelerating = Mathf.Sign(vInput) == Mathf.Sign(forwardSpeed);
+        float desiredBrake = 0f;
+        float desiredMotor = 0f;
 
-        foreach (var wheel in wheels)
+        if (vInput != 0f)
         {
-            if (isAccelerating)
+            if (Mathf.Sign(vInput) != Mathf.Sign(forwardSpeed) && Mathf.Abs(forwardSpeed) > 0.1f)
             {
-                // Apply torque to motorized wheels
-                if (wheel.motorized)
-                {
-                    wheel.WheelCollider.motorTorque = vInput * currentMotorTorque;
-                }
-                // Release brakes when accelerating
-                wheel.WheelCollider.brakeTorque = 0f;
+                // On veut changer de direction → frein
+                desiredBrake = brakeTorque;
+                desiredMotor = 0f;
             }
             else
             {
-                // Apply brakes when reversing direction
-                wheel.WheelCollider.motorTorque = 0f;
-                wheel.WheelCollider.brakeTorque = Mathf.Abs(vInput) * brakeTorque;
+                // On accélère dans la même direction
+                desiredMotor = vInput * currentMotorTorque;
+                desiredBrake = 0f;
             }
         }
 
-        //if (rb.linearVelocity.magnitude > maxSpeed * 2f)
-        //    rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed * 2f;
+        foreach (var wheel in wheels)
+        {
+            if (wheel.motorized)
+                wheel.WheelCollider.motorTorque = desiredMotor;
+
+            wheel.WheelCollider.brakeTorque = desiredBrake;
+        }
     }
 }

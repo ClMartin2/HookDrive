@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,24 +7,46 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     [Header("Inputs")]
-    [SerializeField] private InputActionReference move;
+    [SerializeField] private InputActionReference hookInput;
 
-    [Header("Speed")]
-    [SerializeField] private float verticalSpeed;
-    [SerializeField] private float maxVerticalSpeed;
-    [SerializeField] private float horizontalSpeed;
+    [Header("Hook Settigs")]
+    [SerializeField] private float hookLength = 10;
+    [SerializeField] private float hookStrength = 1000;
 
-    private Vector2 moveDirection = Vector2.zero;
+    private bool attachedToHook = false;
+    private RaycastHit hit;
 
-    private void Update()
+    private void Awake()
     {
-        moveDirection = move.action.ReadValue<Vector2>();
+        hookInput.action.Enable();
+        hookInput.action.performed += Hook_performed;
+        hookInput.action.canceled += Hook_canceled; ;
+    }
+
+    private void Hook_canceled(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Canceled");
+        attachedToHook = false;
+    }
+
+    private void Hook_performed(InputAction.CallbackContext obj)
+    {
+        Debug.DrawRay(rb.transform.position, rb.transform.forward * hookLength,Color.red,5f);
+
+        if (Physics.Raycast(rb.transform.position, rb.transform.forward, out hit, hookLength)) {
+            Debug.Log("hit");
+            attachedToHook = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        //rb.AddForce(Vector3.right * moveDirection.y * verticalSpeed * Time.fixedDeltaTime,ForceMode.Force);
-        Vector3 velocity = Vector3.right * moveDirection.y * verticalSpeed;
-        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+        if (attachedToHook)
+        {
+            Vector3 direction = (hit.point - rb.transform.position).normalized;
+
+            rb.AddForce(direction * hookStrength,ForceMode.Acceleration);
+            Debug.Log("Attached to Hook"); 
+        }
     }
 }
