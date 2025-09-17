@@ -56,13 +56,24 @@ public class CarControl : MonoBehaviour
         float hInput = inputVector.x; // Steering input
 
         //Rotation test !!!!!!
-        //Vector3 rotation = transform.right * hInput * horizontalTorque;
-        //rb.AddTorque(rotation, ForceMode.Acceleration);
+        Vector3 localTorque = new Vector3(hInput * horizontalTorque,0,0);
+
+        // Debug sécurisation
+        if (float.IsNaN(localTorque.x) || float.IsNaN(localTorque.y) || float.IsNaN(localTorque.z) ||
+            float.IsInfinity(localTorque.x) || float.IsInfinity(localTorque.y) || float.IsInfinity(localTorque.z))
+        {
+            Debug.LogError($"Invalid torque vector: {localTorque}, hInput={hInput}, horizontalTorque={horizontalTorque}, transform.right={transform.right}");
+        }
+        else
+        {
+            rb.AddRelativeTorque(localTorque, ForceMode.Acceleration);
+        }
 
         // Calculate current speed along the car's forward axis
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
 
+        Debug.Log("Linear velocity : " + rb.linearVelocity);
         Debug.Log("Forward speed : " + forwardSpeed);
         Debug.Log("Speed Factor : " + speedFactor);
 
@@ -93,5 +104,8 @@ public class CarControl : MonoBehaviour
                 wheel.WheelCollider.brakeTorque = Mathf.Abs(vInput) * brakeTorque;
             }
         }
+
+        //if (rb.linearVelocity.magnitude > maxSpeed * 2f)
+        //    rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed * 2f;
     }
 }
