@@ -25,7 +25,5 @@ public class Player : MonoBehaviour
         //rb.AddForce(Vector3.right * moveDirection.y * verticalSpeed * Time.fixedDeltaTime,ForceMode.Force);
         Vector3 velocity = Vector3.right * moveDirection.y * verticalSpeed;
         rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
-
-
     }
 }
