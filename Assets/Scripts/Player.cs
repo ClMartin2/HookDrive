@@ -12,9 +12,12 @@ public class Player : MonoBehaviour
     [Header("Hook Settigs")]
     [SerializeField] private float hookLength = 10;
     [SerializeField] private float hookStrength = 1000;
+    [SerializeField,Tooltip("In Seconds")] private float hookCooldown = 0.5f;
 
     private bool attachedToHook = false;
     private RaycastHit hit;
+    private float counterHookCooldown = 0;
+    private bool canHook = true;
 
     private void Awake()
     {
@@ -26,6 +29,13 @@ public class Player : MonoBehaviour
     private void Hook_canceled(InputAction.CallbackContext obj)
     {
         Debug.Log("Canceled");
+
+        if (attachedToHook)
+        {
+            counterHookCooldown = 0;
+            canHook = false;
+        }
+
         attachedToHook = false;
     }
 
@@ -34,19 +44,25 @@ public class Player : MonoBehaviour
         Debug.DrawRay(rb.transform.position, rb.transform.forward * hookLength,Color.red,5f);
 
         if (Physics.Raycast(rb.transform.position, rb.transform.forward, out hit, hookLength)) {
-            Debug.Log("hit");
             attachedToHook = true;
         }
     }
 
     private void FixedUpdate()
     {
-        if (attachedToHook)
+        if (attachedToHook && canHook)
         {
+            Debug.Log("Start hook");
             Vector3 direction = (hit.point - rb.transform.position).normalized;
-
             rb.AddForce(direction * hookStrength,ForceMode.Acceleration);
-            Debug.Log("Attached to Hook"); 
+        }
+
+        if (!canHook)
+        {
+            counterHookCooldown += Time.deltaTime;
+
+            if(counterHookCooldown >= hookCooldown)
+                canHook = true;
         }
     }
 }
