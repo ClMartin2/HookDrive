@@ -41,8 +41,6 @@ public class Player : MonoBehaviour
             btnHook.onPointerDown += HookStart;
             btnHook.onPointerUp += HookEnd;
         }
-        else
-            btnHook.gameObject.SetActive(false);
 
         carControl.Init();
     }
