@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class CarControl : MonoBehaviour
@@ -44,7 +43,6 @@ public class CarControl : MonoBehaviour
 
         StartCoroutine(ReenableWheels());
         transform.rotation = startRotation;
-
     }
 
     public void Init()
@@ -120,7 +118,7 @@ public class CarControl : MonoBehaviour
         }
     }
 
-    private void SetWheelTorque(float desiredMotor, float desiredBrake, bool putWheelsStraits = false)
+    private void SetWheelTorque(float desiredMotor, float desiredBrake)
     {
         foreach (var wheel in wheels)
         {
@@ -128,9 +126,6 @@ public class CarControl : MonoBehaviour
                 wheel.wheelCollider.motorTorque = desiredMotor;
 
             wheel.wheelCollider.brakeTorque = desiredBrake;
-
-            if(putWheelsStraits)
-                wheel.wheelCollider.steerAngle = 0f;
         }
     }
 }
