@@ -17,11 +17,16 @@ public class LocalLevelManager : MonoBehaviour
     {
         player.Activate();
         player.transform.position = startPlayerPoint.position;
+        player.Restart();
     }
 
     private void RestartLevel()
     {
         StartLevel();
-        player.Restart();
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnRestartRequested -= RestartLevel;
     }
 }
