@@ -35,8 +35,6 @@ public class Player : MonoBehaviour
         hookInput.action.canceled += Hook_canceled;
 
         carControl.Init();
-
-        Deactivate();
     }
 
     public void Restart()
@@ -70,7 +68,6 @@ public class Player : MonoBehaviour
 
     private void Hook_canceled(InputAction.CallbackContext obj)
     {
-        Debug.Log("Canceled");
         ResetHook();
     }
 
@@ -87,7 +84,6 @@ public class Player : MonoBehaviour
     {
         if (attachedToHook && canHook)
         {
-            Debug.Log("Start hook");
             Vector3 direction = (hit.point - rb.transform.position).normalized;
             rb.AddForce(direction * hookStrength,ForceMode.Acceleration);
         }

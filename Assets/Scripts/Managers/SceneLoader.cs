@@ -3,11 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private Scene startScene = Scene.W1_Level1;
-
     public static SceneLoader Instance { get; private set; }
 
-    private Scene currentScene = Scene.PERSISTENT;
+    private string currentScene;
 
     private void Awake()
     {
@@ -17,25 +15,13 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
+    public async void SwitchScene(string sceneToSwitch)
     {
-        SwitchScene(startScene);
-    }
-
-    public async void SwitchScene(Scene sceneToSwitch)
-    {
-        if(currentScene != Scene.PERSISTENT)
-            await SceneManager.UnloadSceneAsync((int)currentScene);
+        if(currentScene != null)
+            await SceneManager.UnloadSceneAsync(currentScene);
         
-        await SceneManager.LoadSceneAsync((int)sceneToSwitch,LoadSceneMode.Additive);
+        await SceneManager.LoadSceneAsync(sceneToSwitch,LoadSceneMode.Additive);
 
         currentScene = sceneToSwitch;       
     }
-}
-
-public enum Scene
-{
-    PERSISTENT,
-    W1_Level1,
-    W2_Level2
 }
