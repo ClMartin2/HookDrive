@@ -77,14 +77,6 @@ public class CarControl : MonoBehaviour
             wheel.Init();
         }
 
-        if (!GameManager.isMobile())
-        {
-            btnLeftRotate.gameObject.SetActive(false);
-            btnRightRotate.gameObject.SetActive(false);
-            btnForward.gameObject.SetActive(false);
-            btnBackward.gameObject.SetActive(false);
-        }
-
         startRotation = transform.rotation;
     }
 
