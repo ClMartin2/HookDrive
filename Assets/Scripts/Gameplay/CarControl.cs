@@ -1,20 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarControl : MonoBehaviour
 {
-    [SerializeField] private float horizontalTorque = 100;
+    [Header("Inputs")]
+    [SerializeField] private ControlButton btnLeftRotate;
+    [SerializeField] private ControlButton btnRightRotate;
+    [SerializeField] private ControlButton btnForward;
+    [SerializeField] private ControlButton btnBackward;
 
     [Header("Car Properties")]
+    [SerializeField] private float horizontalTorque = 100;
     [SerializeField] private float motorTorque = 2000f;
     [SerializeField] private float brakeTorque = 2000f;
-    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float maxForwardSpeed = 20f;
+    [SerializeField] private float maxReverseSpeed = 20f;
     [SerializeField] private float centreOfGravityOffset = -1f;
+
 
     private WheelControl[] wheels;
     private Rigidbody rb;
     private IA_Player carControls;
     private Quaternion startRotation;
+    private float maxSpeed;
+
+    private float vInput = 0;
+    private float hInput = 0;
 
     public void Activate()
     {
@@ -64,21 +77,52 @@ public class CarControl : MonoBehaviour
             wheel.Init();
         }
 
+        if (!GameManager.isMobile())
+        {
+            btnLeftRotate.gameObject.SetActive(false);
+            btnRightRotate.gameObject.SetActive(false);
+            btnForward.gameObject.SetActive(false);
+            btnBackward.gameObject.SetActive(false);
+        }
+
         startRotation = transform.rotation;
     }
 
     private void FixedUpdate()
     {
-        Vector2 inputVector = carControls.Car.Movement.ReadValue<Vector2>();
+        if (GameManager.isMobile())
+        {
+            if (btnLeftRotate.IsPressed)
+                hInput = -1;
+            else if (btnRightRotate.IsPressed)
+                hInput = 1;
+            else
+                hInput = 0;
 
-        float vInput = inputVector.y;
-        float hInput = inputVector.x; 
+            if (btnForward.IsPressed)
+                vInput = 1;
+            else if (btnBackward.IsPressed)
+                vInput = -1;
+            else
+                vInput = 0;
+        }
+        else
+        {
+            Vector2 inputVector = carControls.Car.Movement.ReadValue<Vector2>();
+
+            vInput = inputVector.y;
+            hInput = inputVector.x;
+        }
+
 
         Vector3 localTorque = new Vector3(hInput * horizontalTorque,0,0);
         rb.AddRelativeTorque(localTorque, ForceMode.Acceleration);
 
         // Calculate current speed along the car's forward axis
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
+
+        maxSpeed = vInput > 0 ? maxForwardSpeed : maxReverseSpeed;
+
         float speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
 
         // Reduce motor torque and steering at high speeds for better handling

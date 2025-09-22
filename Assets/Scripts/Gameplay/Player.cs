@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference hookInput;
+    [SerializeField] private ControlButton btnHook;
 
     [Header("Hook Settigs")]
     [SerializeField] private float hookLength = 10;
@@ -31,8 +33,16 @@ public class Player : MonoBehaviour
         carControl = GetComponent<CarControl>();
 
         hookInput.action.Enable();
-        hookInput.action.performed += Hook_performed;
-        hookInput.action.canceled += Hook_canceled;
+        hookInput.action.performed += Hook_performed; ;
+        hookInput.action.canceled += Hook_canceled; ;
+
+        if (GameManager.isMobile())
+        {
+            btnHook.onPointerDown += HookStart;
+            btnHook.onPointerUp += HookEnd;
+        }
+        else
+            btnHook.gameObject.SetActive(false);
 
         carControl.Init();
     }
@@ -68,10 +78,20 @@ public class Player : MonoBehaviour
 
     private void Hook_canceled(InputAction.CallbackContext obj)
     {
-        ResetHook();
+        HookEnd();
     }
 
     private void Hook_performed(InputAction.CallbackContext obj)
+    {
+        HookStart();
+    }
+
+    private void HookEnd()
+    {
+        ResetHook();
+    }
+
+    private void HookStart()
     {
         Debug.DrawRay(rb.transform.position, rb.transform.forward * hookLength,Color.red,5f);
 
