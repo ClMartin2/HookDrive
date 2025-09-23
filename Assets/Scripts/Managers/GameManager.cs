@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
     [SerializeField] private WorldData startWorld;
-    [SerializeField] private bool doNothing = false;
+    [SerializeField] private bool testLevel = false;
 
     public static GameManager Instance;
 
@@ -54,18 +54,21 @@ public class GameManager : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
         PokiUnitySDK.Instance.gameLoadingFinished();
 #endif
-
         player = Player.Instance;
-        player.Deactivate();
 
-        if (doNothing)
+        if (testLevel)
+        {
+            menu.Hide();
+            hud.Show();
             return;
+        }
 
         if (loadMenu)
         {
             menu.Show();
             menu.SetLock(unlocksWorldData);
             hud.Hide();
+            player.Deactivate();
         }
         else
         {

@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 1120834977602340641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.801, y: 0.33979216, z: 1.107}
+  m_LocalPosition: {x: -0.81, y: 0.442, z: 1.107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79,25 +79,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+    spring: 30000
+    damper: 8000
+    targetPosition: 0
+  m_SuspensionDistance: 0.1
+  m_ForceAppPointDistance: 0.05
+  m_Mass: 30
+  m_WheelDampingRate: 75
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.3
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WheelControl
   wheelModel: {fileID: 3778711198397784298}
-  WheelCollider: {fileID: 0}
   steerable: 0
   motorized: 1
 --- !u!1 &1365380208083020554
@@ -239,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 2291235713860215694}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.802, y: 0.3397924, z: 1.107}
+  m_LocalPosition: {x: 0.81, y: 0.44199997, z: 1.107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -256,25 +255,25 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+    spring: 30000
+    damper: 8000
+    targetPosition: 0
+  m_SuspensionDistance: 0.1
+  m_ForceAppPointDistance: 0.05
+  m_Mass: 30
+  m_WheelDampingRate: 75
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.3
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -297,7 +296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WheelControl
   wheelModel: {fileID: 7318836548671929419}
-  WheelCollider: {fileID: 0}
   steerable: 0
   motorized: 1
 --- !u!1 &2742239719543118441
@@ -416,7 +414,7 @@ Transform:
   m_GameObject: {fileID: 3307111440268779226}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7704209, y: 0.3397924, z: 1.1073023}
+  m_LocalPosition: {x: 0.7989966, y: 0.3397924, z: 1.1073023}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 4334391028953259580}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.852, y: 0.3814675, z: -1.218}
+  m_LocalPosition: {x: -0.81, y: 0.54, z: -1.218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -520,27 +518,27 @@ WheelCollider:
   m_GameObject: {fileID: 4334391028953259580}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.4
+  m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+    spring: 30000
+    damper: 8000
+    targetPosition: 0
+  m_SuspensionDistance: 0.25
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 30
+  m_WheelDampingRate: 75
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.3
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -563,7 +561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WheelControl
   wheelModel: {fileID: 8161107777082532577}
-  WheelCollider: {fileID: 0}
   steerable: 0
   motorized: 1
 --- !u!1 &4722817719258529928
@@ -647,7 +644,7 @@ Transform:
   m_GameObject: {fileID: 5164166146010718562}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.861, y: 0.38146767, z: -1.218}
+  m_LocalPosition: {x: 0.81, y: 0.54, z: -1.218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,27 +659,27 @@ WheelCollider:
   m_GameObject: {fileID: 5164166146010718562}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.4
+  m_Radius: 0.35
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+    spring: 30000
+    damper: 8000
+    targetPosition: 0
+  m_SuspensionDistance: 0.25
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 30
+  m_WheelDampingRate: 75
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.3
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 0.5
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -705,7 +702,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WheelControl
   wheelModel: {fileID: 2796037499214800551}
-  WheelCollider: {fileID: 0}
   steerable: 0
   motorized: 1
 --- !u!1 &5339453969325689883
@@ -810,6 +806,7 @@ GameObject:
   - component: {fileID: 5519924802434911990}
   - component: {fileID: 7257233905415857340}
   - component: {fileID: 1874917728940660237}
+  - component: {fileID: 1678016430178830043}
   m_Layer: 0
   m_Name: Armor
   m_TagString: Untagged
@@ -899,9 +896,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6504762519892588589}
   serializedVersion: 5
-  m_Mass: 1500
+  m_Mass: 2000
   m_LinearDamping: 0.1
-  m_AngularDamping: 0.1
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -916,7 +913,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 98
   m_CollisionDetection: 0
 --- !u!114 &1874917728940660237
 MonoBehaviour:
@@ -930,15 +927,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afdb970cd1533f4d966cefd692a5d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarControl
-  horizontalTorque: 100
-  motorTorque: 5000
-  brakeTorque: 20000
-  maxSpeed: 100
-  steeringRange: 30
-  steeringRangeAtMaxSpeed: 10
-  centreOfGravityOffset: 0
-  wheels: []
-  rb: {fileID: 0}
+  btnLeftRotate: {fileID: 0}
+  btnRightRotate: {fileID: 0}
+  btnForward: {fileID: 0}
+  btnBackward: {fileID: 0}
+  horizontalTorque: 20000
+  motorTorque: 10000
+  brakeTorque: 500000
+  maxForwardSpeed: 100
+  maxReverseSpeed: 7.5
+  centreOfGravityOffset: -0.5
+--- !u!114 &1678016430178830043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504762519892588589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0603fce7630cf4c4bb5d88571966b66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  rb: {fileID: 7257233905415857340}
+  hookInput: {fileID: -5321855580925655781, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  btnHook: {fileID: 0}
+  hookLength: 20
+  hookStrength: 30
+  hookCooldown: 0.5
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6849004862448465710
 GameObject:
   m_ObjectHideFlags: 0
