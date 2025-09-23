@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float hookLength = 10;
     [SerializeField] private float hookStrength = 1000;
     [SerializeField,Tooltip("In Seconds")] private float hookCooldown = 0.5f;
+    [SerializeField] private LayerMask ignoreLayers;
 
     public static Player Instance;
 
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
     {
         Debug.DrawRay(rb.transform.position, rb.transform.forward * hookLength,Color.red,5f);
 
-        if (Physics.Raycast(rb.transform.position, rb.transform.forward, out hit, hookLength)) {
+        if (Physics.Raycast(rb.transform.position, rb.transform.forward, out hit, hookLength, ~ignoreLayers)) {
             attachedToHook = true;
         }
     }
