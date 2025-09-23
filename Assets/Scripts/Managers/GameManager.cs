@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LightTransport;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices;
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     private WorldData currentWorld;
     private int indexCurrentScene;
     private Player player;
+    private Dictionary<WorldData, bool> unlocksWorldData = new();
+    private int currentWorldUnlock = 1;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -36,50 +39,38 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         GameEvents.LoadWorld += LoadWorldInMenu;
-        GameEvents.endScene += EndScene;
+        GameEvents.EndScene += EndScene;
+        GameEvents.GoBackToMenu += GoBackToMenu;
 
-        Debug.Log("Awake called");
-
+        for (int i = 0; i < allWorlds.Count; i++)
+        {
+            bool unlock = i < currentWorldUnlock;
+            unlocksWorldData.Add(allWorlds[i], unlock);
+        }
     }
 
-    private IEnumerator Start()
+    private void Start()
     {
-        Debug.Log("Start called");
-
-        // Attendre une frame pour que le SDK Poki soit bien initialisé
-        yield return new WaitForSeconds(0.1f);
-
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (PokiUnitySDK.Instance != null)
-        {
-            // Indique à Poki que le jeu a fini de charger
-            PokiUnitySDK.Instance.gameLoadingFinished();
-            Debug.Log("Poki: gameLoadingFinished called");
-        }
-        else
-        {
-            Debug.LogWarning("PokiUnitySDK.Instance is null, check JS plugin and template!");
-        }
+        PokiUnitySDK.Instance.gameLoadingFinished();
 #endif
 
-        // Préparer le player
         player = Player.Instance;
         player.Deactivate();
 
-        // Si doNothing est true, on arrête ici
         if (doNothing)
-            yield break;
+            return;
 
-        // Affiche menu ou charge directement le monde de départ
         if (loadMenu)
         {
             menu.Show();
+            menu.SetLock(unlocksWorldData);
             hud.Hide();
         }
         else
         {
-            menu.Hide();
             hud.Show();
+            menu.Hide();
             LoadWorld(startWorld);
         }
     }
@@ -95,8 +86,9 @@ public class GameManager : MonoBehaviour
 
     private void LoadWorldInMenu(WorldData worldData)
     {
-        menu.Hide();
         hud.Show();
+        menu.Hide();
+
         LoadWorld(worldData);
         PokiUnitySDK.Instance.gameplayStart();
     }
@@ -111,8 +103,10 @@ public class GameManager : MonoBehaviour
 
     private void GoBackToMenu()
     {
-        player.Deactivate();
         menu.Show();
+        menu.SetLock(unlocksWorldData);
+
+        player.Deactivate();
         hud.Hide();
     }
 
@@ -127,7 +121,12 @@ public class GameManager : MonoBehaviour
             if (currentWorldIndexData < allWorlds.Count - 1)
             {
                 currentWorldIndexData++;
-                LoadWorld(allWorlds[currentWorldIndexData]);
+                currentWorldUnlock++;
+
+                WorldData worldToUnlock = allWorlds[currentWorldIndexData];
+                unlocksWorldData[worldToUnlock] = true;
+
+                LoadWorld(worldToUnlock);
             }
             else
             {
@@ -143,6 +142,7 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.LoadWorld -= LoadWorldInMenu;
-        GameEvents.endScene -= EndScene;
+        GameEvents.EndScene -= EndScene;
+        GameEvents.GoBackToMenu -= GoBackToMenu;
     }
 }
