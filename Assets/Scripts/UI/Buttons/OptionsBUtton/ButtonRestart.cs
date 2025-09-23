@@ -1,4 +1,4 @@
-public class ButtonRestart : CustomButton
+public class ButtonRestart : OptionButton
 {
     protected override void OnClick()
     {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class CustomButton : MonoBehaviour
 {
-    private Button button;
+    protected Button button;
 
     private void Awake()
     {
