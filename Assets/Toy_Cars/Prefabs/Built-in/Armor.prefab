@@ -80,7 +80,7 @@ WheelCollider:
   m_Radius: 0.35
   m_SuspensionSpring:
     spring: 30000
-    damper: 8000
+    damper: 8500
     targetPosition: 0
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0.05
@@ -256,7 +256,7 @@ WheelCollider:
   m_Radius: 0.35
   m_SuspensionSpring:
     spring: 30000
-    damper: 8000
+    damper: 8500
     targetPosition: 0
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0.05
@@ -521,7 +521,7 @@ WheelCollider:
   m_Radius: 0.35
   m_SuspensionSpring:
     spring: 30000
-    damper: 8000
+    damper: 8500
     targetPosition: 0
   m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0.1
@@ -662,7 +662,7 @@ WheelCollider:
   m_Radius: 0.35
   m_SuspensionSpring:
     spring: 30000
-    damper: 8000
+    damper: 8500
     targetPosition: 0
   m_SuspensionDistance: 0.25
   m_ForceAppPointDistance: 0.1
@@ -931,7 +931,7 @@ MonoBehaviour:
   btnRightRotate: {fileID: 0}
   btnForward: {fileID: 0}
   btnBackward: {fileID: 0}
-  horizontalTorque: 20000
+  horizontalTorque: 22500
   motorTorque: 10000
   brakeTorque: 500000
   maxForwardSpeed: 100
