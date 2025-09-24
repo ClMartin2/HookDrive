@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject car;
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference hookInput;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float hookStrength = 1000;
     [SerializeField,Tooltip("In Seconds")] private float hookCooldown = 0.5f;
     [SerializeField] private LayerMask ignoreLayers;
+    [SerializeField] private Transform hookStartPoint;
 
     public static Player Instance;
 
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour
         }
 
         carControl.Init();
+
+        Instantiate(car, transform);
     }
 
     public void Restart()
@@ -92,9 +96,9 @@ public class Player : MonoBehaviour
 
     private void HookStart()
     {
-        Debug.DrawRay(rb.transform.position, rb.transform.forward * hookLength,Color.red,5f);
+        Debug.DrawRay(hookStartPoint.position, rb.transform.forward * hookLength,Color.red,5f);
 
-        if (Physics.Raycast(rb.transform.position, rb.transform.forward, out hit, hookLength, ~ignoreLayers)) {
+        if (Physics.Raycast(hookStartPoint.position, rb.transform.forward, out hit, hookLength, ~ignoreLayers)) {
             attachedToHook = true;
         }
     }
