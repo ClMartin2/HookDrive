@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Player player;
     private Dictionary<WorldData, bool> unlocksWorldData = new();
     private int currentWorldUnlock = 1;
+    private string currentScene;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -100,8 +101,11 @@ public class GameManager : MonoBehaviour
     {
         currentWorld = worldData;
         indexCurrentScene = 0;
+        currentScene = currentWorld.scenes[0];
 
-        SceneLoader.Instance.SwitchScene(currentWorld.scenes[0]);
+        SceneLoader.Instance.SwitchScene(currentScene);
+
+        hud.UpdateLevelName(currentScene);
     }
 
     private void GoBackToMenu()
@@ -139,7 +143,10 @@ public class GameManager : MonoBehaviour
         else
         {
             SceneLoader.Instance.SwitchScene(currentWorld.scenes[indexCurrentScene]);
+            currentScene = currentWorld.scenes[indexCurrentScene];
         }
+
+        hud.UpdateLevelName(currentScene);
     }
 
     private void OnDestroy()
