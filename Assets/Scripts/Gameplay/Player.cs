@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private GameObject car;
+
+    [Header("Car")]
+    [SerializeField] private GameObject carModel;
+    [SerializeField] private Transform carParent;
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference hookInput;
@@ -14,13 +16,16 @@ public class Player : MonoBehaviour
     [Header("Hook Settigs")]
     [SerializeField] private float hookLength = 10;
     [SerializeField] private float hookStrength = 1000;
-    [SerializeField,Tooltip("In Seconds")] private float hookCooldown = 0.5f;
+    [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
     [SerializeField] private LayerMask ignoreLayers;
-    [SerializeField] private Transform hookStartPoint;
+    [field: SerializeField] public Transform hookStartPoint { get; private set; }
 
     public static Player Instance;
 
-    private bool attachedToHook = false;
+    public Vector3 hookPoint { get; private set; }
+    public bool isGrappling { get; private set; }
+    public bool attachedToHook { get; private set; }
+
     private RaycastHit hit;
     private float counterHookCooldown = 0;
     private bool canHook = true;
@@ -36,8 +41,8 @@ public class Player : MonoBehaviour
         carControl = GetComponent<CarControl>();
 
         hookInput.action.Enable();
-        hookInput.action.performed += Hook_performed; ;
-        hookInput.action.canceled += Hook_canceled; ;
+        hookInput.action.performed += Hook_performed;
+        hookInput.action.canceled += Hook_canceled;
 
         if (GameManager.isMobile())
         {
@@ -47,7 +52,7 @@ public class Player : MonoBehaviour
 
         carControl.Init();
 
-        Instantiate(car, transform);
+        Instantiate(carModel, carParent);
     }
 
     public void Restart()
@@ -70,7 +75,7 @@ public class Player : MonoBehaviour
 
     private void ResetHook()
     {
-        if (attachedToHook)
+        if (canHook)
         {
             counterHookCooldown = 0;
             canHook = false;
@@ -92,15 +97,28 @@ public class Player : MonoBehaviour
     private void HookEnd()
     {
         ResetHook();
+        hookInput.action.performed -= Hook_performed;
+        hookInput.action.canceled -= Hook_canceled;
+        isGrappling = false;
     }
 
     private void HookStart()
     {
         Debug.DrawRay(hookStartPoint.position, rb.transform.forward * hookLength,Color.red,5f);
 
+        if (!canHook)
+            return;
+
         if (Physics.Raycast(hookStartPoint.position, rb.transform.forward, out hit, hookLength, ~ignoreLayers)) {
             attachedToHook = true;
+            hookPoint = hit.point;
         }
+        else
+        {
+            hookPoint = hookStartPoint.position + rb.transform.forward * hookLength;
+        }
+
+        isGrappling = true;
     }
 
     private void FixedUpdate()
@@ -116,7 +134,11 @@ public class Player : MonoBehaviour
             counterHookCooldown += Time.deltaTime;
 
             if(counterHookCooldown >= hookCooldown)
+            {
                 canHook = true;
+                hookInput.action.performed += Hook_performed;
+                hookInput.action.canceled += Hook_canceled;
+            }
         }
     }
 }
