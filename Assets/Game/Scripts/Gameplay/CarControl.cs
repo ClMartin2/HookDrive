@@ -139,6 +139,13 @@ public class CarControl : MonoBehaviour
                 desiredBrake = 0f;
             }
         }
+        else if (vInput == 0f && Mathf.Abs(rb.linearVelocity.z) <= 0.1f)
+        {
+            //desiredBrake = 1000f;
+            //desiredMotor = 0f;
+        }
+
+        Debug.Log("velocity" + rb.linearVelocity.z);
 
         SetWheelTorque(desiredMotor, desiredBrake);
     }
