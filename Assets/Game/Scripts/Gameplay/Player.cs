@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private int frameCounter;
     private Vector3 velocityIconHook;
     private bool firstTouchIconHook;
+    private bool stopUpdate = false;
 
     private void Awake()
     {
@@ -71,18 +72,23 @@ public class Player : MonoBehaviour
     {
         carControl.Restart();
         ResetHook();
+        iconHook.gameObject.SetActive(false);
     }
 
     public void Deactivate()
     {
         gameObject.SetActive(false);
         carControl.Deactivate();
+        iconHook.gameObject.SetActive(false);
+        stopUpdate = true;
     }
 
     public void Activate()
     {
         gameObject.SetActive(true);
         carControl.Activate();
+        iconHook.gameObject.SetActive(true);
+        stopUpdate = false;
     }
 
     private void ResetHook()
@@ -118,6 +124,12 @@ public class Player : MonoBehaviour
     {
         if (!canHook)
             return;
+
+        if (!GameManager.Instance.gameplayStart)
+        {
+            GameEvents.GameplayStart?.Invoke();
+        }
+
         Vector3 direction = Quaternion.AngleAxis(hookOffsetAngle, Vector3.right) * rb.transform.forward;
 
         Debug.DrawRay(hookStartPoint.position, direction * hookLength, Color.red, 5f);
@@ -137,6 +149,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (stopUpdate)
+            return;
+
         frameCounter++;
 
         Vector3 direction = Quaternion.AngleAxis(hookOffsetAngle, Vector3.right) * rb.transform.forward;
@@ -197,6 +212,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (stopUpdate)
+            return;
+
         if (attachedToHook && canHook)
         {
             Vector3 forceDirection = (hit.point - rb.transform.position).normalized;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Hud : CustomScreen
 {
-    [SerializeField] private TextMeshProUGUI txtLevelName;
+    [SerializeField] private TextMeshProUGUI[] txtsLevelName;
     [SerializeField] private RectTransform[] controlPanels;
     [SerializeField] private HorizontalLayoutGroup[] horizontalLayoutGroups;
 
@@ -29,7 +29,10 @@ public class Hud : CustomScreen
 
     public void UpdateLevelName(string lvlName)
     {
-        txtLevelName.text = lvlName;
+        foreach (TextMeshProUGUI txtLevelName in txtsLevelName)
+        {
+            txtLevelName.text = lvlName;
+        }
     }
 
     private void Awake()

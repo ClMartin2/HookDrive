@@ -107,6 +107,11 @@ public class CarControl : MonoBehaviour
             hInput = inputVector.x;
         }
 
+        if(!GameManager.Instance.gameplayStart && (hInput != 0 || vInput != 0))
+        {
+            GameEvents.GameplayStart?.Invoke();
+        }
+
         Vector3 localTorque = new Vector3(hInput * horizontalTorque, 0, 0);
         rb.AddRelativeTorque(localTorque, ForceMode.Force);
 
