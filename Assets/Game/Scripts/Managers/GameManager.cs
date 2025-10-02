@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool testLevel = false;
 
     public static GameManager Instance;
+    public bool gameplayStart = false;
 
     private WorldData currentWorld;
     private int indexCurrentScene;
@@ -40,12 +42,19 @@ public class GameManager : MonoBehaviour
         GameEvents.LoadWorld += LoadWorldInMenu;
         GameEvents.EndScene += EndScene;
         GameEvents.GoBackToMenu += GoBackToMenu;
+        GameEvents.GameplayStart += GameplayStart;
 
         for (int i = 0; i < allWorlds.Count; i++)
         {
             bool unlock = i < currentWorldUnlock;
             unlocksWorldData.Add(allWorlds[i], unlock);
         }
+    }
+
+    private void GameplayStart()
+    {
+        PokiUnitySDK.Instance.gameplayStart();
+        gameplayStart = true;
     }
 
     private void Start()
@@ -153,5 +162,6 @@ public class GameManager : MonoBehaviour
         GameEvents.LoadWorld -= LoadWorldInMenu;
         GameEvents.EndScene -= EndScene;
         GameEvents.GoBackToMenu -= GoBackToMenu;
+        GameEvents.GameplayStart -= GameplayStart;
     }
 }
