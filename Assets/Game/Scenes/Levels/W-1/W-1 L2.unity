@@ -313,6 +313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1548081412679474299, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 65.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6924856052001231960, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
       propertyPath: m_Name
       value: SceneSetUp
@@ -1093,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3471574289805621150, guid: d0e5c81299516ab4db05ec25fa995ecf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.4
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 3471574289805621150, guid: d0e5c81299516ab4db05ec25fa995ecf, type: 3}
       propertyPath: m_LocalPosition.z
