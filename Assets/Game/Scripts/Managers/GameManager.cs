@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
 
         if (indexCurrentScene > currentWorld.scenes.Length - 1)
         {
+            //Check si le monde est deja débloqué
             int currentWorldIndexData = allWorlds.FindIndex((worldData) => worldData == currentWorld);
 
             if (currentWorldIndexData < allWorlds.Count - 1)

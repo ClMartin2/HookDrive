@@ -105,10 +105,10 @@ public class CarControl : MonoBehaviour
 
             vInput = inputVector.y;
             hInput = inputVector.x;
-
-            Vector3 localTorque = new Vector3(hInput * horizontalTorque, 0, 0);
-            rb.AddRelativeTorque(localTorque, ForceMode.Force);
         }
+
+        Vector3 localTorque = new Vector3(hInput * horizontalTorque, 0, 0);
+        rb.AddRelativeTorque(localTorque, ForceMode.Force);
 
         // Calculate current speed along the car's forward axis
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
