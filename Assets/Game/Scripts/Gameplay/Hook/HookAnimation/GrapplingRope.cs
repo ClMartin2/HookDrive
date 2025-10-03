@@ -70,7 +70,7 @@ public class GrapplingRope : MonoBehaviour
         spring.Update(Time.deltaTime);
 
         if (!retracted)
-            grapplePoint = player.hookPoint;
+            grapplePoint = player.hookPointPosition;
 
         if (!retracted && finishAnim && !player.attachedToHook)
         {
