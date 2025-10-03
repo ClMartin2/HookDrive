@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool testLevel = false;
 
     public static GameManager Instance;
-    public bool gameplayStart = false;
+    public bool gameplayStart { get; private set; } = false;
 
     private WorldData currentWorld;
     private int indexCurrentScene;
@@ -145,7 +145,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                GoBackToMenu();
+                //GoBackToMenu();
+                LoadWorld(allWorlds[0]);
             }
         }
         else

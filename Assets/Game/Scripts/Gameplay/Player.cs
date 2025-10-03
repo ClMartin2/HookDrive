@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,39 +9,32 @@ public class Player : MonoBehaviour
     [Header("Car")]
     [SerializeField] private GameObject carModel;
     [SerializeField] private Transform carParent;
+    [SerializeField] private string carLayerName = "Player";
+
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference hookInput;
     [SerializeField] private ControlButton[] btnsHook;
 
     [Header("Hook Settigs")]
-    [SerializeField] private float hookLength = 10;
+    [Space(10)]
     [SerializeField] private float hookStrength = 1000;
-    [SerializeField] private float hookOffsetAngle = 20f;
     [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
-    [SerializeField] private LayerMask ignoreLayers;
     [field: SerializeField] public Transform hookStartPoint { get; private set; }
-
-    [SerializeField] private Transform iconHook;
-    [SerializeField] private float speedIconHook = 200f;
-    [SerializeField] private float offsetScreenBorder = 50f; // marge pour éviter que ça colle au bord
-    [SerializeField] private int frameToCalculateIconHookPosition = 0;
-    [SerializeField] private float smoothTime = 0.05f;
 
     public static Player Instance;
 
-    public Vector3 hookPoint { get; private set; }
+    public Vector3 hookPointPosition { get; private set; }
     public bool isGrappling { get; private set; }
     public bool attachedToHook { get; private set; }
 
-    private RaycastHit hit;
     private float counterHookCooldown = 0;
     private bool canHook = true;
     private CarControl carControl;
-    private int frameCounter;
-    private Vector3 velocityIconHook;
-    private bool firstTouchIconHook;
     private bool stopUpdate = false;
+    private HookDetection hookDetection;
+    private HookPoint hookPoint;
+    private HookPoint lastHookPoint;
 
     private void Awake()
     {
@@ -49,6 +43,7 @@ public class Player : MonoBehaviour
         else
             Destroy(gameObject);
 
+        hookDetection = GetComponentInChildren<HookDetection>();
         carControl = GetComponent<CarControl>();
 
         hookInput.action.Enable();
@@ -65,21 +60,26 @@ public class Player : MonoBehaviour
         }
 
         carControl.Init();
-        Instantiate(carModel, carParent);
+
+        GameObject newCar = Instantiate(carModel, carParent);
+        int layer = LayerMask.NameToLayer(carLayerName);
+        SetLayerRecursively(newCar, layer);
     }
 
     public void Restart()
     {
         carControl.Restart();
+        hookDetection.Restart();
         ResetHook();
-        iconHook.gameObject.SetActive(false);
+
+        hookInput.action.performed += Hook_performed;
+        hookInput.action.canceled += Hook_canceled;
     }
 
     public void Deactivate()
     {
         gameObject.SetActive(false);
         carControl.Deactivate();
-        iconHook.gameObject.SetActive(false);
         stopUpdate = true;
     }
 
@@ -87,18 +87,22 @@ public class Player : MonoBehaviour
     {
         gameObject.SetActive(true);
         carControl.Activate();
-        iconHook.gameObject.SetActive(true);
         stopUpdate = false;
+    }
+
+    private void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
 
     private void ResetHook()
     {
-        if (canHook)
-        {
-            counterHookCooldown = 0;
-            canHook = false;
-        }
-
+        counterHookCooldown = 0;
+        canHook = true;
         attachedToHook = false;
     }
 
@@ -114,10 +118,12 @@ public class Player : MonoBehaviour
 
     private void HookEnd()
     {
-        ResetHook();
+        canHook = false;
+        attachedToHook = false;
+        isGrappling = false;
+
         hookInput.action.performed -= Hook_performed;
         hookInput.action.canceled -= Hook_canceled;
-        isGrappling = false;
     }
 
     private void HookStart()
@@ -130,21 +136,14 @@ public class Player : MonoBehaviour
             GameEvents.GameplayStart?.Invoke();
         }
 
-        Vector3 direction = Quaternion.AngleAxis(hookOffsetAngle, Vector3.right) * rb.transform.forward;
-
-        Debug.DrawRay(hookStartPoint.position, direction * hookLength, Color.red, 5f);
-
-        if (Physics.Raycast(hookStartPoint.position, direction, out hit, hookLength, ~ignoreLayers))
-        {
-            attachedToHook = true;
-            hookPoint = hit.point;
-        }
+        if (hookPoint == null)
+            return;
         else
         {
-            hookPoint = hookStartPoint.position + direction * hookLength;
+            isGrappling = true;
+            attachedToHook = true;
+            hookPointPosition = hookPoint.transform.position;
         }
-
-        isGrappling = true;
     }
 
     private void Update()
@@ -152,38 +151,15 @@ public class Player : MonoBehaviour
         if (stopUpdate)
             return;
 
-        frameCounter++;
+        hookPoint = GetClosestHookPoint(transform, hookDetection.hookPoints);
 
-        Vector3 direction = Quaternion.AngleAxis(hookOffsetAngle, Vector3.right) * rb.transform.forward;
+        if (lastHookPoint != null && hookPoint != lastHookPoint)
+            lastHookPoint.Unlock();
 
-        if (frameCounter >= frameToCalculateIconHookPosition )
+        if (hookPoint != null)
         {
-            Vector3 iconHookPosition = Vector3.zero;
-            float localSmoothTime = smoothTime;
-
-            if (!isGrappling || !attachedToHook)
-            {
-                RaycastHit hitIcon = new RaycastHit();
-                bool hookHasTarget = Physics.Raycast(hookStartPoint.position, direction, out hitIcon, hookLength, ~ignoreLayers);
-                iconHookPosition = hookHasTarget ? hitIcon.point : hookStartPoint.position + direction * hookLength;
-
-                iconHook.gameObject.SetActive(hookHasTarget);
-                frameCounter = 0;
-
-                if (!firstTouchIconHook && hookHasTarget)
-                {
-                    localSmoothTime = 0;
-                }
-
-                firstTouchIconHook = hookHasTarget;
-            }
-            else
-            {
-                iconHookPosition = hit.point;
-                localSmoothTime = 0;
-            }
-
-            SetIconHookPosition(iconHookPosition,localSmoothTime);
+            hookPoint.Lock();
+            lastHookPoint = hookPoint;
         }
 
         if (!canHook)
@@ -192,22 +168,45 @@ public class Player : MonoBehaviour
 
             if (counterHookCooldown >= hookCooldown)
             {
-                canHook = true;
                 hookInput.action.performed += Hook_performed;
                 hookInput.action.canceled += Hook_canceled;
+
+                counterHookCooldown = 0;
+                canHook = true;
             }
         }
     }
 
-    private void SetIconHookPosition(Vector3 iconHookPosition, float localSmoothTime)
+    private HookPoint GetClosestHookPoint(Transform player, List<HookPoint> hookPoints)
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(iconHookPosition);
+        HookPoint closest = null;
+        float closestDistanceSqr = Mathf.Infinity;
 
-        float clampedX = Mathf.Clamp(screenPos.x, offsetScreenBorder, Screen.width - offsetScreenBorder);
-        float clampedY = Mathf.Clamp(screenPos.y, offsetScreenBorder, Screen.height - offsetScreenBorder);
+        if (hookPoints.Count > 1)
+        {
+            foreach (HookPoint hookPoint in hookPoints)
+            {
+                if (hookPoint == null)
+                    continue;
 
-        Vector3 clampedPos = new Vector3(clampedX, clampedY, screenPos.z);
-        iconHook.position = Vector3.SmoothDamp(iconHook.position, clampedPos, ref velocityIconHook, localSmoothTime);
+                Vector3 toHook = hookPoint.transform.position - player.position;
+
+                if (Vector3.Dot(player.forward, toHook.normalized) < 0f)
+                    continue;
+
+                float sqrDistance = (hookPoint.transform.position - player.position).sqrMagnitude;
+
+                if (sqrDistance < closestDistanceSqr)
+                {
+                    closestDistanceSqr = sqrDistance;
+                    closest = hookPoint;
+                }
+            }
+        }
+        else if (hookPoints.Count == 1)
+            closest = hookPoints[0];
+
+        return hookPoints.Count > 0 ? closest : null;
     }
 
     private void FixedUpdate()
@@ -217,7 +216,7 @@ public class Player : MonoBehaviour
 
         if (attachedToHook && canHook)
         {
-            Vector3 forceDirection = (hit.point - rb.transform.position).normalized;
+            Vector3 forceDirection = (hookPointPosition - rb.transform.position).normalized;
             rb.AddForce(forceDirection * hookStrength, ForceMode.Acceleration);
         }
     }

@@ -10,10 +10,18 @@ public class ControlButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public event EventHandlerControlButton onPointerDown;
     public event EventHandlerControlButton onPointerUp;
 
+    private AnimScriptScale animScriptScale;
+
+    private void Awake()
+    {
+        animScriptScale = GetComponent<AnimScriptScale>();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         IsPressed = true;
         onPointerDown?.Invoke();
+        animScriptScale.Scale();
     }
 
     public void OnPointerUp(PointerEventData eventData)
