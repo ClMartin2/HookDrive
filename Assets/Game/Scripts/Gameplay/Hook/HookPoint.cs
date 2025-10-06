@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class HookPoint : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private Material materialUnlock;
-    [SerializeField] private Material materialLock;
+    [SerializeField] private GameObject unlockMesh;
+    [SerializeField] private GameObject lockMesh;
 
     private void Start()
     {
@@ -13,11 +12,17 @@ public class HookPoint : MonoBehaviour
 
     public void Lock()
     {
-        meshRenderer.material = materialLock;
+        ActivateLockMesh(true);
     }
 
     public void Unlock()
     {
-        meshRenderer.material = materialUnlock;
+        ActivateLockMesh(false);
+    }
+
+    private void ActivateLockMesh(bool Activate)
+    {
+        lockMesh.SetActive(Activate);
+        unlockMesh.SetActive(!Activate);
     }
 }

@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [Header("Hook Settigs")]
     [Space(10)]
     [SerializeField] private float hookStrength = 1000;
+    [SerializeField] private float hookStartVelocityDivider = 1.2f;
     [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
     [field: SerializeField] public Transform hookStartPoint { get; private set; }
 
@@ -143,6 +144,7 @@ public class Player : MonoBehaviour
             isGrappling = true;
             attachedToHook = true;
             hookPointPosition = hookPoint.transform.position;
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y / hookStartVelocityDivider, rb.linearVelocity.z / hookStartVelocityDivider);
         }
     }
 
