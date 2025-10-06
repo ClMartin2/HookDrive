@@ -46,13 +46,14 @@ public class LinearPrefabPlacerEditor : Editor
         int count = Mathf.FloorToInt(placer.endPoint / placer.prefabLength);
         if (count <= 0) return;
 
-        Vector3 dir = Vector3.forward;
+        Vector3 dir = placer.direction != Vector3.zero ? placer.direction : Vector3.forward;
 
         for (int i = 0; i < count; i++)
         {
             float distance = i * placer.prefabLength;
             Vector3 localPos = dir * distance;
-            Quaternion rot = Quaternion.LookRotation(dir);
+            Vector3 offestRotation = placer.offsetRotation;
+            Quaternion rot = Quaternion.LookRotation(dir) * Quaternion.Euler(offestRotation);
 
             GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(placer.prefab, placer.transform);
             go.transform.localPosition = localPos;
