@@ -7,10 +7,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     [Header("Car")]
-    [SerializeField] private GameObject carModel;
+    [SerializeField] private CarData carData;
     [SerializeField] private Transform carParent;
     [SerializeField] private string carLayerName = "Player";
-
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference hookInput;
@@ -44,6 +43,11 @@ public class Player : MonoBehaviour
         else
             Destroy(gameObject);
 
+        Init();
+    }
+
+    private void Init()
+    {
         hookDetection = GetComponentInChildren<HookDetection>();
         carControl = GetComponent<CarControl>();
 
@@ -62,7 +66,9 @@ public class Player : MonoBehaviour
 
         carControl.Init();
 
-        GameObject newCar = Instantiate(carModel, carParent);
+        GameObject newCar = Instantiate(carData.carModel, carParent);
+        newCar.transform.position += carData.offsetPositionCar;
+
         int layer = LayerMask.NameToLayer(carLayerName);
         SetLayerRecursively(newCar, layer);
     }
