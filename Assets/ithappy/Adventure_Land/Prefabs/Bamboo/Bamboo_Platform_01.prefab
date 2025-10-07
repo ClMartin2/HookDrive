@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 748e8babe13367143927eb97d06085e0, type: 3}
@@ -56,23 +57,60 @@ PrefabInstance:
       value: Bamboo_Platform_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 748e8babe13367143927eb97d06085e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5220948174842735097}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 748e8babe13367143927eb97d06085e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2346385734611171046}
   m_SourcePrefab: {fileID: 100100000, guid: 748e8babe13367143927eb97d06085e0, type: 3}
 --- !u!1 &5045053154956635977 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 748e8babe13367143927eb97d06085e0, type: 3}
   m_PrefabInstance: {fileID: 5387088885776536088}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &3890870236854089797
-MeshCollider:
+--- !u!65 &5220948174842735097
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045053154956635977}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1513809170260128479, guid: 748e8babe13367143927eb97d06085e0, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 2.4842665, y: 0.36344862, z: 3.2516372}
+  m_Center: {x: -0.0020478964, y: 0.009240911, z: -0.000420332}
+--- !u!65 &2346385734611171046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5045053154956635977}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.4842665, y: 0.36344862, z: 3.2516372}
+  m_Center: {x: -0.0020478964, y: 0.009240911, z: -0.00040507322}

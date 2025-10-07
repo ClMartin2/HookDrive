@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 30b53bca5458c3349b871d9c531da539, type: 3}
@@ -56,23 +57,36 @@ PrefabInstance:
       value: Bamboo_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30b53bca5458c3349b871d9c531da539, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3843809413985265017}
   m_SourcePrefab: {fileID: 100100000, guid: 30b53bca5458c3349b871d9c531da539, type: 3}
 --- !u!1 &6384190461403563236 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 30b53bca5458c3349b871d9c531da539, type: 3}
   m_PrefabInstance: {fileID: 6077707442155207093}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &8264987376027742208
-MeshCollider:
+--- !u!65 &3843809413985265017
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6384190461403563236}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7354760997081121590, guid: 30b53bca5458c3349b871d9c531da539, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 2.4842665, y: 0.36344823, z: 0.3609397}
+  m_Center: {x: 0.005617738, y: 0.008896955, z: 0.00087930274}
