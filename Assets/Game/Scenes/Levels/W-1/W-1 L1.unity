@@ -6825,6 +6825,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1237917002321969083, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
+      propertyPath: curveAnimAsset.m_Curve.Array.data[1].inSlope
+      value: -3.3122966
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237917002321969083, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
+      propertyPath: curveAnimAsset.m_Curve.Array.data[1].inWeight
+      value: 0.09443021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237917002321969083, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
+      propertyPath: curveAnimAsset.m_Curve.Array.data[1].outSlope
+      value: -3.3122966
+      objectReference: {fileID: 0}
     - target: {fileID: 1548081412679474299, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
       propertyPath: m_LocalPosition.y
       value: -7.35

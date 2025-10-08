@@ -49,7 +49,7 @@ public class _Camera : MonoBehaviour
         {
             counterZoom += Time.deltaTime;
             float delta = curveZoom.Evaluate(counterZoom / timeToZoom);
-            cinemachinePositionComposer.CameraDistance = Mathf.Lerp(startDistance, endDistanceZoom, delta);
+            cinemachinePositionComposer.CameraDistance = Mathf.LerpUnclamped(startDistance, endDistanceZoom, delta);
 
             yield return null;
         }
