@@ -33,8 +33,7 @@ public class LocalLevelManager : MonoBehaviour
 
     private void Restart_performed(InputAction.CallbackContext obj)
     {
-        if (!finishZone.levelFinished)
-            RestartLevel();
+        RestartLevel();
     }
 
     public void StartLevel()
@@ -46,7 +45,8 @@ public class LocalLevelManager : MonoBehaviour
 
     private void RestartLevel()
     {
-        StartLevel();
+        if (!finishZone.levelFinished)
+            StartLevel();
     }
 
     private void OnDestroy()
