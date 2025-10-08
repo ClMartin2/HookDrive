@@ -1,54 +1,40 @@
-name: Build WebGL (Self-Hosted Runner)
+name: Build WebGL
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
+
     steps:
-      # 1️⃣ Checkout du code
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      # 2️⃣ Créer le dossier de build s'il n'existe pas et supprimer l'ancien build
-      - name: Prepare build folder
-        run: |
-          if (Test-Path -Path Builds\Web-poki) {
-              Remove-Item -Recurse -Force Builds\Web-poki
-          }
-          New-Item -ItemType Directory -Force -Path Builds\Web-poki
+      - name: Setup Unity
+        uses: game-ci/unity-builder@v3
+        with:
+          unityVersion: 6000.2.3f1
+          targetPlatform: WebGL
+          projectPath: .
+          customLicense: ${{ secrets.UNITY_LICENSE }}
 
-      # 3️⃣ Build WebGL avec logs
-      - name: Build WebGL
+      - name: Build Project WebGL
         run: |
+          echo "Starting WebGL build..."
           "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
-          -projectPath "F:\UnityProject\WebGames\HookDrive" ^
-          -buildTarget WebGL ^
-          -executeMethod BuildWebGL.Build ^
-          -quit ^
-          -batchmode ^
-          -nographics ^
-          -logFile Builds/build.log
+            -projectPath "$GITHUB_WORKSPACE" ^
+            -buildTarget WebGL ^
+            -executeMethod BuildWebGL.Build ^
+            -quit ^
+            -batchmode ^
+            -nographics ^
+            -logFile "$GITHUB_WORKSPACE/Builds/build.log"
 
-      # 4️⃣ Zip du build
-      - name: Zip WebGL build
-        run: |
-          powershell Compress-Archive -Path Builds/Web-poki/* -DestinationPath Builds/Web-poki.zip
-
-      # 5️⃣ Upload du build
-      - name: Upload WebGL build
-        uses: actions/upload-artifact@v4
+      - name: Upload WebGL Build Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: WebGL-Build
-          path: Builds/Web-poki.zip
-
-      # 6️⃣ Upload du log Unity
-      - name: Upload Unity build log
-        uses: actions/upload-artifact@v4
-        with:
-          name: Build-Log
-          path: Builds/build.log
+          path: Builds/WebGL
