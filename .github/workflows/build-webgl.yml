@@ -1,47 +1,53 @@
-name: Unity WebGL Build
+name: Build WebGL (Web-poki)
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:  # permet aussi un lancement manuel depuis GitHub
+      - main  # ou remplace par ta branche de développement si besoin
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # GitHub Actions runner
+    name: Build WebGL
+    runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer le code du repo
+      # 1. Checkout du dépôt
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2️⃣ Installer Unity + module WebGL
+      # 2. Cache Unity Library pour accélérer les builds
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-
+
+      # 3. Installer Unity
       - name: Install Unity
-        uses: game-ci/unity-installer@v2
+        uses: game-ci/unity-install@v3
         with:
-          version: 6000.2.3f1  # Change pour ta version Unity
-          modules: WebGL
+          unityVersion: 6000.2.3f1
+          targetPlatform: WebGL
 
-      # 3️⃣ Activer Unity
-      - name: Activate Unity
-        uses: game-ci/unity-activate@v2
-        with:
-          unityEmail: ${{ secrets.UNITY_EMAIL }}
-          unityPassword: ${{ secrets.UNITY_PASSWORD }}
-          unitySerial: ${{ secrets.UNITY_SERIAL }}
-
-      # 4️⃣ Lancer la build WebGL
+      # 4. Build WebGL
       - name: Build WebGL
-        run: |
-          /opt/unity/Editor/Unity \
-            -projectPath . \
-            -quit \
-            -batchmode \
-            -executeMethod BuildWebGL.Build
+        uses: game-ci/unity-builder@v3
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          buildName: Web-poki
+          buildPath: build
+          buildMethod: ""  # tu peux mettre ici le nom d'une fonction statique si tu veux contrôler le build depuis un script C#
+          unityVersion: 6000.2.3f1
 
-      # 5️⃣ Sauvegarder le build comme artefact
-      - name: Upload WebGL Build
-        uses: actions/upload-artifact@v3
+      # 5. Upload du build en artifact
+      - name: Upload build
+        uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
-          path: Builds/Web-poki
+          path: build/Web-poki
