@@ -1,40 +1,46 @@
 name: Build WebGL
 
+# Déclencheurs du workflow
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-
+    # Définit l'environnement Windows pour Unity
     steps:
+      # 1️⃣ Récupère le code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Unity avec game-ci/unity-builder
       - name: Setup Unity
         uses: game-ci/unity-builder@v3
         with:
-          unityVersion: 6000.2.3f1
+          unityVersion: 6000.2.3f1  # ta version d'Unity
+          projectPath: F:/UnityProject/WebGames/HookDrive
           targetPlatform: WebGL
-          projectPath: .
-          customLicense: ${{ secrets.UNITY_LICENSE }}
+          customLicense: ${{ secrets.UNITY_LICENSE }}  # secret contenant ta license personnelle
 
+      # 3️⃣ Build le projet WebGL
       - name: Build Project WebGL
         run: |
           echo "Starting WebGL build..."
           "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
-            -projectPath "$GITHUB_WORKSPACE" ^
+            -projectPath "F:\UnityProject\WebGames\HookDrive" ^
             -buildTarget WebGL ^
             -executeMethod BuildWebGL.Build ^
             -quit ^
             -batchmode ^
             -nographics ^
-            -logFile "$GITHUB_WORKSPACE/Builds/build.log"
+            -logFile "F:\UnityProject\WebGames\HookDrive\Builds\build.log"
 
+      # 4️⃣ Upload de la build en tant qu'artifact
       - name: Upload WebGL Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
-          path: Builds/WebGL
+          path: F:/UnityProject/WebGames/HookDrive/Builds/WebGL
