@@ -33,11 +33,21 @@ public class CarControl : MonoBehaviour
     public void Activate()
     {
         carControls.Enable();
+
+        btnBackward.gameObject.SetActive(true);
+        btnLeftRotate.gameObject.SetActive(true);
+        btnRightRotate.gameObject.SetActive(true);
+        btnForward.gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
         carControls.Disable();
+
+        btnBackward.gameObject.SetActive(false);
+        btnLeftRotate.gameObject.SetActive(false);
+        btnRightRotate.gameObject.SetActive(false);
+        btnForward.gameObject.SetActive(false);
     }
 
     public void Restart()

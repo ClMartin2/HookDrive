@@ -774,6 +774,15 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipEndLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d85d57c-9d7b-4547-aacc-d7fc03f79a84"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -807,6 +816,28 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aad63df9-0c48-47f1-9e80-0182b8be9742"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""SkipEndLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74a96f37-8532-4e33-8208-18eb57401f52"",
+                    ""path"": ""<Touchscreen>/touch*/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touch;Keyboard&Mouse"",
+                    ""action"": ""SkipEndLevel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -895,6 +926,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
+        m_Player_SkipEndLevel = m_Player.FindAction("SkipEndLevel", throwIfNotFound: true);
     }
 
     ~@IA_Player()
@@ -1270,6 +1302,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Hook;
     private readonly InputAction m_Player_Restart;
+    private readonly InputAction m_Player_SkipEndLevel;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1289,6 +1322,10 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Restart".
         /// </summary>
         public InputAction @Restart => m_Wrapper.m_Player_Restart;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SkipEndLevel".
+        /// </summary>
+        public InputAction @SkipEndLevel => m_Wrapper.m_Player_SkipEndLevel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1321,6 +1358,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @SkipEndLevel.started += instance.OnSkipEndLevel;
+            @SkipEndLevel.performed += instance.OnSkipEndLevel;
+            @SkipEndLevel.canceled += instance.OnSkipEndLevel;
         }
 
         /// <summary>
@@ -1338,6 +1378,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @SkipEndLevel.started -= instance.OnSkipEndLevel;
+            @SkipEndLevel.performed -= instance.OnSkipEndLevel;
+            @SkipEndLevel.canceled -= instance.OnSkipEndLevel;
         }
 
         /// <summary>
@@ -1550,5 +1593,12 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRestart(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SkipEndLevel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkipEndLevel(InputAction.CallbackContext context);
     }
 }

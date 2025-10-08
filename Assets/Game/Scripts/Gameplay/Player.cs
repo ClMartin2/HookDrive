@@ -16,11 +16,15 @@ public class Player : MonoBehaviour
     [SerializeField] private ControlButton[] btnsHook;
 
     [Header("Hook Settigs")]
-    [Space(10)]
+    [Space(2)]
     [SerializeField] private float hookStrength = 1000;
     [SerializeField] private float hookStartVelocityDivider = 1.2f;
     [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
     [field: SerializeField] public Transform hookStartPoint { get; private set; }
+
+    [Header("EndZone Settings")]
+    [SerializeField] private float diviserVelocity = 1;
+    [SerializeField] private float diviserAngularVelocity = 1;
 
     public static Player Instance;
 
@@ -83,9 +87,36 @@ public class Player : MonoBehaviour
         hookInput.action.canceled += Hook_canceled;
     }
 
+    public void Pause()
+    {
+        carControl.Deactivate();
+        hookInput.action.Disable();
+        rb.useGravity = false;
+
+        foreach (var btnHook in btnsHook)
+        {
+            btnHook.gameObject.SetActive(false);
+        }
+    }
+
+    public void EndScene()
+    {
+        Pause();
+        rb.linearVelocity /= diviserVelocity;
+        rb.angularVelocity /= diviserAngularVelocity;
+    }
+
     public void Deactivate()
     {
         gameObject.SetActive(false);
+        hookInput.action.Disable();
+        rb.useGravity = false;
+
+        foreach (var btnHook in btnsHook)
+        {
+            btnHook.gameObject.SetActive(false);
+        }
+
         carControl.Deactivate();
         stopUpdate = true;
     }
@@ -94,6 +125,14 @@ public class Player : MonoBehaviour
     {
         gameObject.SetActive(true);
         carControl.Activate();
+        hookInput.action.Enable();
+        rb.useGravity = true;
+
+        foreach (var btnHook in btnsHook)
+        {
+            btnHook.gameObject.SetActive(true);
+        }
+
         stopUpdate = false;
     }
 
