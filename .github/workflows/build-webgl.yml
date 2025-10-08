@@ -14,11 +14,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Build WebGL avec logs
+      # 2️⃣ Créer le dossier de build s'il n'existe pas et supprimer l'ancien build
+      - name: Prepare build folder
+        run: |
+          if (Test-Path -Path Builds\Web-poki) {
+              Remove-Item -Recurse -Force Builds\Web-poki
+          }
+          New-Item -ItemType Directory -Force -Path Builds\Web-poki
+
+      # 3️⃣ Build WebGL avec logs
       - name: Build WebGL
         run: |
           "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
-          -projectPath "%CD%" ^
+          -projectPath "F:\UnityProject\WebGames\HookDrive" ^
           -buildTarget WebGL ^
           -executeMethod BuildWebGL.Build ^
           -quit ^
@@ -26,19 +34,19 @@ jobs:
           -nographics ^
           -logFile Builds/build.log
 
-      # 3️⃣ Zip du build
+      # 4️⃣ Zip du build
       - name: Zip WebGL build
         run: |
           powershell Compress-Archive -Path Builds/Web-poki/* -DestinationPath Builds/Web-poki.zip
 
-      # 4️⃣ Upload du build
+      # 5️⃣ Upload du build
       - name: Upload WebGL build
         uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
           path: Builds/Web-poki.zip
 
-      # 5️⃣ Upload du log
+      # 6️⃣ Upload du log Unity
       - name: Upload Unity build log
         uses: actions/upload-artifact@v4
         with:
