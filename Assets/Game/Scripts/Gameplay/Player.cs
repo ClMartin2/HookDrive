@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private ParticleSystem particleFinish;
 
     [Header("Car")]
     [SerializeField] private CarData carData;
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour
         carControl.Restart();
         hookDetection.Restart();
         ResetHook();
+        particleFinish.gameObject.SetActive(false);
+        particleFinish.Stop();
 
         hookInput.action.performed += Hook_performed;
         hookInput.action.canceled += Hook_canceled;
@@ -92,6 +95,8 @@ public class Player : MonoBehaviour
         carControl.Deactivate();
         hookInput.action.Disable();
         rb.useGravity = false;
+        particleFinish.gameObject.SetActive(false);
+        particleFinish.Stop();
     }
 
     public void EndScene()
@@ -99,6 +104,10 @@ public class Player : MonoBehaviour
         Pause();
         rb.linearVelocity /= diviserVelocity;
         rb.angularVelocity /= diviserAngularVelocity;
+
+        particleFinish.transform.position = transform.position;
+        particleFinish.gameObject.SetActive(true);
+        particleFinish.Play();
     }
 
     public void Deactivate()
@@ -108,6 +117,8 @@ public class Player : MonoBehaviour
         rb.useGravity = false;
         carControl.Deactivate();
         stopUpdate = true;
+        particleFinish.gameObject.SetActive(false);
+        particleFinish.Stop();
     }
 
     public void Activate()
