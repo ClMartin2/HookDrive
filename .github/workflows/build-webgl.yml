@@ -22,7 +22,6 @@ jobs:
           unityVersion: 6000.2.3f1        # ta version exacte
           targetPlatform: WebGL           # build WebGL
           projectPath: .                  # chemin relatif à la racine du repo
-          unityLicense: ${{ secrets.UNITY_LICENSE }} # secret Unity Personal
 
       # 3️⃣ Optionnel : paramètres personnalisés pour accélérer le build
         # customParameters: -quit -batchmode -nographics
