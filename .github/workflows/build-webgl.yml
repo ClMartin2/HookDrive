@@ -1,34 +1,40 @@
-name: Unity WebGL Build
+name: Build WebGL
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-webgl:
+  buildWebGL:
+    name: Build WebGL (Unity 6000.2.3f1)
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Récupérer le repo
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2️⃣ Installer Unity
-      - name: Setup Unity Builder
-        uses: game-ci/unity-builder@v3
+      - name: Cache Library folder
+        uses: actions/cache@v4
         with:
-          unityVersion: 6000.2.3f1        # ta version exacte
-          targetPlatform: WebGL           # build WebGL
-          projectPath: .                  # chemin relatif à la racine du repo
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
 
-      # 3️⃣ Optionnel : paramètres personnalisés pour accélérer le build
-        # customParameters: -quit -batchmode -nographics
+      - name: Build project
+        uses: game-ci/unity-builder@v3
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: 6000.2.3f1
+          targetPlatform: WebGL
+          projectPath: .
+          buildName: HookDrive
+          buildsPath: Builds
 
-      # 4️⃣ Upload du build
-      - name: Upload WebGL Build
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
-          path: Build/WebGL
+          path: Builds/WebGL
