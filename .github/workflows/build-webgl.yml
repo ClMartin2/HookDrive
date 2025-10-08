@@ -11,25 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Build Unity WebGL
       - name: Build Unity WebGL
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}        # nécessaire pour runner cloud
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # nécessaire pour runner cloud
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}        # si licence personnelle sur runner cloud
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # idem
         with:
           version: 6000.2.3f1
           targetPlatform: WebGL
           buildName: Web-poki
-          buildPath: Builds/Web-poki
+          buildsPath: Builds       # <-- remplace 'buildPath' par 'buildsPath'
           customParameters: -executeMethod BuildWebGL.Build
           allowDirtyBuild: true
 
-      # 3. Upload du build
       - name: Upload WebGL build
         uses: actions/upload-artifact@v4
         with:
