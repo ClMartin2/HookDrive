@@ -1,46 +1,35 @@
-name: Build WebGL
+name: Unity WebGL Build
 
-# Déclencheurs du workflow
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  pull_request:
 
 jobs:
-  build:
+  build-webgl:
     runs-on: windows-latest
-    # Définit l'environnement Windows pour Unity
+
     steps:
-      # 1️⃣ Récupère le code
+      # 1️⃣ Récupérer le repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Unity avec game-ci/unity-builder
-      - name: Setup Unity
+      # 2️⃣ Installer Unity
+      - name: Setup Unity Builder
         uses: game-ci/unity-builder@v3
         with:
-          unityVersion: 6000.2.3f1  # ta version d'Unity
-          projectPath: F:/UnityProject/WebGames/HookDrive
-          targetPlatform: WebGL
-          customLicense: ${{ secrets.UNITY_LICENSE }}  # secret contenant ta license personnelle
+          unityVersion: 6000.2.3f1        # ta version exacte
+          targetPlatform: WebGL           # build WebGL
+          projectPath: .                  # chemin relatif à la racine du repo
+          unityLicense: ${{ secrets.UNITY_LICENSE }} # secret Unity Personal
 
-      # 3️⃣ Build le projet WebGL
-      - name: Build Project WebGL
-        run: |
-          echo "Starting WebGL build..."
-          "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
-            -projectPath "F:\UnityProject\WebGames\HookDrive" ^
-            -buildTarget WebGL ^
-            -executeMethod BuildWebGL.Build ^
-            -quit ^
-            -batchmode ^
-            -nographics ^
-            -logFile "F:\UnityProject\WebGames\HookDrive\Builds\build.log"
+      # 3️⃣ Optionnel : paramètres personnalisés pour accélérer le build
+        # customParameters: -quit -batchmode -nographics
 
-      # 4️⃣ Upload de la build en tant qu'artifact
-      - name: Upload WebGL Build Artifact
+      # 4️⃣ Upload du build
+      - name: Upload WebGL Build
         uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
-          path: F:/UnityProject/WebGames/HookDrive/Builds/WebGL
+          path: Build/WebGL
