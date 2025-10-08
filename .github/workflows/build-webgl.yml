@@ -16,25 +16,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Correction du bug "Cannot find module 'graphql'"
-      - name: Fix missing graphql dependency
-        run: npm install graphql
-
-      # 3️⃣ Configuration et build Unity
+      # 2️⃣ Build Unity (version stable v3)
       - name: Build Unity WebGL
-        uses: game-ci/unity-builder@v4
+        uses: game-ci/unity-builder@v3
         with:
-          unityVersion: 6000.0.23f1  # ✅ Unity 6.x (modifie si besoin)
+          unityVersion: 6000.0.23f1   # ✅ ta version d’Unity 6.x
           targetPlatform: WebGL
           projectPath: .
-          buildsPath: build           # ⚠️ remplace buildPath
-          buildName: HookDrive         # nom du dossier final : build/HookDrive
+          buildsPath: build
+          buildName: HookDrive
           versioning: Semantic
           buildMethod: UnityBuilderAction.Builder.BuildProject
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
-      # 4️⃣ Upload du build final
+      # 3️⃣ Upload du build WebGL
       - name: Upload WebGL build
         uses: actions/upload-artifact@v4
         with:
