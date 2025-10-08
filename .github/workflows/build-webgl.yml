@@ -8,13 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  # Utilise ton PC
+    runs-on: self-hosted
     steps:
-      # 1. Checkout du code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Build Unity WebGL via ton exe Unity installé
       - name: Build WebGL
         run: |
           "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
@@ -24,10 +22,13 @@ jobs:
           -quit ^
           -batchmode ^
           -nographics
-          
-      # 3. Zip et upload le build
-      - name: Upload build
+
+      - name: Zip WebGL build
+        run: |
+          powershell Compress-Archive -Path Builds/Web-poki/* -DestinationPath Builds/Web-poki.zip
+
+      - name: Upload WebGL build
         uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
-          path: Builds/Web-poki
+          path: Builds/Web-poki.zip
