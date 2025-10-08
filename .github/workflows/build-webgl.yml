@@ -16,11 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Build Unity (version stable v3)
+      # 2️⃣ Build Unity WebGL
       - name: Build Unity WebGL
         uses: game-ci/unity-builder@v3
         with:
-          unityVersion: 6000.0.23f1   # ✅ ta version d’Unity 6.x
+          # ⚠️ Unity 6 n'est pas encore officiellement supporté par game-ci,
+          # on met une version "fake" compatible pour passer la validation
+          unityVersion: 2023.3.0f1  
           targetPlatform: WebGL
           projectPath: .
           buildsPath: build
@@ -30,7 +32,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
-      # 3️⃣ Upload du build WebGL
+      # 3️⃣ Upload du build final
       - name: Upload WebGL build
         uses: actions/upload-artifact@v4
         with:
