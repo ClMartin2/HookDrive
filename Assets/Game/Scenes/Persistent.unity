@@ -180,7 +180,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 751d35022dc1a844da466e04fcd815c5, type: 2}
   menu: {fileID: 18390065}
   hud: {fileID: 1984037680}
-  timeToWaitEndLevel: 1
+  timeToWaitEndLevel: 0.75
   timeToWaitToSkipLevel: 0.1
   skipEndLevelInputs: {fileID: 6418996526674827661, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   loadMenu: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Camera
   endDistanceZoom: 8
-  timeToZoom: 0.8
+  timeToZoom: 0.7
   curveZoom:
     serializedVersion: 2
     m_Curve:

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Hud : CustomScreen
 {
@@ -26,6 +27,16 @@ public class Hud : CustomScreen
     [SerializeField] private bool test;
 
     private ControlButton[] controlsButton;
+    private bool activateControlButton = true;
+
+    private void Awake()
+    {
+        if (!GameManager.isMobile())
+        {
+            ActivateVerticalElement(false);
+            ActivateControlButtons(false);
+        }
+    }
 
     public void UpdateLevelName(string lvlName)
     {
@@ -35,24 +46,21 @@ public class Hud : CustomScreen
         }
     }
 
-    private void Awake()
+    public void ActivateControlButtons(bool Activate)
     {
-        if (!GameManager.isMobile())
+        activateControlButton = Activate;
+        controlsButton = GetComponentsInChildren<ControlButton>();
+        bool localActivate = GameManager.isMobile() == true ? Activate : false;
+
+        foreach (var controlButton in controlsButton)
         {
-            ActivateVerticalElement(false);
-
-            controlsButton = GetComponentsInChildren<ControlButton>();
-
-            foreach (var controlButton in controlsButton)
-            {
-                controlButton.gameObject.SetActive(false);
-            }
+            controlButton.gameObject.SetActive(localActivate);
         }
     }
 
     private void Update()
     {
-        if (GameManager.isMobile())
+        if (GameManager.isMobile() && activateControlButton)
         {
             bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown || test == true;
             ActivateVerticalElement(isVertical);
