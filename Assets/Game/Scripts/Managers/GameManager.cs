@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices;
@@ -11,6 +13,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<WorldData> allWorlds = new();
     [SerializeField] private Menu menu;
     [SerializeField] private Hud hud;
+
+    [Header("End level")]
+    [SerializeField] private float timeToWaitEndLevel = 0.5f;
+    [SerializeField] private float timeToWaitToSkipLevel = 0.1f;
+    [SerializeField] private InputActionReference skipEndLevelInputs;
 
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
@@ -26,6 +33,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<WorldData, bool> unlocksWorldData = new();
     private int currentWorldUnlock = 1;
     private string currentScene;
+    private Coroutine coroutineWaitToGoToNextLevel;
+    private _Camera _camera;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -43,6 +52,8 @@ public class GameManager : MonoBehaviour
         GameEvents.EndScene += EndScene;
         GameEvents.GoBackToMenu += GoBackToMenu;
         GameEvents.GameplayStart += GameplayStart;
+
+        skipEndLevelInputs.action.performed += GoToNexLevel;
 
         for (int i = 0; i < allWorlds.Count; i++)
         {
@@ -84,6 +95,8 @@ public class GameManager : MonoBehaviour
             menu.Hide();
             LoadWorld(startWorld);
         }
+
+        _camera = _Camera.Instance;
     }
 
     public static bool isMobile()
@@ -126,6 +139,28 @@ public class GameManager : MonoBehaviour
 
     private void EndScene()
     {
+        player.EndScene();
+        _camera.Zoom();
+        coroutineWaitToGoToNextLevel = StartCoroutine(WaitEndScene());
+    }
+
+    private IEnumerator WaitEndScene()
+    {
+        yield return new WaitForSeconds(timeToWaitToSkipLevel);
+        skipEndLevelInputs.action.Enable();
+        yield return new WaitForSeconds(timeToWaitEndLevel);
+        GoToNexLevel();
+        yield return null;
+    }
+
+    private void GoToNexLevel(InputAction.CallbackContext obj = new InputAction.CallbackContext())
+    {
+        if (coroutineWaitToGoToNextLevel != null)
+        {
+            StopCoroutine(coroutineWaitToGoToNextLevel);
+            coroutineWaitToGoToNextLevel = null;
+        }
+
         indexCurrentScene++;
 
         if (indexCurrentScene > currentWorld.scenes.Length - 1)
@@ -155,6 +190,8 @@ public class GameManager : MonoBehaviour
             currentScene = currentWorld.scenes[indexCurrentScene];
         }
 
+        _camera.DeZoom();
+        skipEndLevelInputs.action.Disable();
         hud.UpdateLevelName(currentScene);
     }
 
@@ -164,5 +201,7 @@ public class GameManager : MonoBehaviour
         GameEvents.EndScene -= EndScene;
         GameEvents.GoBackToMenu -= GoBackToMenu;
         GameEvents.GameplayStart -= GameplayStart;
+
+        skipEndLevelInputs.action.performed -= GoToNexLevel;
     }
 }

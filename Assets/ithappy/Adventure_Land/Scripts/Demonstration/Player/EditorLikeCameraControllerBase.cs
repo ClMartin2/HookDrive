@@ -26,7 +26,7 @@ namespace ithappy.Adventure_Land
             _pivot.position = transform.position;
             _pivot.rotation = transform.rotation;
             
-            _cameraTransform = GetComponentInChildren<Camera>().transform;
+            _cameraTransform = GetComponentInChildren<_Camera>().transform;
             _cameraTransform.SetParent(_pivot);
             _cameraTransform.localPosition = new Vector3(0, 0, -10f);
             _cameraTransform.LookAt(_pivot.position);
