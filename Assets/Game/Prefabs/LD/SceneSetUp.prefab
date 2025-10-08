@@ -48,6 +48,7 @@ MonoBehaviour:
   restartInput: {fileID: 5348440326036471891, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   ftuePC: {fileID: 6177776975861919246}
   ftueMobile: {fileID: 2157823880896533761}
+  finishZone: {fileID: 1237917002321969083}
 --- !u!1 &5785775934917562065
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +423,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55742b72c05623b40b31475e48127327, type: 3}
+--- !u!114 &1237917002321969083 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3732160307737892336, guid: 55742b72c05623b40b31475e48127327, type: 3}
+  m_PrefabInstance: {fileID: 2514902994157742667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21feff313e02db04b90b3d97ae1acdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinishZone
 --- !u!4 &1548081412679474299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4007457260580353584, guid: 55742b72c05623b40b31475e48127327, type: 3}

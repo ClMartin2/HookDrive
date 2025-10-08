@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +16,7 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public async void SwitchScene(string sceneToSwitch)
+    public async Task SwitchScene(string sceneToSwitch)
     {
         if(currentScene != null)
             await SceneManager.UnloadSceneAsync(currentScene);

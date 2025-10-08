@@ -7,6 +7,7 @@ public class LocalLevelManager : MonoBehaviour
     [SerializeField] private InputActionReference restartInput;
     [SerializeField] private GameObject ftuePC;
     [SerializeField] private GameObject ftueMobile;
+    [SerializeField] private FinishZone finishZone;
 
     private Player player;
 
@@ -32,7 +33,8 @@ public class LocalLevelManager : MonoBehaviour
 
     private void Restart_performed(InputAction.CallbackContext obj)
     {
-        RestartLevel();
+        if (!finishZone.levelFinished)
+            RestartLevel();
     }
 
     public void StartLevel()

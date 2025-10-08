@@ -13,6 +13,7 @@ public class _Camera : MonoBehaviour
     private CinemachinePositionComposer cinemachinePositionComposer;
     private float startDistance;
     private float counterZoom;
+    private Coroutine coroutineZoom;
 
     public void Awake()
     {
@@ -28,12 +29,18 @@ public class _Camera : MonoBehaviour
     public void Zoom()
     {
         counterZoom = 0;
-        StartCoroutine(_Zoom());
+        coroutineZoom = StartCoroutine(_Zoom());
     }
 
     public void DeZoom()
     {
         cinemachinePositionComposer.CameraDistance = startDistance;
+
+        if(coroutineZoom != null)
+        {
+            StopCoroutine(coroutineZoom);
+            coroutineZoom = null;
+        }
     }
 
     private IEnumerator _Zoom()

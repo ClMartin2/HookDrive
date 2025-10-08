@@ -92,11 +92,6 @@ public class Player : MonoBehaviour
         carControl.Deactivate();
         hookInput.action.Disable();
         rb.useGravity = false;
-
-        foreach (var btnHook in btnsHook)
-        {
-            btnHook.gameObject.SetActive(false);
-        }
     }
 
     public void EndScene()
@@ -111,12 +106,6 @@ public class Player : MonoBehaviour
         gameObject.SetActive(false);
         hookInput.action.Disable();
         rb.useGravity = false;
-
-        foreach (var btnHook in btnsHook)
-        {
-            btnHook.gameObject.SetActive(false);
-        }
-
         carControl.Deactivate();
         stopUpdate = true;
     }
@@ -127,12 +116,6 @@ public class Player : MonoBehaviour
         carControl.Activate();
         hookInput.action.Enable();
         rb.useGravity = true;
-
-        foreach (var btnHook in btnsHook)
-        {
-            btnHook.gameObject.SetActive(true);
-        }
-
         stopUpdate = false;
     }
 

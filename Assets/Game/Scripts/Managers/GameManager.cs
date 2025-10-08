@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -114,16 +115,15 @@ public class GameManager : MonoBehaviour
         menu.Hide();
 
         LoadWorld(worldData);
-        PokiUnitySDK.Instance.gameplayStart();
     }
 
-    public void LoadWorld(WorldData worldData)
+    private async Task LoadWorld(WorldData worldData)
     {
         currentWorld = worldData;
         indexCurrentScene = 0;
         currentScene = currentWorld.scenes[0];
 
-        SceneLoader.Instance.SwitchScene(currentScene);
+        await SceneLoader.Instance.SwitchScene(currentScene);
 
         hud.UpdateLevelName(currentScene);
     }
@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour
     {
         player.EndScene();
         _camera.Zoom();
+        hud.ActivateControlButtons(false);
         coroutineWaitToGoToNextLevel = StartCoroutine(WaitEndScene());
     }
 
@@ -155,6 +156,13 @@ public class GameManager : MonoBehaviour
 
     private void GoToNexLevel(InputAction.CallbackContext obj = new InputAction.CallbackContext())
     {
+        _ = GoToNextLevelAsync();
+    }
+
+    private async Task GoToNextLevelAsync()
+    {
+        skipEndLevelInputs.action.Disable();
+
         if (coroutineWaitToGoToNextLevel != null)
         {
             StopCoroutine(coroutineWaitToGoToNextLevel);
@@ -176,22 +184,22 @@ public class GameManager : MonoBehaviour
                 WorldData worldToUnlock = allWorlds[currentWorldIndexData];
                 unlocksWorldData[worldToUnlock] = true;
 
-                LoadWorld(worldToUnlock);
+                await LoadWorld(worldToUnlock);
             }
             else
             {
                 //GoBackToMenu();
-                LoadWorld(allWorlds[0]);
+                await LoadWorld(allWorlds[0]);
             }
         }
         else
         {
-            SceneLoader.Instance.SwitchScene(currentWorld.scenes[indexCurrentScene]);
+            await SceneLoader.Instance.SwitchScene(currentWorld.scenes[indexCurrentScene]);
             currentScene = currentWorld.scenes[indexCurrentScene];
         }
 
+        hud.ActivateControlButtons(true);
         _camera.DeZoom();
-        skipEndLevelInputs.action.Disable();
         hud.UpdateLevelName(currentScene);
     }
 
