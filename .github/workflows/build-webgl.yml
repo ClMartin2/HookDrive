@@ -1,0 +1,47 @@
+name: Unity WebGL Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # permet aussi un lancement manuel depuis GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub Actions runner
+
+    steps:
+      # 1️⃣ Récupérer le code du repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Installer Unity + module WebGL
+      - name: Install Unity
+        uses: game-ci/unity-installer@v2
+        with:
+          version: 6000.2.3f1  # Change pour ta version Unity
+          modules: WebGL
+
+      # 3️⃣ Activer Unity
+      - name: Activate Unity
+        uses: game-ci/unity-activate@v2
+        with:
+          unityEmail: ${{ secrets.UNITY_EMAIL }}
+          unityPassword: ${{ secrets.UNITY_PASSWORD }}
+          unitySerial: ${{ secrets.UNITY_SERIAL }}
+
+      # 4️⃣ Lancer la build WebGL
+      - name: Build WebGL
+        run: |
+          /opt/unity/Editor/Unity \
+            -projectPath . \
+            -quit \
+            -batchmode \
+            -executeMethod BuildWebGL.Build
+
+      # 5️⃣ Sauvegarder le build comme artefact
+      - name: Upload WebGL Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: WebGL-Build
+          path: Builds/Web-poki
