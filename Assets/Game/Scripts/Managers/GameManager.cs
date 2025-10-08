@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool loadMenu;
     [SerializeField] private WorldData startWorld;
     [SerializeField] private bool testLevel = false;
+    [SerializeField] private bool mobileTest = false;
 
     public static GameManager Instance;
     public bool gameplayStart { get; private set; } = false;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     private string currentScene;
     private Coroutine coroutineWaitToGoToNextLevel;
     private _Camera _camera;
+
+    private static bool _mobileTest;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -61,6 +64,8 @@ public class GameManager : MonoBehaviour
             bool unlock = i < currentWorldUnlock;
             unlocksWorldData.Add(allWorlds[i], unlock);
         }
+
+        _mobileTest = mobileTest;
     }
 
     private void GameplayStart()
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
         {
             hud.Show();
             menu.Hide();
-            LoadWorld(startWorld);
+            _ = LoadWorld(startWorld);
         }
 
         _camera = _Camera.Instance;
@@ -102,11 +107,16 @@ public class GameManager : MonoBehaviour
 
     public static bool isMobile()
     {
+        if (_mobileTest)
+            return true;
+        else
+        {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        return IsMobile();
+            return IsMobile();
 #else
-        return false;
+            return false;
 #endif
+        }
     }
 
     private void LoadWorldInMenu(WorldData worldData)
@@ -114,7 +124,7 @@ public class GameManager : MonoBehaviour
         hud.Show();
         menu.Hide();
 
-        LoadWorld(worldData);
+        _ = LoadWorld(worldData);
     }
 
     private async Task LoadWorld(WorldData worldData)
