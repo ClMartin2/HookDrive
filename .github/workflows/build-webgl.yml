@@ -1,4 +1,4 @@
-name: Unity 6 WebGL Build
+name: Build WebGL (Self-Hosted Runner)
 
 on:
   push:
@@ -8,26 +8,25 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted  # Utilise ton PC
     steps:
+      # 1. Checkout du code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Unity WebGL
-        uses: game-ci/unity-builder@v5
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          version: 6000.2.3f1
-          targetPlatform: WebGL
-          buildName: Web-poki
-          buildsPath: Builds
-          customParameters: -executeMethod BuildWebGL.Build
-          allowDirtyBuild: true
-
-      - name: Upload WebGL build
+      # 2. Build Unity WebGL via ton exe Unity installé
+      - name: Build WebGL
+        run: |
+          "C:\Program Files\Unity\Hub\Editor\6000.2.3f1\Editor\Unity.exe" ^
+          -projectPath "%CD%" ^
+          -buildTarget WebGL ^
+          -executeMethod BuildWebGL.Build ^
+          -quit ^
+          -batchmode ^
+          -nographics
+          
+      # 3. Zip et upload le build
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: WebGL-Build
