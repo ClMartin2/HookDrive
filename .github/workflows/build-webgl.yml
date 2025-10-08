@@ -15,15 +15,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Unity WebGL
-        uses: game-ci/unity-builder@v4
+        uses: game-ci/unity-builder@v5
         env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}        # si licence personnelle sur runner cloud
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}  # idem
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           version: 6000.2.3f1
           targetPlatform: WebGL
           buildName: Web-poki
-          buildsPath: Builds       # <-- remplace 'buildPath' par 'buildsPath'
+          buildsPath: Builds
           customParameters: -executeMethod BuildWebGL.Build
           allowDirtyBuild: true
 
