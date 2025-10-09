@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5838030820229285036}
   - component: {fileID: 1437314341815756043}
   - component: {fileID: 2423897367853215916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RL_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +89,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1609373397434169130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3838812892325019682}
+  - component: {fileID: 3311103903717292614}
+  - component: {fileID: 2280918206996633792}
+  m_Layer: 10
+  m_Name: HookDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3838812892325019682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609373397434169130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6278083283861152170}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3311103903717292614
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609373397434169130}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 25
+  m_Center: {x: 0, y: 2.5, z: 5}
+--- !u!114 &2280918206996633792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609373397434169130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42545773ea4fad48b91b84dd125cff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HookDetection
 --- !u!1 &3061699312369345735
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +166,7 @@ GameObject:
   - component: {fileID: 1424401068022841232}
   - component: {fileID: 4447243351543980073}
   - component: {fileID: 3954926189446094233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FL_wheel_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 38961596626262068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +288,7 @@ GameObject:
   - component: {fileID: 1560226087878078564}
   - component: {fileID: 2757724226789601366}
   - component: {fileID: 1371455120514922303}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FR_wheel_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 290427974284944525}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8939544103558746779}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WheelsCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +441,7 @@ GameObject:
   - component: {fileID: 2761862582449160020}
   - component: {fileID: 5485394775538475495}
   - component: {fileID: 5640948293907878804}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RR_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1168398865041844274}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookStartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +544,7 @@ Transform:
   m_GameObject: {fileID: 6529678320031879035}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08000004, z: 1.663}
+  m_LocalPosition: {x: 0, y: -0.095, z: 1.624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -495,7 +561,7 @@ GameObject:
   - component: {fileID: 2499725041763559732}
   - component: {fileID: 6268637305753971792}
   - component: {fileID: 2295498972534596705}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FL_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +653,7 @@ GameObject:
   - component: {fileID: 8248266691032299964}
   - component: {fileID: 2066563322115074041}
   - component: {fileID: 3680845791421168356}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,6 +677,7 @@ Transform:
   - {fileID: 38961596626262068}
   - {fileID: 1168398865041844274}
   - {fileID: 290427974284944525}
+  - {fileID: 3838812892325019682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &102874241276430761
@@ -623,7 +690,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 2000
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -656,7 +723,7 @@ MonoBehaviour:
   btnRightRotate: {fileID: 0}
   btnForward: {fileID: 0}
   btnBackward: {fileID: 0}
-  horizontalTorque: 27500
+  horizontalTorque: 38000
   motorTorque: 10000
   brakeTorque: 500000
   maxForwardSpeed: 100
@@ -675,17 +742,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   rb: {fileID: 102874241276430761}
-  carModel: {fileID: 6504762519892588589, guid: 17ded3db05379c24ebf722edea4afe14, type: 3}
+  particleFinish: {fileID: 0}
+  carData: {fileID: 11400000, guid: a761103bd6543e04a92fe657db7e1077, type: 2}
   carParent: {fileID: 290427974284944525}
+  carLayerName: Player
   hookInput: {fileID: -5321855580925655781, guid: 289c1b55c9541489481df5cc06664110, type: 3}
-  btnHook: {fileID: 0}
-  hookLength: 22.5
-  hookStrength: 35
-  hookCooldown: 0.25
-  ignoreLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  btnsHook:
+  - {fileID: 0}
+  - {fileID: 0}
+  hookStrength: 31.5
+  hookStartVelocityDivider: 1.4
+  hookCooldown: 0.1
   <hookStartPoint>k__BackingField: {fileID: 1168398865041844274}
+  diviserVelocity: 3
+  diviserAngularVelocity: 3
 --- !u!114 &2066563322115074041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,7 +919,7 @@ GameObject:
   - component: {fileID: 2481480729587821922}
   - component: {fileID: 5163443744301248775}
   - component: {fileID: 2996892014407472389}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RR_wheel_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +1006,7 @@ GameObject:
   - component: {fileID: 4945470347189105165}
   - component: {fileID: 1480380900438727789}
   - component: {fileID: 3188318546293853699}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FR_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1025,7 +1095,7 @@ GameObject:
   - component: {fileID: 5993165231323173395}
   - component: {fileID: 8859131133668177738}
   - component: {fileID: 2592430030431210182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RL_wheel_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
