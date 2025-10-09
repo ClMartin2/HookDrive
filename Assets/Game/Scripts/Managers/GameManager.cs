@@ -81,12 +81,15 @@ public class GameManager : MonoBehaviour
 #endif
         player = Player.Instance;
 
+#if UNITY_EDITOR
+
         if (testLevel)
         {
             menu.Hide();
             hud.Show();
             return;
         }
+#endif
 
         if (loadMenu)
         {
