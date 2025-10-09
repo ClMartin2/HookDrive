@@ -30,6 +30,8 @@ public class Hud : CustomScreen
 
     private void Awake()
     {
+        controlsButton = GetComponentsInChildren<ControlButton>();
+
         if (!GameManager.isMobile())
         {
             ActivateVerticalElement(false);
@@ -48,7 +50,6 @@ public class Hud : CustomScreen
     public void ActivateControlButtons(bool Activate)
     {
         activateControlButton = Activate;
-        controlsButton = GetComponentsInChildren<ControlButton>();
         bool localActivate = GameManager.isMobile() == true ? Activate : false;
 
         foreach (var controlButton in controlsButton)
