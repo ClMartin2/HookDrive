@@ -23,7 +23,8 @@ public class Hud : CustomScreen
     [SerializeField] private GameObject layoutTopHorizontal;
 
     [Header("Debug")]
-    [SerializeField] private bool test;
+    [SerializeField] private bool vertical;
+    [SerializeField] private bool horizontal;
 
     private ControlButton[] controlsButton;
     private bool activateControlButton = true;
@@ -62,7 +63,16 @@ public class Hud : CustomScreen
     {
         if (GameManager.isMobile() && activateControlButton)
         {
-            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown || test == true;
+#if UNITY_EDITOR
+
+            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown || vertical == true;
+
+            if (horizontal == true)
+                isVertical = false;
+#else
+            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
+#endif
+
             ActivateVerticalElement(isVertical);
 
             foreach (RectTransform controlPanel in controlPanels)
