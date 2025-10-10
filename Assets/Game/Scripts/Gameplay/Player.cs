@@ -48,26 +48,12 @@ public class Player : MonoBehaviour
         else
             Destroy(gameObject);
 
-        Init();
-    }
-
-    private void Init()
-    {
         hookDetection = GetComponentInChildren<HookDetection>();
         carControl = GetComponent<CarControl>();
 
         hookInput.action.Enable();
         hookInput.action.performed += Hook_performed;
         hookInput.action.canceled += Hook_canceled;
-
-        if (GameManager.isMobile())
-        {
-            foreach (var btnHook in btnsHook)
-            {
-                btnHook.onPointerDown += HookStart;
-                btnHook.onPointerUp += HookEnd;
-            }
-        }
 
         carControl.Init();
 
@@ -76,6 +62,18 @@ public class Player : MonoBehaviour
 
         int layer = LayerMask.NameToLayer(carLayerName);
         SetLayerRecursively(newCar, layer);
+    }
+
+    private void Start()
+    {
+        if (GameManager.isMobile())
+        {
+            foreach (var btnHook in btnsHook)
+            {
+                btnHook.onPointerDown += HookStart;
+                btnHook.onPointerUp += HookEnd;
+            }
+        }
     }
 
     public void Restart()
@@ -158,9 +156,12 @@ public class Player : MonoBehaviour
 
     private void HookEnd()
     {
-        canHook = false;
-        attachedToHook = false;
-        isGrappling = false;
+        if (canHook)
+        {
+            canHook = false;
+            attachedToHook = false;
+            isGrappling = false;
+        }
 
         hookInput.action.performed -= Hook_performed;
         hookInput.action.canceled -= Hook_canceled;

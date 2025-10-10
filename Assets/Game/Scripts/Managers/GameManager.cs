@@ -110,16 +110,11 @@ public class GameManager : MonoBehaviour
 
     public static bool isMobile()
     {
-        if (_mobileTest)
-            return true;
-        else
-        {
 #if UNITY_WEBGL && !UNITY_EDITOR
             return IsMobile();
 #else
-            return false;
+        return _mobileTest;
 #endif
-        }
     }
 
     private void LoadWorldInMenu(WorldData worldData)
