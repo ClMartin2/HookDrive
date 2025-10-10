@@ -184,9 +184,9 @@ MonoBehaviour:
   timeToWaitToSkipLevel: 0.1
   skipEndLevelInputs: {fileID: 6418996526674827661, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   loadMenu: 0
-  startWorld: {fileID: 11400000, guid: 751d35022dc1a844da466e04fcd815c5, type: 2}
-  testLevel: 1
-  mobileTest: 0
+  startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
+  testLevel: 0
+  mobileTest: 1
 --- !u!1 &144058615
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +617,7 @@ Transform:
   m_GameObject: {fileID: 631132375}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08262512, y: -0.54432523, z: 0.061471038, w: 0.832529}
-  m_LocalPosition: {x: 18.283642, y: 30.893295, z: -8.6178465}
+  m_LocalPosition: {x: 17.84202, y: 30.879597, z: -9.630048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -692,6 +692,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  yVerticalRotationCam: -43.264
+  distanceVerticalCamera: 30
 --- !u!1 &640609326
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +905,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08262512, y: -0.54432523, z: 0.061471038, w: 0.832529}
-  m_LocalPosition: {x: 18.283642, y: 30.893295, z: -8.6178465}
+  m_LocalPosition: {x: 17.84202, y: 30.879597, z: -9.630048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1177,11 +1179,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1631019347943219573, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: vertical
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1631019347943219573, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: horizontal
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696719341340965032, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
+      propertyPath: m_TagString
+      value: Hook
       objectReference: {fileID: 0}
     - target: {fileID: 1731021224958009766, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1290,6 +1296,10 @@ PrefabInstance:
     - target: {fileID: 6306623815141584089, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741814165406534569, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
+      propertyPath: m_TagString
+      value: Hook
       objectReference: {fileID: 0}
     - target: {fileID: 7890879337790631686, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: m_AnchorMax.y

@@ -8,4 +8,5 @@ public class GameEvents : MonoBehaviour
     public static Action EndScene;
     public static Action GoBackToMenu;
     public static Action GameplayStart;
+    public static Action ChangeOrientation;
 }
