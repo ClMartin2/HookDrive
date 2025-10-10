@@ -58,6 +58,13 @@ public class LinearPrefabPlacerEditor : Editor
             GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(placer.prefab, placer.transform);
             go.transform.localPosition = localPos;
             go.transform.localRotation = rot;
+
+            SpriteRenderer _spriteRender = null;
+
+            if(go.TryGetComponent<SpriteRenderer>(out _spriteRender))
+            {
+                _spriteRender.sortingOrder = 1;
+            }
         }
     }
 }
