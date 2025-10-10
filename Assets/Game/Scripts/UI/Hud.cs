@@ -28,16 +28,20 @@ public class Hud : CustomScreen
 
     private ControlButton[] controlsButton;
     private bool activateControlButton = true;
+    private bool isVertical = false;
 
     private void Awake()
     {
-        controlsButton = GetComponentsInChildren<ControlButton>();
+        controlsButton = GetComponentsInChildren<ControlButton>(true);
 
         if (!GameManager.isMobile())
         {
             ActivateVerticalElement(false);
             ActivateControlButtons(false);
         }
+
+        GameEvents.ChangeOrientation += OrientationChange;
+        OrientationChange();
     }
 
     public void UpdateLevelName(string lvlName)
@@ -55,22 +59,34 @@ public class Hud : CustomScreen
 
         foreach (var controlButton in controlsButton)
         {
-            controlButton.gameObject.SetActive(localActivate);
+            if (localActivate == false)
+                controlButton.gameObject.SetActive(localActivate);
+            else
+            {
+                if (controlButton.CompareTag("Hook"))
+                {
+                    hookButtonVertical.SetActive(isVertical);
+                    hookButtonHorizontal.SetActive(!isVertical);
+                }
+                else
+                    controlButton.gameObject.SetActive(localActivate);
+            }
+
         }
     }
 
-    private void Update()
+    private void OrientationChange()
     {
         if (GameManager.isMobile() && activateControlButton)
         {
 #if UNITY_EDITOR
 
-            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown || vertical == true;
+            isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown || vertical == true;
 
             if (horizontal == true)
                 isVertical = false;
 #else
-            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
+           isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
 #endif
 
             ActivateVerticalElement(isVertical);

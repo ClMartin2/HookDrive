@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     private _Camera _camera;
 
     private static bool _mobileTest;
+    private ScreenOrientation currentScreenOrientation;
+    private ScreenOrientation lastScreenOrientation;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -106,6 +108,16 @@ public class GameManager : MonoBehaviour
         }
 
         _camera = _Camera.Instance;
+    }
+
+    private void Update()
+    {
+        currentScreenOrientation = Screen.orientation;
+
+        if (currentScreenOrientation != lastScreenOrientation)
+            GameEvents.ChangeOrientation();
+
+        lastScreenOrientation = currentScreenOrientation;
     }
 
     public static bool isMobile()
