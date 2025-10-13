@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f71b49f9f80cd0e4092b74fdfe264a9f, type: 3}
@@ -56,23 +57,7 @@ PrefabInstance:
       value: Bamboo_Construction_03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f71b49f9f80cd0e4092b74fdfe264a9f, type: 3}
---- !u!1 &3178344707546136321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f71b49f9f80cd0e4092b74fdfe264a9f, type: 3}
-  m_PrefabInstance: {fileID: 2367440390372098640}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &-4523690585607885911
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3178344707546136321}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7838872270360403941, guid: f71b49f9f80cd0e4092b74fdfe264a9f, type: 3}

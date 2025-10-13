@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private HookDetection hookDetection;
     private HookPoint hookPoint;
     private HookPoint lastHookPoint;
+    private HookPoint attachedHookPoint;
 
     private void Awake()
     {
@@ -93,15 +94,12 @@ public class Player : MonoBehaviour
         carControl.Deactivate();
         hookInput.action.Disable();
         rb.useGravity = false;
-        particleFinish.gameObject.SetActive(false);
-        particleFinish.Stop();
     }
 
     public void EndScene()
     {
         Pause();
         rb.linearVelocity /= diviserVelocity;
-        rb.angularVelocity /= diviserAngularVelocity;
 
         particleFinish.transform.position = transform.position;
         particleFinish.gameObject.SetActive(true);
@@ -161,6 +159,12 @@ public class Player : MonoBehaviour
             canHook = false;
             attachedToHook = false;
             isGrappling = false;
+
+            if (attachedHookPoint)
+            {
+                attachedHookPoint.UnAttached();
+                attachedHookPoint = null;
+            }
         }
 
         hookInput.action.performed -= Hook_performed;
@@ -181,6 +185,8 @@ public class Player : MonoBehaviour
             return;
         else
         {
+            attachedHookPoint = hookPoint;
+            hookPoint.Attached();
             isGrappling = true;
             attachedToHook = true;
             hookPointPosition = hookPoint.transform.position;

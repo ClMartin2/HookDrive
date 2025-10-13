@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f5da86297e061de4e82853ab21b12026, type: 3}
@@ -56,23 +57,7 @@ PrefabInstance:
       value: Boat_06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5da86297e061de4e82853ab21b12026, type: 3}
---- !u!1 &5287872974057664741 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f5da86297e061de4e82853ab21b12026, type: 3}
-  m_PrefabInstance: {fileID: 5017895804582841780}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &2348881855032862222
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5287872974057664741}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1572986106150643125, guid: f5da86297e061de4e82853ab21b12026, type: 3}
