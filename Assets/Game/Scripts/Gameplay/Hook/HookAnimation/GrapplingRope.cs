@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GrapplingRope : MonoBehaviour
 {
@@ -26,6 +26,14 @@ public class GrapplingRope : MonoBehaviour
         spring.SetTarget(0);
     }
 
+    void FixedUpdate()
+    {
+        // Update du ressort avec un pas fixe → stabilité FPS
+        spring.SetDamper(damper);
+        spring.SetStrength(strength);
+        spring.Update(Time.fixedDeltaTime);
+    }
+
     void LateUpdate()
     {
         DrawRope();
@@ -33,7 +41,7 @@ public class GrapplingRope : MonoBehaviour
 
     void DrawRope()
     {
-        //If not grappling, don't draw rope
+        // Si pas de grappin actif → on reset tout
         if (!player.isGrappling)
         {
             currentGrapplePosition = player.hookStartPoint.position;
@@ -45,17 +53,14 @@ public class GrapplingRope : MonoBehaviour
 
             retracted = false;
             finishAnim = false;
-
             return;
         }
         else if (player.isGrappling && retracted && finishAnim)
         {
             currentGrapplePosition = player.hookStartPoint.position;
-
             spring.Reset();
             if (lr.positionCount > 0)
                 lr.positionCount = 0;
-
             return;
         }
 
@@ -64,10 +69,6 @@ public class GrapplingRope : MonoBehaviour
             spring.SetVelocity(velocity);
             lr.positionCount = quality + 1;
         }
-
-        spring.SetDamper(damper);
-        spring.SetStrength(strength);
-        spring.Update(Time.deltaTime);
 
         if (!retracted)
             grapplePoint = player.hookPointPosition;
@@ -79,19 +80,21 @@ public class GrapplingRope : MonoBehaviour
         }
 
         Vector3 gunTipPosition = player.hookStartPoint.position;
-        Vector3 up = Quaternion.LookRotation((grapplePoint - gunTipPosition).normalized) * Vector3.up;
+        Vector3 dir = (grapplePoint - gunTipPosition).normalized;
+        Vector3 up = Quaternion.LookRotation(dir) * Vector3.up;
 
-        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * lerpSpeed);
-        Vector3 newPosition = Vector3.zero;
+        // Exp-Lerp pour indépendance FPS
+        float t = 1f - Mathf.Exp(-lerpSpeed * Time.deltaTime);
+        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, t);
 
-        for (var i = 0; i < quality + 1; i++)
+        for (int i = 0; i < quality + 1; i++)
         {
-            var delta = i / (float)quality;
-            var offset = up * waveHeight * Mathf.Sin(delta * waveCount * Mathf.PI) * spring.Value *
-                         affectCurve.Evaluate(delta);
+            float delta = i / (float)quality;
+            float wave = Mathf.Sin(delta * waveCount * Mathf.PI) * waveHeight;
+            Vector3 offset = up * wave * spring.Value * affectCurve.Evaluate(delta);
 
-            newPosition = Vector3.Lerp(gunTipPosition, currentGrapplePosition, delta) + offset;
-            lr.SetPosition(i, newPosition);
+            Vector3 ropePoint = Vector3.Lerp(gunTipPosition, currentGrapplePosition, delta) + offset;
+            lr.SetPosition(i, ropePoint);
         }
 
         finishAnim = Vector3.Distance(currentGrapplePosition, grapplePoint) <= 0.1f;

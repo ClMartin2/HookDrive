@@ -44,7 +44,7 @@ public class Hud : CustomScreen
         OrientationChange();
     }
 
-    public void UpdateLevelName(string lvlName)
+    public void UpdateLevelName(string lvlName, bool SAS = false)
     {
         foreach (TextMeshProUGUI txtLevelName in txtsLevelName)
         {

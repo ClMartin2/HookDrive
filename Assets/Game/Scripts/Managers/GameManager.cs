@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
     [SerializeField] private WorldData startWorld;
+    [SerializeField] private WorldData SAS;
+    [SerializeField] private bool activateSAS;
     [SerializeField] private bool testLevel = false;
     [SerializeField] private bool mobileTest = false;
 
@@ -70,12 +72,6 @@ public class GameManager : MonoBehaviour
         _mobileTest = mobileTest;
     }
 
-    private void GameplayStart()
-    {
-        PokiUnitySDK.Instance.gameplayStart();
-        gameplayStart = true;
-    }
-
     private void Start()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -104,7 +100,16 @@ public class GameManager : MonoBehaviour
         {
             hud.Show();
             menu.Hide();
-            _ = LoadWorld(startWorld);
+
+#if UNITY_EDITOR
+            if (activateSAS)
+                _ = SceneLoader.Instance.SwitchScene(SAS.scenes[0],true);
+            else
+                LoadFirstWorld(true);
+#else
+            _ = SceneLoader.Instance.SwitchScene(SAS.scenes[0],true);
+#endif
+
         }
 
         _camera = _Camera.Instance;
@@ -120,6 +125,7 @@ public class GameManager : MonoBehaviour
         lastScreenOrientation = currentScreenOrientation;
     }
 
+
     public static bool isMobile()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -127,6 +133,17 @@ public class GameManager : MonoBehaviour
 #else
         return _mobileTest;
 #endif
+    }
+
+    public void LoadFirstWorld(bool startScene = false)
+    {
+        _ = LoadWorld(startWorld, startScene);
+    }
+
+    private void GameplayStart()
+    {
+        PokiUnitySDK.Instance.gameplayStart();
+        gameplayStart = true;
     }
 
     private void LoadWorldInMenu(WorldData worldData)
@@ -137,13 +154,13 @@ public class GameManager : MonoBehaviour
         _ = LoadWorld(worldData);
     }
 
-    private async Task LoadWorld(WorldData worldData)
+    private async Task LoadWorld(WorldData worldData, bool startScene = false)
     {
         currentWorld = worldData;
         indexCurrentScene = 0;
         currentScene = currentWorld.scenes[0];
 
-        await SceneLoader.Instance.SwitchScene(currentScene);
+        await SceneLoader.Instance.SwitchScene(currentScene, startScene);
 
         hud.UpdateLevelName(currentScene);
     }
@@ -157,29 +174,34 @@ public class GameManager : MonoBehaviour
         hud.Hide();
     }
 
-    private void EndScene()
+    private void EndScene(bool sas)
     {
         player.EndScene();
         _camera.Zoom();
         hud.ActivateControlButtons(false);
-        coroutineWaitToGoToNextLevel = StartCoroutine(WaitEndScene());
+        coroutineWaitToGoToNextLevel = StartCoroutine(WaitEndScene(sas));
     }
 
-    private IEnumerator WaitEndScene()
+    private IEnumerator WaitEndScene(bool sas)
     {
         yield return new WaitForSeconds(timeToWaitToSkipLevel);
-        skipEndLevelInputs.action.Enable();
+        if (!sas)
+            skipEndLevelInputs.action.Enable();
         yield return new WaitForSeconds(timeToWaitEndLevel);
-        GoToNexLevel();
+        if (sas)
+            _ = GoToNextLevelAsync(sas);
+        else
+            GoToNexLevel();
+
         yield return null;
     }
 
     private void GoToNexLevel(InputAction.CallbackContext obj = new InputAction.CallbackContext())
     {
-        _ = GoToNextLevelAsync();
+        _ = GoToNextLevelAsync(false);
     }
 
-    private async Task GoToNextLevelAsync()
+    private async Task GoToNextLevelAsync(bool sas)
     {
         skipEndLevelInputs.action.Disable();
 
@@ -189,33 +211,40 @@ public class GameManager : MonoBehaviour
             coroutineWaitToGoToNextLevel = null;
         }
 
-        indexCurrentScene++;
-
-        if (indexCurrentScene > currentWorld.scenes.Length - 1)
+        if (!sas)
         {
-            //Check si le monde est deja débloqué
-            int currentWorldIndexData = allWorlds.FindIndex((worldData) => worldData == currentWorld);
+            indexCurrentScene++;
 
-            if (currentWorldIndexData < allWorlds.Count - 1)
+            if (indexCurrentScene > currentWorld.scenes.Length - 1)
             {
-                currentWorldIndexData++;
-                currentWorldUnlock++;
+                //Check si le monde est deja débloqué
+                int currentWorldIndexData = allWorlds.FindIndex((worldData) => worldData == currentWorld);
 
-                WorldData worldToUnlock = allWorlds[currentWorldIndexData];
-                unlocksWorldData[worldToUnlock] = true;
+                if (currentWorldIndexData < allWorlds.Count - 1)
+                {
+                    currentWorldIndexData++;
+                    currentWorldUnlock++;
 
-                await LoadWorld(worldToUnlock);
+                    WorldData worldToUnlock = allWorlds[currentWorldIndexData];
+                    unlocksWorldData[worldToUnlock] = true;
+
+                    await LoadWorld(worldToUnlock);
+                }
+                else
+                {
+                    //GoBackToMenu();
+                    await LoadWorld(allWorlds[0]);
+                }
             }
             else
             {
-                //GoBackToMenu();
-                await LoadWorld(allWorlds[0]);
+                await SceneLoader.Instance.SwitchScene(currentWorld.scenes[indexCurrentScene]);
+                currentScene = currentWorld.scenes[indexCurrentScene];
             }
         }
         else
         {
-            await SceneLoader.Instance.SwitchScene(currentWorld.scenes[indexCurrentScene]);
-            currentScene = currentWorld.scenes[indexCurrentScene];
+            LoadFirstWorld();
         }
 
         hud.ActivateControlButtons(true);

@@ -7,6 +7,7 @@ public class FinishZone : MonoBehaviour
     [SerializeField] private AnimationCurve curveAnimAsset;
     [SerializeField] private float durationAnimAsset = 0.5f;
     [SerializeField] private Vector3 endScale;
+    [SerializeField] private bool sas;
 
     public bool levelFinished { get; private set; } = false;
 
@@ -23,16 +24,16 @@ public class FinishZone : MonoBehaviour
         levelFinished = true;
         counterAnim = 0;
         StartCoroutine(DoAnimAsset());
-        GameEvents.EndScene?.Invoke();
+
+        GameEvents.EndScene?.Invoke(sas);
     }
 
     private IEnumerator DoAnimAsset()
     {
-
         while (counterAnim < durationAnimAsset)
         {
             counterAnim += Time.deltaTime;
-            asset.localScale = Vector3.LerpUnclamped(startScale,endScale,curveAnimAsset.Evaluate(counterAnim / durationAnimAsset));
+            asset.localScale = Vector3.LerpUnclamped(startScale, endScale, curveAnimAsset.Evaluate(counterAnim / durationAnimAsset));
             yield return null;
         }
 
