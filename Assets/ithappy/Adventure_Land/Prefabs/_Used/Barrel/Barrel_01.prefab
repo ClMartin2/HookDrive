@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 503615883626bfd4fafc5d2d3cd0e6c0, type: 3}
@@ -56,23 +57,7 @@ PrefabInstance:
       value: Barrel_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 503615883626bfd4fafc5d2d3cd0e6c0, type: 3}
---- !u!1 &2914177807559885021 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 503615883626bfd4fafc5d2d3cd0e6c0, type: 3}
-  m_PrefabInstance: {fileID: 2643705989922176396}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &-7577582724329473200
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2914177807559885021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2102965883132702965, guid: 503615883626bfd4fafc5d2d3cd0e6c0, type: 3}
