@@ -98,7 +98,10 @@ public class MeshMerger : MonoBehaviour
             Material mat = kvp.Key;
             List<CombineInstance> instances = kvp.Value;
 
-            Mesh subMesh = new Mesh();
+            Mesh subMesh = new Mesh
+            {
+                indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 // <-- Support plus de 65k vertices
+            };
             subMesh.name = "SubMesh_" + matIndex;
             subMesh.CombineMeshes(instances.ToArray(), true, true);
 
@@ -114,8 +117,11 @@ public class MeshMerger : MonoBehaviour
             matIndex++;
         }
 
-        Mesh finalMesh = new Mesh();
-        finalMesh.name = "MergedMesh_Final";
+        Mesh finalMesh = new Mesh
+        {
+            indexFormat = UnityEngine.Rendering.IndexFormat.UInt32, // <-- Important pour gros meshes
+            name = "MergedMesh_Final"
+        };
         finalMesh.CombineMeshes(finalCombine.ToArray(), false, false);
 
         MeshFilter mergedMF = mergedGO.AddComponent<MeshFilter>();
@@ -139,7 +145,6 @@ public class MeshMerger : MonoBehaviour
             counter++;
         }
 
-        // Création ou mise à jour de l'asset
         AssetDatabase.CreateAsset(finalMesh, assetPath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
