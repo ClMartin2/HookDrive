@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 1357956928}
   - component: {fileID: 1357956930}
   - component: {fileID: 1357956929}
+  - component: {fileID: 1357956931}
   m_Layer: 0
   m_Name: MergedMesh
   m_TagString: Untagged
@@ -399,6 +400,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357956927}
   m_Mesh: {fileID: 4300000, guid: 51186cd2adf159c44adb0473ff6e1c29, type: 2}
+--- !u!65 &1357956931
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357956927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.0540524, y: 3.0105689, z: 108.88624}
+  m_Center: {x: 0.032941103, y: 1.500436, z: 47.900677}
 --- !u!4 &1358945173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3633901411138498245, guid: 421fc913e4ba3864b83d0801711c70fe, type: 3}
