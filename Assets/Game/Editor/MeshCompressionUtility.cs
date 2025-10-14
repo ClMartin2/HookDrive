@@ -1,26 +1,39 @@
-using UnityEditor;
+#if UNITY_EDITOR
 using UnityEngine;
+using UnityEditor;
+using System.IO;
 
-public static class MeshCompressionUtility
+public class MeshCompressionUtility
 {
-    [MenuItem("Tools/Compress Selected Meshes")]
-    public static void CompressSelectedMeshes()
+    [MenuItem("Tools/Compress All Merged Meshes")]
+    public static void CompressMeshes()
     {
-        foreach (var obj in Selection.objects)
+        string folder = "Assets/Game/MergedMeshes";
+        string[] guids = AssetDatabase.FindAssets("t:Mesh", new[] { folder });
+
+        foreach (string guid in guids)
         {
-            if (obj is Mesh mesh)
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+
+            if (mesh == null)
+                continue;
+
+            // Créer un importer temporaire pour appliquer la compression
+            ModelImporter importer = AssetImporter.GetAtPath(path) as ModelImporter;
+            if (importer != null)
             {
-                string path = AssetDatabase.GetAssetPath(mesh);
-                var importer = AssetImporter.GetAtPath(path) as ModelImporter;
-                if (importer == null)
-                {
-                    Debug.LogWarning($"Mesh {mesh.name} n’a pas d’importer (probablement généré).");
-                    continue;
-                }
-                importer.meshCompression = ModelImporterMeshCompression.High;
+                importer.meshCompression = ModelImporterMeshCompression.Medium;
+                importer.optimizeMeshPolygons = true;
+                importer.optimizeMeshVertices = true;
                 importer.SaveAndReimport();
-                Debug.Log($"Compression appliquée sur {mesh.name}");
+                Debug.Log($"Compressed mesh: {mesh.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Mesh {mesh.name} has no importer (probably generated)");
             }
         }
     }
 }
+#endif
