@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4150251785427994961
 Transform:
@@ -57,6 +57,7 @@ MonoBehaviour:
   endPoint: 100
   direction: {x: 0, y: 0, z: 0}
   offsetRotation: {x: 0, y: 0, z: 0}
+  stopGenerate: 0
 --- !u!1001 &42143283611629760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68,6 +69,10 @@ PrefabInstance:
     - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_Name
       value: GreyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
@@ -131,6 +136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreyCube
       objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -192,6 +201,10 @@ PrefabInstance:
     - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_Name
       value: GreyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
@@ -255,6 +268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreyCube
       objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -316,6 +333,10 @@ PrefabInstance:
     - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_Name
       value: GreyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
@@ -379,6 +400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreyCube
       objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -441,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreyCube
       objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -502,6 +531,10 @@ PrefabInstance:
     - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_Name
       value: GreyCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670602784334441677, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8479622192252890664, guid: 99bedcbb8d560ef43b7db97959a5d818, type: 3}
       propertyPath: m_LocalPosition.x
