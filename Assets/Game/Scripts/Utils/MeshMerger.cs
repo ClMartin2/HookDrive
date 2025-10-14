@@ -1,54 +1,96 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+using System.IO;
+#endif
 
+[ExecuteInEditMode]
 public class MeshMerger : MonoBehaviour
 {
+    [Tooltip("If true the original child GameObjects will be deactivated after merging. If false they will be left as-is.")]
+    [SerializeField] private bool deactivateChildren = true;
+
+    [Tooltip("If true the original child GameObjects will be destroyed after merging. (Takes precedence over deactivateChildren)")]
+    [SerializeField] private bool destroyChildren = false;
+
+    [Tooltip("Folder path where the merged meshes will be saved.")]
+    [SerializeField] private string saveFolder = "Assets/Game/MergedMeshes";
+
     [ContextMenu("Merge Meshes")]
     public void MergeMeshes()
     {
-        // Récupérer tous les MeshRenderer et MeshFilter enfants
         MeshFilter[] filters = GetComponentsInChildren<MeshFilter>();
 
-        // Dictionnaire pour fusionner par matériau
+        if (filters == null || filters.Length == 0)
+        {
+            Debug.LogWarning("[MeshMerger] No MeshFilters found under " + gameObject.name);
+            return;
+        }
+
+        // CrÃ©ation du GO qui contiendra le mesh fusionnÃ©
+        GameObject mergedGO = new GameObject("MergedMesh");
+        mergedGO.transform.SetParent(transform, false);
+        mergedGO.transform.localPosition = Vector3.zero;
+        mergedGO.transform.localRotation = Quaternion.identity;
+        mergedGO.transform.localScale = Vector3.one;
+
         Dictionary<Material, List<CombineInstance>> combineDict = new Dictionary<Material, List<CombineInstance>>();
 
-        // Créer le GameObject pour le mesh fusionné
-        GameObject mergedGO = new GameObject("MergedMesh");
-        mergedGO.transform.position = transform.position;
-        mergedGO.transform.rotation = transform.rotation;
-        mergedGO.transform.localScale = transform.localScale;
-        mergedGO.transform.parent = transform;
+        int meshCount = 0;
+        int skipped = 0;
+
+        Matrix4x4 mergedWorldToLocal = mergedGO.transform.worldToLocalMatrix;
 
         foreach (MeshFilter mf in filters)
         {
+            if (mf.gameObject == mergedGO) continue;
+
             MeshRenderer mr = mf.GetComponent<MeshRenderer>();
             if (mr == null || mf.sharedMesh == null)
-                continue;
-
-            // Pour chaque matériau du mesh
-            for (int i = 0; i < mr.sharedMaterials.Length; i++)
             {
-                Material mat = mr.sharedMaterials[i];
-                if (!combineDict.ContainsKey(mat))
-                    combineDict[mat] = new List<CombineInstance>();
-
-                CombineInstance ci = new CombineInstance();
-                ci.mesh = mf.sharedMesh;
-                ci.subMeshIndex = i;
-
-                // Correction pivot / position
-                ci.transform = mf.transform.localToWorldMatrix * mergedGO.transform.worldToLocalMatrix;
-
-                combineDict[mat].Add(ci);
+                skipped++;
+                continue;
             }
 
-            // Désactiver l'ancien mesh
-            mf.gameObject.SetActive(false);
+            Mesh srcMesh = mf.sharedMesh;
+            meshCount++;
+
+            Material[] mats = mr.sharedMaterials;
+            for (int sub = 0; sub < mats.Length; sub++)
+            {
+                Material mat = mats[sub];
+                if (mat == null) continue;
+
+                if (!combineDict.TryGetValue(mat, out var list))
+                {
+                    list = new List<CombineInstance>();
+                    combineDict[mat] = list;
+                }
+
+                CombineInstance ci = new CombineInstance
+                {
+                    mesh = srcMesh,
+                    subMeshIndex = sub,
+                    transform = mergedWorldToLocal * mf.transform.localToWorldMatrix
+                };
+                list.Add(ci);
+            }
+
+            if (destroyChildren)
+                DestroyImmediate(mf.gameObject);
+            else if (deactivateChildren)
+                mf.gameObject.SetActive(false);
         }
 
-        // Fusionner les meshes par matériau
+        if (combineDict.Count == 0)
+        {
+            Debug.LogWarning("[MeshMerger] Nothing to combine (no materials/meshes).");
+            return;
+        }
+
         List<CombineInstance> finalCombine = new List<CombineInstance>();
-        Material[] materials = new Material[combineDict.Keys.Count];
+        Material[] finalMaterials = new Material[combineDict.Count];
         int matIndex = 0;
 
         foreach (var kvp in combineDict)
@@ -60,12 +102,15 @@ public class MeshMerger : MonoBehaviour
             subMesh.name = "SubMesh_" + matIndex;
             subMesh.CombineMeshes(instances.ToArray(), true, true);
 
-            CombineInstance ci = new CombineInstance();
-            ci.mesh = subMesh;
-            ci.transform = Matrix4x4.identity; // submesh déjà dans le bon repère
+            CombineInstance ci = new CombineInstance
+            {
+                mesh = subMesh,
+                subMeshIndex = 0,
+                transform = Matrix4x4.identity
+            };
             finalCombine.Add(ci);
 
-            materials[matIndex] = mat;
+            finalMaterials[matIndex] = mat;
             matIndex++;
         }
 
@@ -73,16 +118,38 @@ public class MeshMerger : MonoBehaviour
         finalMesh.name = "MergedMesh_Final";
         finalMesh.CombineMeshes(finalCombine.ToArray(), false, false);
 
-        // Ajouter les composants au GameObject fusionné
         MeshFilter mergedMF = mergedGO.AddComponent<MeshFilter>();
         mergedMF.sharedMesh = finalMesh;
 
         MeshRenderer mergedMR = mergedGO.AddComponent<MeshRenderer>();
-        mergedMR.sharedMaterials = materials;
+        mergedMR.sharedMaterials = finalMaterials;
 
-        // Activer Static Batching
-        StaticBatchingUtility.Combine(mergedGO);
+#if UNITY_EDITOR
+        // CrÃ©ation du dossier si inexistant
+        if (!Directory.Exists(saveFolder))
+            Directory.CreateDirectory(saveFolder);
 
-        Debug.Log("Meshes merged and aligned for " + gameObject.name);
+        // GÃ©nÃ©ration d'un nom unique si le mesh existe dÃ©jÃ 
+        string assetName = $"{finalMesh.name}_{gameObject.name}";
+        string assetPath = Path.Combine(saveFolder, assetName + ".asset");
+        int counter = 1;
+        while (File.Exists(assetPath))
+        {
+            assetPath = Path.Combine(saveFolder, $"{assetName}_{counter}.asset");
+            counter++;
+        }
+
+        // CrÃ©ation ou mise Ã  jour de l'asset
+        AssetDatabase.CreateAsset(finalMesh, assetPath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        mergedMF.sharedMesh = AssetDatabase.LoadAssetAtPath<Mesh>(assetPath);
+
+        Debug.Log($"âœ… [MeshMerger] Merge complete â€” Saved mesh at: {assetPath}");
+#endif
+
+        Debug.LogFormat("[MeshMerger] Merged {0} meshes into {1} materials. Skipped {2} entries. Result GameObject: {3}",
+            meshCount, finalMaterials.Length, skipped, mergedGO.name);
     }
 }
