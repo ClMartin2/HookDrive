@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using Unity.VisualScripting;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CarControl : MonoBehaviour
 {

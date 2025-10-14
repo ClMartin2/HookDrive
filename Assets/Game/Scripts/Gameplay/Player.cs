@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
 
     [Header("EndZone Settings")]
     [SerializeField] private float diviserVelocity = 1;
-    [SerializeField] private float diviserAngularVelocity = 1;
 
     public static Player Instance;
 

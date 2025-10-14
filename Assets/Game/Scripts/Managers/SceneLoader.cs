@@ -26,16 +26,16 @@ public class SceneLoader : MonoBehaviour
 
     public async Task SwitchScene(string sceneToSwitch, bool startScene = false)
     {
-        if (currentScene != null)
-            await SceneManager.UnloadSceneAsync(currentScene);
-
         if (startScene)
             startLoadingScreen.Show();
         else
             loadingScreen.Show();
 
-            // Lance le chargement async
-            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneToSwitch, LoadSceneMode.Additive);
+        if (currentScene != null)
+            await SceneManager.UnloadSceneAsync(currentScene);
+
+        // Lance le chargement async
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneToSwitch, LoadSceneMode.Additive);
         loadOperation.allowSceneActivation = false;
 
         // Tant que la scène n'est pas prête à s'activer
@@ -44,7 +44,7 @@ public class SceneLoader : MonoBehaviour
             float progress = Mathf.Clamp01(loadOperation.progress / 0.9f);
 
             // Mets à jour l'UI
-            if(startScene)
+            if (startScene)
                 startLoadingScreen.txtLoading.text = (int)(progress * 100) + "%";
 
             await Task.Yield(); // on attend la frame suivante
@@ -56,7 +56,7 @@ public class SceneLoader : MonoBehaviour
         while (!loadOperation.isDone)
             await Task.Yield();
 
-        if(startScene)
+        if (startScene)
             startLoadingScreen.Hide();
         else
             StartCoroutine(LoadingScreenAnimation());
@@ -78,6 +78,6 @@ public class SceneLoader : MonoBehaviour
         loadingScreen.UpdateBackgroundImage(0);
         loadingScreen.Hide();
 
-       yield return null;
+        yield return null;
     }
 }
