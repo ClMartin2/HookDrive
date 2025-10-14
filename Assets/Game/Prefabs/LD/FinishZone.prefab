@@ -82,17 +82,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0.737327
-      outSlope: -0.737327
+      inSlope: -3.3122966
+      outSlope: -3.3122966
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.051666677
+      inWeight: 0.09443021
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   durationAnimAsset: 0.5
   endScale: {x: 0.55, y: 0.55, z: 0.55}
+  sas: 1
 --- !u!1 &5764030234281928006
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +197,7 @@ MonoBehaviour:
   endPoint: 200
   direction: {x: 0, y: 1, z: 0}
   offsetRotation: {x: -90, y: 0, z: 0}
+  stopGenerate: 0
 --- !u!1001 &275302828866745901
 PrefabInstance:
   m_ObjectHideFlags: 0
