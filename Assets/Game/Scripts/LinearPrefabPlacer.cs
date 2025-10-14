@@ -8,4 +8,5 @@ public class LinearPrefabPlacer : MonoBehaviour
     public float endPoint = 100f;
     public Vector3 direction;
     public Vector3 offsetRotation;
+    public bool stopGenerate;
 }

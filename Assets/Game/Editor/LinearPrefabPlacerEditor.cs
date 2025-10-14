@@ -19,6 +19,9 @@ public class LinearPrefabPlacerEditor : Editor
     {
         base.OnInspectorGUI();
 
+        if (placer.stopGenerate)
+            return;
+
         // Si valeurs changent, régénérer
         if (placer.prefabLength != lastPrefabLength || placer.endPoint != lastEndPoint)
         {

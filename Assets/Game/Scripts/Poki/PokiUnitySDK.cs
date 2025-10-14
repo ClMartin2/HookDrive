@@ -52,9 +52,9 @@ public class PokiUnitySDK : MonoBehaviour {
 	public static PokiUnitySDK Instance {
 		get {
 			if (_instance == null) {
-				_instance = (PokiUnitySDK) FindObjectOfType(typeof(PokiUnitySDK));
+				_instance = (PokiUnitySDK) FindFirstObjectByType(typeof(PokiUnitySDK));
 
-				if (FindObjectsOfType(typeof(PokiUnitySDK)).Length > 1) {
+				if (FindObjectsByType(typeof(PokiUnitySDK),FindObjectsSortMode.InstanceID).Length > 1) {
 					Debug.LogError("[Singleton] Something went really wrong " +
 						" - there should never be more than 1 singleton!" +
 						" Reopening the scene might fix it.");
