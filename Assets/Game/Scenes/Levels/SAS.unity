@@ -394,6 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c412e80c25771b439f7a504063b8842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeshMerger
+  deactivateChildren: 1
+  destroyChildren: 0
+  saveFolder: Assets/Game/MergedMeshes
 --- !u!1 &581047935
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +519,6 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
-  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -604,18 +606,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &705507996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
 --- !u!1 &724036312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1219,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237917002321969083, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
       propertyPath: SAS
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237917002321969083, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
+      propertyPath: sas
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1548081412679474299, guid: 258ed7c5b54c0f446aa9d3800a0df40d, type: 3}
