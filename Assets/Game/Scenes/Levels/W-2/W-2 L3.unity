@@ -3080,10 +3080,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3636463352952264007, guid: bbc19bfd39df8bc46891f195b66c2691, type: 3}
-      propertyPath: m_Intensity
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7052892057349528541, guid: bbc19bfd39df8bc46891f195b66c2691, type: 3}
       propertyPath: m_Name
       value: W-2 Directional Light
@@ -4520,6 +4516,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1085472535224725639, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.59
+      objectReference: {fileID: 0}
     - target: {fileID: 1398433032099531212, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
       propertyPath: m_Name
       value: Decor_W-2
