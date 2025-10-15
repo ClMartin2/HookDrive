@@ -24,12 +24,15 @@ public class SceneLoader : MonoBehaviour
             Destroy(gameObject);
     }
 
+
     public async Task SwitchScene(string sceneToSwitch, bool startScene = false)
     {
         if (startScene)
             startLoadingScreen.Show();
         else
             loadingScreen.Show();
+
+        await Task.Yield();
 
         if (currentScene != null)
             await SceneManager.UnloadSceneAsync(currentScene);
