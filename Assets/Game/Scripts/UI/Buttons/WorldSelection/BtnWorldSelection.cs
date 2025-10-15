@@ -1,13 +1,13 @@
 using TMPro;
-using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BtnWorldSelection : CustomButton
 {
     [SerializeField] public WorldData worldData;
     [SerializeField] private Sprite lockImage;
     [SerializeField] private Sprite unLockImage;
-    [SerializeField] private SVGImage image;
+    [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI txt;
     
     protected override void OnClick()

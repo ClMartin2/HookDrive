@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8208872923858953041}
   - component: {fileID: 2228183867370343263}
-  - component: {fileID: 1338048215056538905}
+  - component: {fileID: 7780283051615159648}
   - component: {fileID: 2771327661939252017}
   - component: {fileID: 820114896157445315}
   m_Layer: 5
@@ -48,7 +48,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072717486429379156}
   m_CullTransparentMesh: 1
---- !u!114 &1338048215056538905
+--- !u!114 &7780283051615159648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,9 +57,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1072717486429379156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef8b96895a0ec4ba685178a052544251, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.VectorGraphics::Unity.VectorGraphics.SVGImage
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -69,7 +69,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &2771327661939252017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +118,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1338048215056538905}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -129,7 +137,7 @@ MonoBehaviour:
   worldData: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   lockImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   unLockImage: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  image: {fileID: 1338048215056538905}
+  image: {fileID: 7780283051615159648}
   txt: {fileID: 378391205415014225}
 --- !u!1 &3054045604608705144
 GameObject:
