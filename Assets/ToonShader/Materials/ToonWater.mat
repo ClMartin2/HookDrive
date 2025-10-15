@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ToonWater
-  m_Shader: {fileID: 4800000, guid: f24809d953f26f64b9c352c89807da80, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5b5b737194c55af459a4a9dc2e8e391f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -65,7 +65,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SurfaceDistortion:
         m_Texture: {fileID: 2800000, guid: c53bb6b8c40b02141be3fdec5cc582e9, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 1.82, y: 1.58}
         m_Offset: {x: 0, y: 0}
     - _SurfaceNoise:
         m_Texture: {fileID: 2800000, guid: e182ac5d3b797044fb29f3fa2acc3708, type: 3}
@@ -78,8 +78,8 @@ Material:
     - _DepthMaxDistance: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamMaxDistance: 0.52
-    - _FoamMinDistance: 0.16
+    - _FoamMaxDistance: 0.58
+    - _FoamMinDistance: 0.41
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -92,7 +92,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SurfaceDistortionAmount: 0.556
+    - _SurfaceDistortionAmount: 0.799
     - _SurfaceNoiseCutoff: 0.777
     - _UVSec: 0
     - _ZWrite: 1

@@ -9,4 +9,10 @@ public class LoadingScreen : CustomScreen
     {
         backgroundImage.fillAmount = percentage;
     }
+
+    public override void Show()
+    {
+        base.Show();
+        UpdateBackgroundImage(1);
+    }
 }
