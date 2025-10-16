@@ -141,6 +141,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Decor
   skyboxMaterial: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+--- !u!1 &4924997782190716878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8937677076592317072}
+  - component: {fileID: 1144270124389497768}
+  m_Layer: 0
+  m_Name: ColliderObelisk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8937677076592317072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924997782190716878}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.26530567, z: -0, w: 0.9641644}
+  m_LocalPosition: {x: -0.62, y: -1.92, z: 165.95}
+  m_LocalScale: {x: 2.0097542, y: 1.9941816, z: 1.8834126}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2452416532019624757}
+  m_LocalEulerAnglesHint: {x: 0, y: -30.77, z: 0}
+--- !u!64 &1144270124389497768
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4924997782190716878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8773355262286942357, guid: 013aaf996be22e74bbb0fb74b4f90b0e, type: 3}
 --- !u!1001 &1173652357826864764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -848,7 +902,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5811787406953998674, guid: 15c197b9cea34a34b921579b3583b9e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8937677076592317072}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15c197b9cea34a34b921579b3583b9e3, type: 3}
 --- !u!4 &2452416532019624757 stripped
