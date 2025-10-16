@@ -64,6 +64,26 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: a19b6f4f90b79d64590f80dd94fbbb4f, type: 2}
+    - target: {fileID: -2660732103581429490, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2660732103581429490, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2660732103581429490, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2660732103581429490, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2660732103581429490, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0ed4844a099eda64282e3a622f3dad15, type: 3}
       propertyPath: m_Name
       value: MergedMesh21
