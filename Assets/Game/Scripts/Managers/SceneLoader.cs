@@ -45,10 +45,15 @@ public class SceneLoader : MonoBehaviour
         while (loadOperation.progress < 0.9f)
         {
             float progress = Mathf.Clamp01(loadOperation.progress / 0.9f);
+            string progressText = (int)(progress * 100) + "%";
 
             // Mets à jour l'UI
             if (startScene)
-                startLoadingScreen.txtLoading.text = (int)(progress * 100) + "%";
+                startLoadingScreen.txtLoading.text = progressText;
+            else
+            {
+                loadingScreen.UpdateTextPercetage(progressText);
+            }
 
             await Task.Yield(); // on attend la frame suivante
         }
@@ -62,7 +67,10 @@ public class SceneLoader : MonoBehaviour
         if (startScene)
             startLoadingScreen.Hide();
         else
+        {
+            loadingScreen.UpdateTextPercetage("");
             StartCoroutine(LoadingScreenAnimation());
+        }
 
         currentScene = sceneToSwitch;
     }
