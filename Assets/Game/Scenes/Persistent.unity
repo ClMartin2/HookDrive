@@ -94,7 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: ef4074408c8dd174fa9b3f88e906a1b1, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -187,7 +187,7 @@ MonoBehaviour:
   startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   activateSAS: 1
-  testLevel: 0
+  testLevel: 1
   mobileTest: 0
 --- !u!1 &144058615
 GameObject:
@@ -619,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 631132375}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08262512, y: -0.54432523, z: 0.061471038, w: 0.832529}
-  m_LocalPosition: {x: 18.283642, y: 30.893295, z: -8.6178465}
+  m_LocalPosition: {x: 18.28364, y: 30.893295, z: -8.617846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1149,6 +1149,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1631019347943219573, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
+      propertyPath: vertical
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1731021224958009766, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1350,10 +1354,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
-      propertyPath: carData
-      value: 
-      objectReference: {fileID: 11400000, guid: b8691a6d24da27542a911e2da1f7c9f9, type: 2}
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: particleFinish
       value: 

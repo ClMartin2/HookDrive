@@ -49,8 +49,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5364190891484655}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -479,8 +479,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5762426994377825499}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -599,8 +599,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6574254528625087302}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   rb: {fileID: 102874241276430761}
   particleFinish: {fileID: 0}
-  carData: {fileID: 11400000, guid: a761103bd6543e04a92fe657db7e1077, type: 2}
+  carData: {fileID: 11400000, guid: 638c88b3ab0e7a145928f1a5077c9316, type: 2}
   carParent: {fileID: 290427974284944525}
   carLayerName: Player
   hookInput: {fileID: -5321855580925655781, guid: 289c1b55c9541489481df5cc06664110, type: 3}
@@ -755,7 +755,6 @@ MonoBehaviour:
   hookCooldown: 0.1
   <hookStartPoint>k__BackingField: {fileID: 1168398865041844274}
   diviserVelocity: 3
-  diviserAngularVelocity: 3
 --- !u!114 &2066563322115074041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,8 +1043,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7713695230662174060}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1

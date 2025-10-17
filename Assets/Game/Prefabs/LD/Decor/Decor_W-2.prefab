@@ -49,6 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Decor
   skyboxMaterial: {fileID: 2100000, guid: cc421da483ed06c49933077a621bff25, type: 2}
+  lightingData: {fileID: 112000000, guid: a9c9a94fa17571b42a836c5eb8436b16, type: 2}
+  ambientMode: 0
+  ambientIntensity: 0.75
+  reflectionIntensity: 1
 --- !u!1 &4992891765213430291
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +113,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 0
-  m_MaterialTemplate: {fileID: 2100000, guid: 2ff3c10e438adda49b24867f5895260d, type: 2}
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1

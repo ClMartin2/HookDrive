@@ -60,7 +60,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 0
-  m_MaterialTemplate: {fileID: 2100000, guid: 2ff3c10e438adda49b24867f5895260d, type: 2}
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 0
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -141,6 +141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Decor
   skyboxMaterial: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  lightingData: {fileID: 112000000, guid: d52337d8218ee5d4c999beb7e0a84b59, type: 2}
+  ambientMode: 0
+  ambientIntensity: 0.3
+  reflectionIntensity: 1
 --- !u!1 &4924997782190716878
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,8 +171,8 @@ Transform:
   m_GameObject: {fileID: 4924997782190716878}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.26530567, z: -0, w: 0.9641644}
-  m_LocalPosition: {x: -0.62, y: -1.92, z: 165.95}
-  m_LocalScale: {x: 2.0097542, y: 1.9941816, z: 1.8834126}
+  m_LocalPosition: {x: -0.89, y: -2.75, z: 166.23}
+  m_LocalScale: {x: 2.1395843, y: 2.0488222, z: 1.8834126}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2452416532019624757}
