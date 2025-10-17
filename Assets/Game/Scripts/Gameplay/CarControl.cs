@@ -18,7 +18,8 @@ public class CarControl : MonoBehaviour
     [SerializeField] private float centreOfGravityOffset = -1f;
 
 
-    private WheelControl[] wheels;
+    public WheelControl[] wheels { get; private set; }
+
     private Rigidbody rb;
     private IA_Player carControls;
     private Quaternion startRotation;

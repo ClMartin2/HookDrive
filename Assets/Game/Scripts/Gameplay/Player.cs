@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class Player : MonoBehaviour
 {
@@ -23,8 +24,21 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
     [field: SerializeField] public Transform hookStartPoint { get; private set; }
 
+    [SerializeField] private float shakeDurationBadHook;
+    [SerializeField] private float ampltitudeGainBadHook;
+    [SerializeField] private float frequencyGainBadHook;
+
+    [Header("Land Settings")]
+    [SerializeField] private float impactThresholdWheel = 8f;
+    [SerializeField] private float impactThresholdCar = 30f;
+
+    [SerializeField] private float shakeDurationLand;
+    [SerializeField] private float ampltitudeGainLand;
+    [SerializeField] private float frequencyGainLand;
+
     [Header("EndZone Settings")]
     [SerializeField] private float diviserVelocity = 1;
+
 
     public static Player Instance;
 
@@ -40,6 +54,8 @@ public class Player : MonoBehaviour
     private HookPoint hookPoint;
     private HookPoint lastHookPoint;
     private HookPoint attachedHookPoint;
+    private _Camera _camera;
+    private bool checkCollision = true;
 
     private void Awake()
     {
@@ -74,6 +90,93 @@ public class Player : MonoBehaviour
                 btnHook.onPointerUp += HookEnd;
             }
         }
+
+        _camera = _Camera.Instance;
+    }
+
+    private void Update()
+    {
+        if (stopUpdate)
+            return;
+
+        foreach (WheelControl wheel in carControl.wheels)
+        {
+            if (!wheel.wheelCollider.isGrounded)
+            {
+                checkCollision = true;
+            }
+
+            if (wheel.wheelCollider.isGrounded)
+            {
+                Vector3 wheelVelocity = rb.GetPointVelocity(wheel.wheelCollider.transform.position);
+                float impactSpeed = Mathf.Abs(wheelVelocity.y);
+
+                Collide(impactSpeed, impactThresholdWheel);
+
+                checkCollision = false;
+
+                break;
+            }
+        }
+
+        hookPoint = GetClosestHookPoint(transform, hookDetection.hookPoints);
+
+        if (lastHookPoint != null && hookPoint != lastHookPoint)
+            lastHookPoint.Unlock();
+
+        if (hookPoint != null)
+        {
+            hookPoint.Lock();
+            lastHookPoint = hookPoint;
+        }
+
+        if (!canHook)
+        {
+            counterHookCooldown += Time.deltaTime;
+
+            if (counterHookCooldown >= hookCooldown)
+            {
+                hookInput.action.performed += Hook_performed;
+                hookInput.action.canceled += Hook_canceled;
+
+                counterHookCooldown = 0;
+                canHook = true;
+            }
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (stopUpdate)
+            return;
+
+        if (attachedToHook && canHook)
+        {
+            Vector3 forceDirection = (hookPointPosition - rb.transform.position).normalized;
+            rb.AddForce(forceDirection * hookStrength, ForceMode.Acceleration);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!checkCollision)
+            return;
+
+        float impactSpeed = collision.relativeVelocity.magnitude;
+        Collide(impactSpeed,impactThresholdCar);
+        checkCollision = false;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        checkCollision = true;
+    }
+
+    private void Collide(float impactSpeed, float impactThreshold)
+    {
+        if (impactSpeed > impactThreshold)
+            _camera.Shake(shakeDurationLand, ampltitudeGainLand, frequencyGainLand);
     }
 
     public void Restart()
@@ -84,6 +187,7 @@ public class Player : MonoBehaviour
         particleFinish.gameObject.SetActive(false);
         particleFinish.Stop();
 
+        checkCollision = true;
         hookInput.action.performed += Hook_performed;
         hookInput.action.canceled += Hook_canceled;
     }
@@ -173,7 +277,10 @@ public class Player : MonoBehaviour
     private void HookStart()
     {
         if (!canHook)
+        {
+            _camera.Shake(shakeDurationBadHook, ampltitudeGainBadHook, frequencyGainBadHook);
             return;
+        }
 
         if (!GameManager.Instance.gameplayStart)
         {
@@ -181,7 +288,10 @@ public class Player : MonoBehaviour
         }
 
         if (hookPoint == null)
+        {
+            _camera.Shake(shakeDurationBadHook, ampltitudeGainBadHook, frequencyGainBadHook);
             return;
+        }
         else
         {
             attachedHookPoint = hookPoint;
@@ -190,37 +300,6 @@ public class Player : MonoBehaviour
             attachedToHook = true;
             hookPointPosition = hookPoint.transform.position;
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y / hookStartVelocityDivider, rb.linearVelocity.z / hookStartVelocityDivider);
-        }
-    }
-
-    private void Update()
-    {
-        if (stopUpdate)
-            return;
-
-        hookPoint = GetClosestHookPoint(transform, hookDetection.hookPoints);
-
-        if (lastHookPoint != null && hookPoint != lastHookPoint)
-            lastHookPoint.Unlock();
-
-        if (hookPoint != null)
-        {
-            hookPoint.Lock();
-            lastHookPoint = hookPoint;
-        }
-
-        if (!canHook)
-        {
-            counterHookCooldown += Time.deltaTime;
-
-            if (counterHookCooldown >= hookCooldown)
-            {
-                hookInput.action.performed += Hook_performed;
-                hookInput.action.canceled += Hook_canceled;
-
-                counterHookCooldown = 0;
-                canHook = true;
-            }
         }
     }
 
@@ -254,17 +333,5 @@ public class Player : MonoBehaviour
             closest = hookPoints[0];
 
         return hookPoints.Count > 0 ? closest : null;
-    }
-
-    private void FixedUpdate()
-    {
-        if (stopUpdate)
-            return;
-
-        if (attachedToHook && canHook)
-        {
-            Vector3 forceDirection = (hookPointPosition - rb.transform.position).normalized;
-            rb.AddForce(forceDirection * hookStrength, ForceMode.Acceleration);
-        }
     }
 }

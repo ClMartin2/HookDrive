@@ -690,7 +690,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 2000
   m_LinearDamping: 0
-  m_AngularDamping: 3
+  m_AngularDamping: 2.75
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -754,6 +754,12 @@ MonoBehaviour:
   hookStartVelocityDivider: 1.4
   hookCooldown: 0.1
   <hookStartPoint>k__BackingField: {fileID: 1168398865041844274}
+  shakeDurationBadHook: 0.3
+  ampltitudeGainBadHook: 1
+  frequencyGainBadHook: 0.15
+  shakeDurationLand: 0
+  ampltitudeGainLand: 0
+  frequencyGainLand: 0
   diviserVelocity: 3
 --- !u!114 &2066563322115074041
 MonoBehaviour:
