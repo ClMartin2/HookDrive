@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a093a07a0492c42a39e806da181c98, type: 3}
+  m_Name: SAS_Lighting
+  m_EditorClassIdentifier: Assembly-CSharp::LightingPreset
+  lightProbes: {fileID: 25800002, guid: 309101f4c64a62f43838581118fd9534, type: 2}
+  skybox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  ambientMode: 0
+  ambientColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  ambientIntensity: 0.4
+  reflectionIntensity: 1
+  ambienProbe:
+    'sh[ 0]': 0.0111813815
+    'sh[ 1]': -0.0029755891
+    'sh[ 2]': 0.000026096963
+    'sh[ 3]': -0.000003805392
+    'sh[ 4]': -0.000006113846
+    'sh[ 5]': 0.00000892319
+    'sh[ 6]': 0.00061887817
+    'sh[ 7]': 0.000081970466
+    'sh[ 8]': 0.001818639
+    'sh[ 9]': 0.04421662
+    'sh[10]': -0.015318477
+    'sh[11]': 0.000002522383
+    'sh[12]': -0.000014223177
+    'sh[13]': -0.000014116644
+    'sh[14]': 0.0000059993217
+    'sh[15]': 0.0007801657
+    'sh[16]': 0.00007149983
+    'sh[17]': 0.0023174973
+    'sh[18]': 0.118576
+    'sh[19]': -0.000027394606
+    'sh[20]': -0.0000050526855
+    'sh[21]': -0.000005911557
+    'sh[22]': -0.0000016896804
+    'sh[23]': -0.000002089985
+    'sh[24]': -0.0014297907
+    'sh[25]': -0.000013241621
+    'sh[26]': -0.004287355

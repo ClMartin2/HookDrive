@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a093a07a0492c42a39e806da181c98, type: 3}
+  m_Name: W-1 L5_Lighting
+  m_EditorClassIdentifier: Assembly-CSharp::LightingPreset
+  lightProbes: {fileID: 25800002, guid: d52337d8218ee5d4c999beb7e0a84b59, type: 2}
+  skybox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  ambientMode: 0
+  ambientColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  ambientIntensity: 0.3
+  reflectionIntensity: 1
+  ambienProbe:
+    'sh[ 0]': 0.0061622453
+    'sh[ 1]': -0.0016411794
+    'sh[ 2]': 0.000009198271
+    'sh[ 3]': -0.000004448883
+    'sh[ 4]': -0.0000045560964
+    'sh[ 5]': 0.0000014090978
+    'sh[ 6]': 0.00034449156
+    'sh[ 7]': 0.00003805611
+    'sh[ 8]': 0.0009996175
+    'sh[ 9]': 0.024366584
+    'sh[10]': -0.008444819
+    'sh[11]': 0.000000097129764
+    'sh[12]': -0.0000071632508
+    'sh[13]': -0.000008166719
+    'sh[14]': 0.0000006524883
+    'sh[15]': 0.0004325228
+    'sh[16]': 0.000034352546
+    'sh[17]': 0.0012748719
+    'sh[18]': 0.06536588
+    'sh[19]': -0.000014160186
+    'sh[20]': -0.0000033351523
+    'sh[21]': -0.00000070155784
+    'sh[22]': -0.00000032271146
+    'sh[23]': -0.0000012763203
+    'sh[24]': -0.0007884514
+    'sh[25]': -0.000005166395
+    'sh[26]': -0.0023602555
