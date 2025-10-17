@@ -1,12 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ParticleSystem particleFinish;
+    [SerializeField] private ParticleSystem particleSystemHookPoint;
+    [SerializeField] private Transform groupParticleSystemHookPoint;
+    [SerializeField] private float delayToActivateHookParticle = 0.05f;
 
     [Header("Car")]
     [SerializeField] private CarData carData;
@@ -300,7 +303,16 @@ public class Player : MonoBehaviour
             attachedToHook = true;
             hookPointPosition = hookPoint.transform.position;
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y / hookStartVelocityDivider, rb.linearVelocity.z / hookStartVelocityDivider);
+            StartCoroutine(DelayParticleSystemHook());
         }
+    }
+
+    private IEnumerator DelayParticleSystemHook()
+    {
+        yield return new WaitForSeconds(delayToActivateHookParticle);
+        groupParticleSystemHookPoint.position = hookPointPosition;
+        particleSystemHookPoint.Play();
+        yield return null;
     }
 
     private HookPoint GetClosestHookPoint(Transform player, List<HookPoint> hookPoints)
