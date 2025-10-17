@@ -16,9 +16,11 @@ public class _Camera : MonoBehaviour
     public static _Camera Instance;
 
     private CinemachinePositionComposer cinemachinePositionComposer;
+    private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
     private float startDistance;
     private float counterZoom;
     private Coroutine coroutineZoom;
+    private float counterShake;
 
     public void Awake()
     {
@@ -28,6 +30,7 @@ public class _Camera : MonoBehaviour
             Destroy(gameObject);
 
         cinemachinePositionComposer = GetComponent<CinemachinePositionComposer>();
+        cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     private void Start()
@@ -40,19 +43,26 @@ public class _Camera : MonoBehaviour
         OrientationChange();
     }
 
-    private void OrientationChange()
+    public void Shake(float shakeDuration, float amplitudeGain, float frequencyGain)
     {
-        if (GameManager.isMobile())
-        {
-            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
-            Vector3 cameraRotation = cinemachinePositionComposer.transform.rotation.eulerAngles;
-            float newYRotation = isVertical ? yVerticalRotationCam : yHorizontalRotationCam;
-            float newDistance = isVertical ? distanceVerticalCamera : distanceHorizontalCamera;
-            startDistance = newDistance;
+        counterShake = 0;
+        StartCoroutine(_Shake(shakeDuration,amplitudeGain,frequencyGain));
+    }
 
-            cinemachinePositionComposer.CameraDistance = newDistance;
-            cinemachinePositionComposer.transform.rotation = Quaternion.Euler(cameraRotation.x, newYRotation, cameraRotation.z);
+    private IEnumerator _Shake(float shakeDuration, float amplitudeGain, float frequencyGain)
+    {
+        while(counterShake <= shakeDuration)
+        {
+            counterShake += Time.deltaTime;
+            cinemachineBasicMultiChannelPerlin.AmplitudeGain = amplitudeGain;
+            cinemachineBasicMultiChannelPerlin.FrequencyGain = frequencyGain;
+
+            yield return null;
         }
+
+        cinemachineBasicMultiChannelPerlin.AmplitudeGain = 0;
+
+        yield return null;
     }
 
     public void Zoom()
@@ -86,5 +96,21 @@ public class _Camera : MonoBehaviour
         cinemachinePositionComposer.CameraDistance = endDistanceZoom;
 
         yield return null;
+    }
+
+
+    private void OrientationChange()
+    {
+        if (GameManager.isMobile())
+        {
+            bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
+            Vector3 cameraRotation = cinemachinePositionComposer.transform.rotation.eulerAngles;
+            float newYRotation = isVertical ? yVerticalRotationCam : yHorizontalRotationCam;
+            float newDistance = isVertical ? distanceVerticalCamera : distanceHorizontalCamera;
+            startDistance = newDistance;
+
+            cinemachinePositionComposer.CameraDistance = newDistance;
+            cinemachinePositionComposer.transform.rotation = Quaternion.Euler(cameraRotation.x, newYRotation, cameraRotation.z);
+        }
     }
 }
