@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: d52337d8218ee5d4c999beb7e0a84b59, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1c24f674361c74b438d70b506ec1e2ef, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: ef4074408c8dd174fa9b3f88e906a1b1, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -460,6 +460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Decor_W-1
       objectReference: {fileID: 0}
+    - target: {fileID: 6024637844071168031, guid: 7e772c2ae22cc8f4c883e2b344ecc773, type: 3}
+      propertyPath: lightingPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: be176e638d6b51c408406d6ab7121af7, type: 2}
     - target: {fileID: 6646361529097427498, guid: 7e772c2ae22cc8f4c883e2b344ecc773, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -187,7 +187,7 @@ MonoBehaviour:
   startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   activateSAS: 1
-  testLevel: 0
+  testLevel: 1
   mobileTest: 0
 --- !u!1 &144058615
 GameObject:
@@ -5917,8 +5917,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1543707479}
   - {fileID: 926607548}
+  - {fileID: 1543707479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1543707478
@@ -6915,6 +6915,10 @@ PrefabInstance:
       propertyPath: particleSystemHookPoint
       value: 
       objectReference: {fileID: 926607550}
+    - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
+      propertyPath: delayToActivateHookParticle
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: groupParticleSystemHookPoint
       value: 
