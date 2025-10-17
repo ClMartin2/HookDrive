@@ -722,10 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Decor
   skyboxMaterial: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
-  lightingData: {fileID: 112000000, guid: 309101f4c64a62f43838581118fd9534, type: 2}
-  ambientMode: 0
-  ambientIntensity: 0.4
-  reflectionIntensity: 1
+  lightingPreset: {fileID: 11400000, guid: cfcb6a952c4a3f245a491662ea97372b, type: 2}
 --- !u!1 &908581503
 GameObject:
   m_ObjectHideFlags: 0

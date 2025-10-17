@@ -4459,6 +4459,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4565362942210909069, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
+      propertyPath: lightingPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 384d33b9e9bca614592ca15896d54b5e, type: 2}
     - target: {fileID: 1085472535224725639, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.59
