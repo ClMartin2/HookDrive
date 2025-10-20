@@ -193,6 +193,11 @@ public class Player : MonoBehaviour
         checkCollision = true;
         hookInput.action.performed += Hook_performed;
         hookInput.action.canceled += Hook_canceled;
+
+        foreach (ControlButton btnHook in btnsHook)
+        {
+            btnHook.OnPointerUp(null);
+        }
     }
 
     public void Pause()
