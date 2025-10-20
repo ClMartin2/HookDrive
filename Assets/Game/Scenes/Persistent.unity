@@ -187,8 +187,8 @@ MonoBehaviour:
   startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   activateSAS: 0
-  testLevel: 1
-  mobileTest: 0
+  testLevel: 0
+  mobileTest: 1
 --- !u!1 &144058615
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +620,7 @@ Transform:
   m_GameObject: {fileID: 631132375}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08262512, y: -0.54432523, z: 0.061471038, w: 0.832529}
-  m_LocalPosition: {x: 18.28364, y: 30.893295, z: -8.6178465}
+  m_LocalPosition: {x: 18.134523, y: 30.88867, z: -8.959629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5745,7 +5745,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
-  - component: {fileID: 963194231}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5821,7 +5821,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08262512, y: -0.54432523, z: 0.061471038, w: 0.832529}
-  m_LocalPosition: {x: 18.28364, y: 30.893295, z: -8.617846}
+  m_LocalPosition: {x: 18.134521, y: 30.88867, z: -8.959628}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5859,7 +5859,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!114 &963194231
+--- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5868,41 +5868,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 545568d0d04e8734e8c07535254b2262, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
+  m_EditorClassIdentifier: Assembly-CSharp::CameraDepthTextureMode
+  depthTextureMode: 1
 --- !u!114 &1104300836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4530931786875847445, guid: 3f6d23bb7ef82ee47816a0aced7dddf0, type: 3}
@@ -6826,18 +6795,6 @@ PrefabInstance:
       propertyPath: btnRightRotate
       value: 
       objectReference: {fileID: 1104300836}
-    - target: {fileID: 2295498972534596705, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a6d00c8f8a1cf5446889cf73e5a02ee0, type: 2}
-    - target: {fileID: 2423897367853215916, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a6d00c8f8a1cf5446889cf73e5a02ee0, type: 2}
-    - target: {fileID: 3188318546293853699, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a6d00c8f8a1cf5446889cf73e5a02ee0, type: 2}
     - target: {fileID: 3311103903717292614, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: m_Radius
       value: 27.5
@@ -6850,10 +6807,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 5640948293907878804, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a6d00c8f8a1cf5446889cf73e5a02ee0, type: 2}
     - target: {fileID: 6278083283861152170, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
