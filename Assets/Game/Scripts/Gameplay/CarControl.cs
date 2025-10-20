@@ -55,6 +55,11 @@ public class CarControl : MonoBehaviour
 
         StartCoroutine(ReenableWheels());
         transform.rotation = startRotation;
+
+        btnLeftRotate.OnPointerUp(null);
+        btnRightRotate.OnPointerUp(null);
+        btnForward.OnPointerUp(null);
+        btnBackward.OnPointerUp(null);
     }
 
     public void Init()
