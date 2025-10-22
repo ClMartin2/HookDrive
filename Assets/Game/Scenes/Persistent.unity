@@ -204,6 +204,7 @@ MonoBehaviour:
   timeToWaitToSkipLevel: 0.25
   timeToSkipAutomaticlyToGoToNewtWorld: 4
   skipEndLevelInputs: {fileID: 6418996526674827661, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  restartWorldInput: {fileID: 5348440326036471891, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   loadMenu: 0
   activateSAS: 0
   testLevel: 0
@@ -17285,7 +17286,7 @@ PrefabInstance:
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: carData
       value: 
-      objectReference: {fileID: 11400000, guid: c305004288e803d4da2703722dc62686, type: 2}
+      objectReference: {fileID: 11400000, guid: a761103bd6543e04a92fe657db7e1077, type: 2}
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: particleFinish
       value: 

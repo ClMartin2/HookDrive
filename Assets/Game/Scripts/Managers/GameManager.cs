@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToWaitToSkipLevel = 0.1f;
     [SerializeField] private float timeToSkipAutomaticlyToGoToNewtWorld = 2f;
     [SerializeField] private InputActionReference skipEndLevelInputs;
+    [SerializeField] private InputActionReference restartWorldInput;
 
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
         GameEvents.OnRestartWorld += RestartWorld;
 
         skipEndLevelInputs.action.performed += GoToNexLevel;
+        restartWorldInput.action.performed += RestartWorldInput;
 
         for (int i = 0; i < allWorlds.Count; i++)
         {
@@ -156,22 +158,22 @@ public class GameManager : MonoBehaviour
         _ = LoadWorld(startWorld, startScene);
     }
 
+    private void RestartWorldInput(InputAction.CallbackContext context)
+    {
+        RestartWorld();
+    }
+
     private void RestartWorld()
     {
+        Restart();
         timer = 0;
         worldClearedScreen.Hide();
         _ = LoadWorld(currentWorld);
-
-        if (coroutineWaitToGoToNextLevel != null)
-            StopCoroutine(coroutineWaitToGoToNextLevel);
     }
 
     private void PlayWorldCleared()
     {
         GoToNexLevel();
-
-        if (coroutineWaitToGoToNextLevel != null)
-            StopCoroutine(coroutineWaitToGoToNextLevel);
     }
 
     private void Restart()
@@ -246,6 +248,7 @@ public class GameManager : MonoBehaviour
                 worldClearedScreen.Show();
                 worldClearedScreen.SetWorldClearedScreen(CheckTrophy(), currentScene);
                 skipEndLevelInputs.action.Enable();
+                restartWorldInput.action.Enable();
                 yield return new WaitForSeconds(timeToSkipAutomaticlyToGoToNewtWorld);
                 PlayWorldCleared();
             }
@@ -315,6 +318,7 @@ public class GameManager : MonoBehaviour
     private void StopWaitToGoToNextLevel()
     {
         skipEndLevelInputs.action.Disable();
+        restartWorldInput.action.Disable();
 
         if (coroutineWaitToGoToNextLevel != null)
         {
