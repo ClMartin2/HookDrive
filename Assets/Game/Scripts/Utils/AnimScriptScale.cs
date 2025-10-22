@@ -6,16 +6,17 @@ public class AnimScriptScale : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private AnimationCurve animCurve;
     [SerializeField] private Vector3 endScale;
+    [SerializeField] private bool scaleDown = true;
+
+    public bool endAnim { get; private set; }
 
     private Vector3 startScale;
 
-    private void Start()
-    {
-        startScale = transform.localScale;
-    }
-
+    [ContextMenu("Scale")]
     public void Scale()
     {
+        startScale = transform.localScale;
+        endAnim = false;
         StartCoroutine(_Scale());
     }
 
@@ -34,7 +35,11 @@ public class AnimScriptScale : MonoBehaviour
         }
 
         transform.localScale = endScale;
-        StartCoroutine(ScaleDown());
+        if(scaleDown)
+            StartCoroutine(ScaleDown());
+        else
+            endAnim = true;
+
         yield return null;
     }
 
@@ -53,6 +58,7 @@ public class AnimScriptScale : MonoBehaviour
         }
 
         transform.localScale = startScale;
+        endAnim = true;
         yield return null;
     }
 }

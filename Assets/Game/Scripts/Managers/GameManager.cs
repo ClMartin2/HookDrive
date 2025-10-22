@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,22 +15,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<WorldData> allWorlds = new();
     [SerializeField] private Menu menu;
     [SerializeField] private Hud hud;
+    [SerializeField] private WorldClearedScreen worldClearedScreen;
+    [SerializeField] private WorldData startWorld;
+    [SerializeField] private WorldData SAS;
 
     [Header("End level")]
     [SerializeField] private float timeToWaitEndLevel = 0.5f;
+    [SerializeField] private float timeToWaitToShowWorldClearedScreen = 0.5f;
     [SerializeField] private float timeToWaitToSkipLevel = 0.1f;
     [SerializeField] private InputActionReference skipEndLevelInputs;
 
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
-    [SerializeField] private WorldData startWorld;
-    [SerializeField] private WorldData SAS;
     [SerializeField] private bool activateSAS;
     [SerializeField] private bool testLevel = false;
     [SerializeField] private bool mobileTest = false;
 
     public static GameManager Instance;
+    public float timer { get; private set; }
     public bool gameplayStart { get; private set; } = false;
+    public bool worldCleared { get; private set; } = false;
 
     private WorldData currentWorld;
     private int indexCurrentScene;
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
     private string currentScene;
     private Coroutine coroutineWaitToGoToNextLevel;
     private _Camera _camera;
+    private bool stopTimer = false;
 
     private static bool _mobileTest;
     private ScreenOrientation currentScreenOrientation;
@@ -59,6 +66,9 @@ public class GameManager : MonoBehaviour
         GameEvents.EndScene += EndScene;
         GameEvents.GoBackToMenu += GoBackToMenu;
         GameEvents.GameplayStart += GameplayStart;
+        GameEvents.Play += PlayWorldCleared;
+        GameEvents.OnRestartRequested += Restart;
+        GameEvents.OnRestartWorld += RestartWorld;
 
         skipEndLevelInputs.action.performed += GoToNexLevel;
 
@@ -102,7 +112,7 @@ public class GameManager : MonoBehaviour
 
 #if UNITY_EDITOR
             if (activateSAS)
-                _ = SceneLoader.Instance.SwitchScene(SAS.scenes[0],true);
+                _ = SceneLoader.Instance.SwitchScene(SAS.scenes[0], true);
             else
                 LoadFirstWorld(true);
 #else
@@ -122,6 +132,13 @@ public class GameManager : MonoBehaviour
             GameEvents.ChangeOrientation();
 
         lastScreenOrientation = currentScreenOrientation;
+
+        if (!stopTimer)
+        {
+            timer += Time.deltaTime;
+            Debug.Log(timer);
+        }
+
     }
 
 
@@ -137,6 +154,27 @@ public class GameManager : MonoBehaviour
     public void LoadFirstWorld(bool startScene = false)
     {
         _ = LoadWorld(startWorld, startScene);
+    }
+
+    private void RestartWorld()
+    {
+        timer = 0;
+        worldClearedScreen.Hide();
+        _ = LoadWorld(currentWorld);
+    }
+
+    private void PlayWorldCleared()
+    {
+        GoToNexLevel();
+    }
+
+    private void Restart()
+    {
+        worldClearedScreen.Hide();
+        hud.ActivateControlButtons(true);
+        _camera.DeZoom();
+        StopWaitToGoToNextLevel();
+        stopTimer = false;
     }
 
     private void GameplayStart()
@@ -173,8 +211,15 @@ public class GameManager : MonoBehaviour
         hud.Hide();
     }
 
+    [ContextMenu("World cleared")]
+    private void WorldCleared()
+    {
+        EndScene(false);
+    }
+
     private void EndScene(bool sas)
     {
+        stopTimer = true;
         player.EndScene();
         _camera.Zoom();
         hud.ActivateControlButtons(false);
@@ -184,13 +229,31 @@ public class GameManager : MonoBehaviour
     private IEnumerator WaitEndScene(bool sas)
     {
         yield return new WaitForSeconds(timeToWaitToSkipLevel);
+
+        indexCurrentScene++;
+
         if (!sas)
-            skipEndLevelInputs.action.Enable();
-        yield return new WaitForSeconds(timeToWaitEndLevel);
-        if (sas)
-            _ = GoToNextLevelAsync(sas);
+        {
+            if (indexCurrentScene > currentWorld.scenes.Length - 1)
+            {
+                yield return new WaitForSeconds(timeToWaitToShowWorldClearedScreen);
+                worldClearedScreen.Show();
+                worldClearedScreen.SetWorldClearedScreen(CheckTrophy(), currentScene);
+                skipEndLevelInputs.action.Enable();
+                worldCleared = true;
+            }
+            else
+            {
+                skipEndLevelInputs.action.Enable();
+                yield return new WaitForSeconds(timeToWaitEndLevel);
+                GoToNexLevel();
+            }
+        }
         else
-            GoToNexLevel();
+        {
+            yield return new WaitForSeconds(timeToWaitEndLevel);
+            _ = GoToNextLevelAsync(sas);
+        }
 
         yield return null;
     }
@@ -202,18 +265,10 @@ public class GameManager : MonoBehaviour
 
     private async Task GoToNextLevelAsync(bool sas)
     {
-        skipEndLevelInputs.action.Disable();
-
-        if (coroutineWaitToGoToNextLevel != null)
-        {
-            StopCoroutine(coroutineWaitToGoToNextLevel);
-            coroutineWaitToGoToNextLevel = null;
-        }
+        StopWaitToGoToNextLevel();
 
         if (!sas)
         {
-            indexCurrentScene++;
-
             if (indexCurrentScene > currentWorld.scenes.Length - 1)
             {
                 //Check si le monde est deja débloqué
@@ -231,7 +286,6 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //GoBackToMenu();
                     await LoadWorld(allWorlds[0]);
                 }
             }
@@ -246,9 +300,37 @@ public class GameManager : MonoBehaviour
             LoadFirstWorld();
         }
 
-        hud.ActivateControlButtons(true);
-        _camera.DeZoom();
+        Restart();
         hud.UpdateLevelName(currentScene);
+        worldCleared = false;
+        stopTimer = false;
+    }
+
+    private void StopWaitToGoToNextLevel()
+    {
+        skipEndLevelInputs.action.Disable();
+
+        if (coroutineWaitToGoToNextLevel != null)
+        {
+            StopCoroutine(coroutineWaitToGoToNextLevel);
+            coroutineWaitToGoToNextLevel = null;
+        }
+    }
+
+    private Medal CheckTrophy()
+    {
+        Medal actualMedal = Medal.bronze;
+
+        foreach (MedalToTime medalToTime in currentWorld.medalToTime)
+        {
+            if (timer < medalToTime.timeToCompleteWorld)
+            {
+                actualMedal = medalToTime.medal;
+            }
+
+        }
+
+        return actualMedal;
     }
 
     private void OnDestroy()
