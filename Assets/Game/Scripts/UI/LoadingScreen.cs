@@ -20,7 +20,17 @@ public class LoadingScreen : CustomScreen
     public override void Show()
     {
         base.Show();
+         
         UpdateBackgroundImage(1);
         UpdateTextPercetage("0 %");
+        SoundManager.Instance.SetMusicInUI(true);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+
+        if(SoundManager.Instance != null)
+            SoundManager.Instance.SetMusicInUI(false);
     }
 }

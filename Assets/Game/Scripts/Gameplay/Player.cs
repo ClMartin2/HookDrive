@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         if (lastHookPoint != null && hookPoint != lastHookPoint)
             lastHookPoint.Unlock();
 
-        if (hookPoint != null)
+        if (hookPoint != null && !hookPoint.isLocked)
         {
             hookPoint.Lock();
             lastHookPoint = hookPoint;
@@ -179,7 +179,10 @@ public class Player : MonoBehaviour
     private void Collide(float impactSpeed, float impactThreshold)
     {
         if (impactSpeed > impactThreshold)
+        {
             _camera.Shake(shakeDurationLand, ampltitudeGainLand, frequencyGainLand);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.Landing,0.75f);
+        }
     }
 
     public void Restart()
@@ -235,6 +238,7 @@ public class Player : MonoBehaviour
         hookInput.action.Enable();
         rb.useGravity = true;
         stopUpdate = false;
+        SoundManager.Instance.motorLoop.Play();
     }
 
     private void SetLayerRecursively(GameObject obj, int layer)
@@ -302,6 +306,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlaySoundSFX(SoundManager.HookStart, 0.5f);
             attachedHookPoint = hookPoint;
             hookPoint.Attached();
             isGrappling = true;

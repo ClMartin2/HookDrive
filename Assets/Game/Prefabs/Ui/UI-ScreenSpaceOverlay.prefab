@@ -12054,6 +12054,14 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1586870083219259584}
+    - target: {fileID: 1499730077718066222, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 59e34369f8e5c36499fdb05951fe3dc6, type: 2}
+    - target: {fileID: 1499730077718066222, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: volumeParameter
+      value: VolumeMusic
+      objectReference: {fileID: 0}
     - target: {fileID: 2709236949642071220, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -12140,7 +12148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3848255101972294520, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3922932831021515405, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_Pivot.x
@@ -12190,10 +12198,26 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 7093209529455805127}
+    - target: {fileID: 5285674831003076328, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 59e34369f8e5c36499fdb05951fe3dc6, type: 2}
+    - target: {fileID: 5285674831003076328, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: volumeParameter
+      value: VolumeSFX
+      objectReference: {fileID: 0}
     - target: {fileID: 5305844511435502943, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 5595808276645643752}
+    - target: {fileID: 5460838870828664624, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 59e34369f8e5c36499fdb05951fe3dc6, type: 2}
+    - target: {fileID: 5460838870828664624, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: volumeParameter
+      value: VolumeSFX
+      objectReference: {fileID: 0}
     - target: {fileID: 5614515774686417181, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_TargetGraphic
       value: 
@@ -12338,6 +12362,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 24308d89184e9b94b97c84dd5fc5166c, type: 3}
+    - target: {fileID: 7172111089734090360, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 59e34369f8e5c36499fdb05951fe3dc6, type: 2}
+    - target: {fileID: 7172111089734090360, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
+      propertyPath: volumeParameter
+      value: VolumeMusic
+      objectReference: {fileID: 0}
     - target: {fileID: 7456999635252596616, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_TargetGraphic
       value: 
@@ -12356,31 +12388,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 587.5
       objectReference: {fileID: 0}
     - target: {fileID: 7607727201627087847, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -84.5
       objectReference: {fileID: 0}
     - target: {fileID: 7674875476932479506, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7682803025420302084, guid: 69175bcb8ffbc1f409ffb06616cc4dae, type: 3}
       propertyPath: m_AnchorMax.y

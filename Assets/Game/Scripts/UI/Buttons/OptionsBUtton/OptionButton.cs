@@ -13,5 +13,6 @@ public class OptionButton : CustomButton
     {
         base.OnClick();
         animScriptScale.Scale();
+        SoundManager.Instance.PlaySoundSFX(SoundManager.ClickBtn);
     }
 }

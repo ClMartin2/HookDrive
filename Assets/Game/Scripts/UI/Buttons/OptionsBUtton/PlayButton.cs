@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayButton : CustomButton
+public class PlayButton : OptionButton
 {
     protected override void OnClick()
     {
