@@ -783,6 +783,15 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestarWorld"",
+                    ""type"": ""Button"",
+                    ""id"": ""d68dccd6-0098-4dbd-8426-9f6fe4b515e2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -838,6 +847,17 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Touch;Keyboard&Mouse"",
                     ""action"": ""SkipEndLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""033d4ab2-62b7-4eaf-989e-6edb7545ff30"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestarWorld"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -927,6 +947,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
         m_Player_SkipEndLevel = m_Player.FindAction("SkipEndLevel", throwIfNotFound: true);
+        m_Player_RestarWorld = m_Player.FindAction("RestarWorld", throwIfNotFound: true);
     }
 
     ~@IA_Player()
@@ -1303,6 +1324,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hook;
     private readonly InputAction m_Player_Restart;
     private readonly InputAction m_Player_SkipEndLevel;
+    private readonly InputAction m_Player_RestarWorld;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1326,6 +1348,10 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SkipEndLevel".
         /// </summary>
         public InputAction @SkipEndLevel => m_Wrapper.m_Player_SkipEndLevel;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RestarWorld".
+        /// </summary>
+        public InputAction @RestarWorld => m_Wrapper.m_Player_RestarWorld;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1361,6 +1387,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @SkipEndLevel.started += instance.OnSkipEndLevel;
             @SkipEndLevel.performed += instance.OnSkipEndLevel;
             @SkipEndLevel.canceled += instance.OnSkipEndLevel;
+            @RestarWorld.started += instance.OnRestarWorld;
+            @RestarWorld.performed += instance.OnRestarWorld;
+            @RestarWorld.canceled += instance.OnRestarWorld;
         }
 
         /// <summary>
@@ -1381,6 +1410,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @SkipEndLevel.started -= instance.OnSkipEndLevel;
             @SkipEndLevel.performed -= instance.OnSkipEndLevel;
             @SkipEndLevel.canceled -= instance.OnSkipEndLevel;
+            @RestarWorld.started -= instance.OnRestarWorld;
+            @RestarWorld.performed -= instance.OnRestarWorld;
+            @RestarWorld.canceled -= instance.OnRestarWorld;
         }
 
         /// <summary>
@@ -1600,5 +1632,12 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkipEndLevel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RestarWorld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRestarWorld(InputAction.CallbackContext context);
     }
 }
