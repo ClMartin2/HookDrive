@@ -1,3 +1,4 @@
+using Coffee.UIExtensions;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,19 +6,34 @@ using UnityEngine.UI;
 
 public class WorldClearedScreen : CustomScreen
 {
-    [SerializeField] private Image[] trophies;
-    [SerializeField] private Star[] stars;
-    [SerializeField] private TextMeshProUGUI txtLevelCleared;
     [SerializeField] private Image background;
     [SerializeField] private string[] nameWorlds;
+    [SerializeField] private UIParticle[] uIParticles;
+    [SerializeField] private Color[] color;
+    [SerializeField] private UIScreenShake uiScreenShake;
 
+    [Header ("Medal")]
     [SerializeField] private Sprite BronzeMedal;
     [SerializeField] private Sprite SilverMedal;
     [SerializeField] private Sprite GoldMedal;
 
-    [SerializeField] private Color[] color;
+    [Header("Stars")]
+    [SerializeField] private Star[] stars;
+    [SerializeField] private float delayActivateStarAnimation = 0.25f;
+    [SerializeField] private float delayBetweenStarAnimation = 0.1f;
 
-    private AnimScriptScale animScriptScaleTxtWorld;
+    [Header ("Text")]
+    [SerializeField] private TextMeshProUGUI txtLevelCleared;
+    [SerializeField] private AnimScriptScale animScriptScaleTxtWorld;
+
+    [Header ("Trophies")]
+    [SerializeField] private Image[] trophies;
+    [SerializeField] private AnimScriptScale[] animScriptScaleTrophies;
+
+    [Header("Debug")]
+    [SerializeField] private bool test;
+    [SerializeField] private Medal medalTest;
+    [SerializeField] private string levelNameTest = "W-1 L5";
 
     private void Start()
     {
@@ -25,14 +41,28 @@ public class WorldClearedScreen : CustomScreen
         Hide();
     }
 
+    private void OnEnable()
+    {
+        if (!test)
+            return;
+
+        SetWorldClearedScreen(medalTest, levelNameTest);
+        Show();
+    }
+
     public override void Show()
     {
         base.Show();
 
-        //Faire toutes les anims puis passé au monde suivant direct 
-        //screenshake
-        //animé les etoiles après qu'elle ait apparu
-        //mettre une animation de lettre qui bouge 
+        foreach (UIParticle uIParticle in uIParticles)
+        {
+            uIParticle.Play();
+        }
+
+        foreach (var animScriptScaleTrophie in animScriptScaleTrophies)
+        {
+            animScriptScaleTrophie.Scale();
+        }
     }
 
     public void SetWorldClearedScreen(Medal localActualMedal, string levelName)
@@ -56,7 +86,7 @@ public class WorldClearedScreen : CustomScreen
     private void SetObjects(Sprite medal, Color color1, Color color2, int numberOfStars)
     {
         SetSpriteTrophy(medal);
-        SetColorBackground(color1, color2);
+        //SetColorBackground(color1, color2);
         StartCoroutine(SetStars(numberOfStars));
     }
 
@@ -100,11 +130,15 @@ public class WorldClearedScreen : CustomScreen
             star.Deactivate();
         }
 
+        yield return new WaitForSeconds(delayActivateStarAnimation);
+
         for (int i = 0; i < numberOfStar; i++)
         {
             Star star = stars[i];
             star.FillStar();
+            uiScreenShake.Shake();
             yield return new WaitUntil(() => star.animScriptScale.endAnim);
+            yield return new WaitForSeconds(delayBetweenStarAnimation);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -112,5 +113,15 @@ public class _Camera : MonoBehaviour
             cinemachinePositionComposer.CameraDistance = newDistance;
             cinemachinePositionComposer.transform.rotation = Quaternion.Euler(cameraRotation.x, newYRotation, cameraRotation.z);
         }
+    }
+
+    internal void Shake(object shakeDuration, object amplitudeGain, object frequencyGain)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void Shake(float shakeDuration, float amplitudeGain, object frequencyGain)
+    {
+        throw new NotImplementedException();
     }
 }

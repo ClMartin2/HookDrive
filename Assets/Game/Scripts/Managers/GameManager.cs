@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToWaitEndLevel = 0.5f;
     [SerializeField] private float timeToWaitToShowWorldClearedScreen = 0.5f;
     [SerializeField] private float timeToWaitToSkipLevel = 0.1f;
+    [SerializeField] private float timeToSkipAutomaticlyToGoToNewtWorld = 2f;
     [SerializeField] private InputActionReference skipEndLevelInputs;
 
     [Header("Debug"), Space(10)]
@@ -34,7 +35,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public float timer { get; private set; }
     public bool gameplayStart { get; private set; } = false;
-    public bool worldCleared { get; private set; } = false;
 
     private WorldData currentWorld;
     private int indexCurrentScene;
@@ -161,11 +161,17 @@ public class GameManager : MonoBehaviour
         timer = 0;
         worldClearedScreen.Hide();
         _ = LoadWorld(currentWorld);
+
+        if (coroutineWaitToGoToNextLevel != null)
+            StopCoroutine(coroutineWaitToGoToNextLevel);
     }
 
     private void PlayWorldCleared()
     {
         GoToNexLevel();
+
+        if (coroutineWaitToGoToNextLevel != null)
+            StopCoroutine(coroutineWaitToGoToNextLevel);
     }
 
     private void Restart()
@@ -240,7 +246,8 @@ public class GameManager : MonoBehaviour
                 worldClearedScreen.Show();
                 worldClearedScreen.SetWorldClearedScreen(CheckTrophy(), currentScene);
                 skipEndLevelInputs.action.Enable();
-                worldCleared = true;
+                yield return new WaitForSeconds(timeToSkipAutomaticlyToGoToNewtWorld);
+                PlayWorldCleared();
             }
             else
             {
@@ -302,7 +309,6 @@ public class GameManager : MonoBehaviour
 
         Restart();
         hud.UpdateLevelName(currentScene);
-        worldCleared = false;
         stopTimer = false;
     }
 
