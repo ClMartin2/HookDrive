@@ -6,6 +6,8 @@ public class HookPoint : MonoBehaviour
     [SerializeField] private GameObject lockMesh;
     [SerializeField] private GameObject onMesh;
 
+    public bool isLocked { get; private set; }
+
     private void Start()
     {
         Unlock();
@@ -14,11 +16,14 @@ public class HookPoint : MonoBehaviour
 
     public void Lock()
     {
+        isLocked = true;
         onMesh.SetActive(true);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.LockHook,0.01f);
     }
 
     public void Unlock()
     {
+        isLocked = false;
         onMesh.SetActive(false);
     }
 

@@ -7,7 +7,7 @@ public class CustomButton : MonoBehaviour
 {
     protected Button button;
 
-    private void Awake()
+    virtual protected void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);

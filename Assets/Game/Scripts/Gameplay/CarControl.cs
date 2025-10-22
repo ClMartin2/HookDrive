@@ -17,7 +17,6 @@ public class CarControl : MonoBehaviour
     [SerializeField] private float maxReverseSpeed = 20f;
     [SerializeField] private float centreOfGravityOffset = -1f;
 
-
     public WheelControl[] wheels { get; private set; }
 
     private Rigidbody rb;
@@ -27,6 +26,9 @@ public class CarControl : MonoBehaviour
 
     private float vInput = 0;
     private float hInput = 0;
+    private float lastVInput = 0;
+
+    private float timeToWaitToPlayLoopMotor;
 
     public void Activate()
     {
@@ -115,6 +117,20 @@ public class CarControl : MonoBehaviour
             GameEvents.GameplayStart?.Invoke();
         }
 
+        if(Mathf.Abs(vInput) > 0 && hInput == 0 && lastVInput != vInput)
+        {
+            SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+            SoundManager.Instance.PlaySoundThrottle(SoundManager.CarThrottle,false, 0.01f);
+            timeToWaitToPlayLoopMotor = SoundManager.CarThrottle.length;
+            StartCoroutine(startLoopingMotor());
+        }
+        else if(vInput == 0)
+        {
+            SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+        }
+
+        lastVInput = vInput;
+
         Vector3 localTorque = new Vector3(hInput * horizontalTorque, 0, 0);
         rb.AddRelativeTorque(localTorque, ForceMode.Force);
 
@@ -154,6 +170,13 @@ public class CarControl : MonoBehaviour
         }
 
         SetWheelTorque(desiredMotor, desiredBrake);
+    }
+
+    private IEnumerator startLoopingMotor()
+    {
+        yield return new WaitForSeconds(timeToWaitToPlayLoopMotor);
+        SoundManager.Instance.PlaySoundThrottle(SoundManager.CarThrottleLoop,true, 0.01f);
+        yield return null;
     }
 
     private IEnumerator ReenableWheels()

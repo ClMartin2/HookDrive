@@ -24,7 +24,7 @@ public class FinishZone : MonoBehaviour
         levelFinished = true;
         counterAnim = 0;
         StartCoroutine(DoAnimAsset());
-
+        SoundManager.Instance.PlaySoundSFX(SoundManager.WinLevel, 0.5f);
         GameEvents.EndScene?.Invoke(sas);
     }
 

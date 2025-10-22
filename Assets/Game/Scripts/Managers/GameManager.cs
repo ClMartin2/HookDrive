@@ -138,9 +138,7 @@ public class GameManager : MonoBehaviour
         if (!stopTimer)
         {
             timer += Time.deltaTime;
-            Debug.Log(timer);
         }
-
     }
 
 
@@ -310,6 +308,8 @@ public class GameManager : MonoBehaviour
             LoadFirstWorld();
         }
 
+        SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+        SoundManager.Instance.StopAudioSource(SoundManager.Instance.motorLoop);
         Restart();
         hud.UpdateLevelName(currentScene);
         stopTimer = false;

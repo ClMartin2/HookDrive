@@ -63,6 +63,18 @@ public class WorldClearedScreen : CustomScreen
         {
             animScriptScaleTrophie.Scale();
         }
+
+        SoundManager.Instance.SetMusicInUI(true);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Cheering);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Confetti);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetMusicInUI(false);
     }
 
     public void SetWorldClearedScreen(Medal localActualMedal, string levelName)
@@ -136,6 +148,7 @@ public class WorldClearedScreen : CustomScreen
         {
             Star star = stars[i];
             star.FillStar();
+            SoundManager.Instance.PlaySoundSFX(SoundManager.WinStar);
             uiScreenShake.Shake();
             yield return new WaitUntil(() => star.animScriptScale.endAnim);
             yield return new WaitForSeconds(delayBetweenStarAnimation);

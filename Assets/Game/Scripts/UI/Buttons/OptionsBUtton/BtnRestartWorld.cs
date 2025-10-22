@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BtnRestartWorld : CustomButton
+public class BtnRestartWorld : OptionButton
 {
     protected override void OnClick()
     {
