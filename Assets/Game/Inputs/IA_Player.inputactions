@@ -697,6 +697,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RestarWorld",
+                    "type": "Button",
+                    "id": "d68dccd6-0098-4dbd-8426-9f6fe4b515e2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -752,6 +761,17 @@
                     "processors": "",
                     "groups": ";Touch;Keyboard&Mouse",
                     "action": "SkipEndLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "033d4ab2-62b7-4eaf-989e-6edb7545ff30",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RestarWorld",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
