@@ -38,26 +38,6 @@ public class SceneLoader : MonoBehaviour
         if (currentScene != null)
             await SceneManager.UnloadSceneAsync(currentScene);
 
-        //// Lance le chargement async
-        //AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneToSwitch, LoadSceneMode.Additive);
-        //loadOperation.allowSceneActivation = false;
-
-        //// Tant que la scène n'est pas prête à s'activer
-        //while (loadOperation.progress < 0.9f)
-        //{
-        //    float progress = Mathf.Clamp01(loadOperation.progress / 0.9f);
-        //    string progressText = (int)(progress * 100) + "%";
-
-        //    // Mets à jour l'UI
-        //    if (startScene)
-        //        startLoadingScreen.txtLoading.text = progressText;
-
-        //    Debug.Log(progressText);
-        //    Debug.Log(loadOperation.progress);
-        //    loadingScreen.UpdateTextPercetage(progressText);
-        //    await Task.Yield(); // on attend la frame suivante
-        //}
-
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneToSwitch, LoadSceneMode.Additive);
         loadOperation.allowSceneActivation = false;
 

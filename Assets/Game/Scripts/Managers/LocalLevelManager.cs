@@ -45,7 +45,7 @@ public class LocalLevelManager : MonoBehaviour
 
     private void RestartLevel()
     {
-        if (!finishZone.levelFinished)
+        if (!finishZone.levelFinished || GameManager.Instance.worldCleared)
             StartLevel();
     }
 
