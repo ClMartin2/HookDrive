@@ -19,7 +19,6 @@ public class Star : MonoBehaviour
 
     public void FillStar()
     {
-        fillImage.localScale = Vector3.zero;
         fillImage.gameObject.SetActive(true);
         animScriptScale.Scale();
     }

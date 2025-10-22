@@ -126,7 +126,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 93, y: 93}
+  m_SizeDelta: {x: 93.5, y: 93.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6455672353053057929
 CanvasRenderer:
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Material: {fileID: 2100000, guid: 8441aa6a6749b634e87fa8601479e4c9, type: 2}
+  m_Color: {r: 0.99178326, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b77fe3f54b1e048b65b205c8175831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimScriptScale
-  duration: 0.2
+  duration: 0.3
   animCurve:
     serializedVersion: 2
     m_Curve:
@@ -192,16 +192,27 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -1.5262046
-      outSlope: -1.5262046
+      time: 0.3468028
+      value: 1.0549172
+      inSlope: 0.26979643
+      outSlope: 0.26979643
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.04666668
+      inWeight: 0.33333334
+      outWeight: 0.10440522
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1.2648745
+      outSlope: -1.2648745
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.102062084
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   endScale: {x: 1, y: 1, z: 1}
+  startScale: {x: 0, y: 0, z: 0}
   scaleDown: 0
+  useStartScale: 1
