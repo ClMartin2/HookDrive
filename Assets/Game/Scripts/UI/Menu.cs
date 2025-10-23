@@ -1,9 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Menu : CustomScreen
 {
     [SerializeField] PanelWorldSelection[] allPanelWorldSelection;
+
+    private void Awake()
+    {
+        GameEvents.ChangeOrientation += OrientationChange;
+    }
+
+    private void OrientationChange()
+    {
+        bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
+
+    }
 
     public override void Show()
     {
