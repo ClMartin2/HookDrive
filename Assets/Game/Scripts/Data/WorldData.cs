@@ -6,6 +6,7 @@ public class WorldData : ScriptableObject
 {
     public string[] scenes;
     public MedalToTime[] medalToTime;
+    public Medal actualMedal = Medal.none;
 }
 
 

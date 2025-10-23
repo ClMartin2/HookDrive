@@ -18,16 +18,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float muffledCutoffFrequency = 430;
     [SerializeField] private float durationProgressive = 0.3f;
 
-    public static AudioClip CarThrottle { get { return Instance.soundDatabase.carThrottle; } }
-    public static AudioClip CarThrottleLoop { get { return Instance.soundDatabase.carThrottleLoop; } }
-    public static AudioClip HookStart { get { return Instance.soundDatabase.hookStart; } }
-    public static AudioClip LockHook { get { return Instance.soundDatabase.lockHook; } }
-    public static AudioClip WinLevel { get { return Instance.soundDatabase.winLevel; } }
-    public static AudioClip Cheering { get { return Instance.soundDatabase.cheering; } }
-    public static AudioClip Confetti { get { return Instance.soundDatabase.confetti; } }
-    public static AudioClip WinStar { get { return Instance.soundDatabase.winStar; } }
-    public static AudioClip Landing { get { return Instance.soundDatabase.landing; } }
-    public static AudioClip ClickBtn { get { return Instance.soundDatabase.clickBtn; } }
+    public static AudioClipToVolume CarThrottle { get { return Instance.soundDatabase.carThrottle; } }
+    public static AudioClipToVolume CarThrottleLoop { get { return Instance.soundDatabase.carThrottleLoop; } }
+    public static AudioClipToVolume HookStart { get { return Instance.soundDatabase.hookStart; } }
+    public static AudioClipToVolume LockHook { get { return Instance.soundDatabase.lockHook; } }
+    public static AudioClipToVolume WinLevel { get { return Instance.soundDatabase.winLevel; } }
+    public static AudioClipToVolume Cheering { get { return Instance.soundDatabase.cheering; } }
+    public static AudioClipToVolume Confetti { get { return Instance.soundDatabase.confetti; } }
+    public static AudioClipToVolume WinStar { get { return Instance.soundDatabase.winStar; } }
+    public static AudioClipToVolume Landing { get { return Instance.soundDatabase.landing; } }
+    public static AudioClipToVolume ClickBtn { get { return Instance.soundDatabase.clickBtn; } }
 
     public static SoundManager Instance { get; private set; }
 
@@ -53,7 +53,7 @@ public class SoundManager : MonoBehaviour
     {
         throttleAudioSource.loop = loop;
         throttleAudioSource.PlayOneShot(audio, volumeScale);
-        throttleAudioSource.pitch = Random.Range(0.9f, 1.1f);
+        throttleAudioSource.pitch = Random.Range(0.95f, 1.05f);
     }
 
     public void StopAudioSource(AudioSource audioSource)

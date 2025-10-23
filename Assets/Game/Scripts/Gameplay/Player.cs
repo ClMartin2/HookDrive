@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
         if (impactSpeed > impactThreshold)
         {
             _camera.Shake(shakeDurationLand, ampltitudeGainLand, frequencyGainLand);
-            SoundManager.Instance.PlaySoundSFX(SoundManager.Landing,0.75f);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.Landing.audioClip, SoundManager.Landing.volume);
         }
     }
 
@@ -306,7 +306,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.PlaySoundSFX(SoundManager.HookStart, 0.5f);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.HookStart.audioClip, SoundManager.HookStart.volume);
             attachedHookPoint = hookPoint;
             hookPoint.Attached();
             isGrappling = true;

@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &6315381955565037886
 RectTransform:
@@ -106,7 +106,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &3823571811169207135
 RectTransform:
@@ -179,7 +179,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2915342175333448419
 RectTransform:
@@ -218,7 +218,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &8146412084594399414
 RectTransform:
@@ -314,7 +314,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &8146183312105030575
 RectTransform:
@@ -364,8 +364,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: e7ea0513d96e3cb48823585aeb885b6b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -390,7 +390,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &3238978357734660160
 RectTransform:
@@ -448,8 +448,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -526,7 +526,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2300291517287907039
 RectTransform:
@@ -572,7 +572,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -607,7 +607,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1245185397169728887
 RectTransform:
@@ -709,6 +709,26 @@ PrefabInstance:
       propertyPath: worldData
       value: 
       objectReference: {fileID: 11400000, guid: 751d35022dc1a844da466e04fcd815c5, type: 2}
+    - target: {fileID: 1072717486429379156, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771327661939252017, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 3691536306485789346}
+    - target: {fileID: 3054045604608705144, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631121669738819458, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586047648009532903, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -739,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 740.7648
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -789,13 +809,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7166047373364010535, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a6be5a566abeacd4bac532075a38d5f2, type: 3}
+    - target: {fileID: 7821036294654391892, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_text
+      value: World 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7821036294654391892, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_fontSize
-      value: 46
+      value: 73.4
       objectReference: {fileID: 0}
     - target: {fileID: 8233931666160803092, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Name
       value: PanelWorldSelection (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233931666160803092, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -813,6 +845,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4c70d5af2d5de4c81572f71f54e766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PanelWorldSelection
+--- !u!114 &3691536306485789346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7780283051615159648, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+  m_PrefabInstance: {fileID: 6396209337387747266}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &4134598922643090500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
@@ -826,10 +869,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2300291517287907039}
     m_Modifications:
-    - target: {fileID: 2771327661939252017, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
-      propertyPath: m_Colors.m_ColorMultiplier
-      value: 3.7
-      objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -860,7 +899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 740.7648
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -909,10 +948,6 @@ PrefabInstance:
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7821036294654391892, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
-      propertyPath: m_fontSize
-      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 8233931666160803092, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Name
@@ -951,6 +986,26 @@ PrefabInstance:
       propertyPath: worldData
       value: 
       objectReference: {fileID: 11400000, guid: e96446ec3c6238d4ea9f6fb4c30c706a, type: 2}
+    - target: {fileID: 1072717486429379156, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771327661939252017, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1543634795707625683}
+    - target: {fileID: 3054045604608705144, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631121669738819458, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586047648009532903, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -981,7 +1036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 740.7648
       objectReference: {fileID: 0}
     - target: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1031,13 +1086,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7166047373364010535, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f83891efa55d93240ac86293e893c41a, type: 3}
+    - target: {fileID: 7821036294654391892, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_text
+      value: World 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7821036294654391892, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_fontSize
-      value: 46
+      value: 73.5
       objectReference: {fileID: 0}
     - target: {fileID: 8233931666160803092, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
       propertyPath: m_Name
       value: PanelWorldSelection (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233931666160803092, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1055,6 +1122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4c70d5af2d5de4c81572f71f54e766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PanelWorldSelection
+--- !u!114 &1543634795707625683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7780283051615159648, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}
+  m_PrefabInstance: {fileID: 9121207193353745843}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &2249518108723404341 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7035446498188995462, guid: 8fe531b260bb14a47a5a66bb117db2c1, type: 3}

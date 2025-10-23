@@ -65,8 +65,8 @@ public class WorldClearedScreen : CustomScreen
         }
 
         SoundManager.Instance.SetMusicInUI(true);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.Cheering);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.Confetti);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Cheering.audioClip, SoundManager.Cheering.volume);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Confetti.audioClip, SoundManager.Confetti.volume);
     }
 
     public override void Hide()
@@ -148,7 +148,7 @@ public class WorldClearedScreen : CustomScreen
         {
             Star star = stars[i];
             star.FillStar();
-            SoundManager.Instance.PlaySoundSFX(SoundManager.WinStar);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.WinStar.audioClip, SoundManager.WinStar.volume);
             uiScreenShake.Shake();
             yield return new WaitUntil(() => star.animScriptScale.endAnim);
             yield return new WaitForSeconds(delayBetweenStarAnimation);
@@ -158,6 +158,7 @@ public class WorldClearedScreen : CustomScreen
 
 public enum Medal
 {
+    none,
     bronze,
     silver,
     gold
