@@ -12,6 +12,10 @@ public class Hud : CustomScreen
     [SerializeField] private GameObject hookButtonHorizontal;
     [SerializeField] private GameObject hookButtonVertical;
 
+    [Header("Shop button")]
+    [SerializeField] private GameObject shopButtonHorizontal;
+    [SerializeField] private GameObject shopButtonVertical;
+
     [Header("Settings Button Control")]
     [SerializeField] private float widthPanelButtonControlHorizontal = 750;
     [SerializeField] private float widthPanelButtonControlVertical = 500;
@@ -110,6 +114,9 @@ public class Hud : CustomScreen
     {
         hookButtonVertical.SetActive(isVertical);
         hookButtonHorizontal.SetActive(!isVertical);
+
+        shopButtonVertical.SetActive(isVertical);
+        shopButtonHorizontal.SetActive(!isVertical);
 
         layoutTopVertical.SetActive(isVertical);
         layoutTopHorizontal.SetActive(!isVertical);

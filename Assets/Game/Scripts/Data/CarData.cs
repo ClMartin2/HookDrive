@@ -5,4 +5,5 @@ public class CarData : ScriptableObject
 {
     public GameObject carModel;
     public Vector3 offsetPositionCar;
+    public Sprite imageShopCar;
 }

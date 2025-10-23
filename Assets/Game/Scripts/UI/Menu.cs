@@ -26,6 +26,9 @@ public class Menu : CustomScreen
 
     private void OrientationChange()
     {
+        if (!GameManager.isMobile())
+            return;
+
         bool isVertical = Screen.orientation == ScreenOrientation.Portrait || Screen.orientation == ScreenOrientation.PortraitUpsideDown;
 
         if (isVertical) {

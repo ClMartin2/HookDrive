@@ -11,4 +11,5 @@ public class GameEvents : MonoBehaviour
     public static Action GameplayStart;
     public static Action ChangeOrientation;
     public static Action Play;
+    public static Action<CarData> SelectShop;
 }
