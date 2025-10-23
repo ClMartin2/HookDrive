@@ -4,6 +4,7 @@
     {
         _ColorA("Color A", Color) = (1,1,0,1)
         _ColorB("Color B", Color) = (1,0.5,0,1)
+        _MainTex("Main Texture", 2D) = "white" {} // <-- ajouté
     }
     SubShader
     {
@@ -29,6 +30,7 @@
                 float4 vertex : SV_POSITION;
             };
 
+            sampler2D _MainTex; // <-- ajouté pour éviter l'erreur
             float4 _ColorA;
             float4 _ColorB;
 
@@ -42,8 +44,7 @@
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Calcul du dégradé diagonal
-                float diag = (i.uv.x + i.uv.y) / 2.0; // 0 = bas-gauche, 1 = haut-droite
+                float diag = (i.uv.x + i.uv.y) / 2.0;
                 fixed4 col = lerp(_ColorA, _ColorB, diag);
                 return col;
             }
