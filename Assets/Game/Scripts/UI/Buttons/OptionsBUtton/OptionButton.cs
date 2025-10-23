@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AnimScriptScale))]
 public class OptionButton : CustomButton
 {
     private AnimScriptScale animScriptScale;

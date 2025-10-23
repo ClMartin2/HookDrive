@@ -59,6 +59,8 @@ public class Player : MonoBehaviour
     private HookPoint attachedHookPoint;
     private _Camera _camera;
     private bool checkCollision = true;
+    private GameObject currentCarModel;
+    private bool canActivateSoundLanding = true;
 
     private void Awake()
     {
@@ -76,11 +78,7 @@ public class Player : MonoBehaviour
 
         carControl.Init();
 
-        GameObject newCar = Instantiate(carData.carModel, carParent);
-        newCar.transform.position += carData.offsetPositionCar;
-
-        int layer = LayerMask.NameToLayer(carLayerName);
-        SetLayerRecursively(newCar, layer);
+        UpdateCarModel(carData);
     }
 
     private void Start()
@@ -176,15 +174,6 @@ public class Player : MonoBehaviour
         checkCollision = true;
     }
 
-    private void Collide(float impactSpeed, float impactThreshold)
-    {
-        if (impactSpeed > impactThreshold)
-        {
-            _camera.Shake(shakeDurationLand, ampltitudeGainLand, frequencyGainLand);
-            SoundManager.Instance.PlaySoundSFX(SoundManager.Landing.audioClip, SoundManager.Landing.volume);
-        }
-    }
-
     public void Restart()
     {
         carControl.Restart();
@@ -239,6 +228,40 @@ public class Player : MonoBehaviour
         rb.useGravity = true;
         stopUpdate = false;
         SoundManager.Instance.motorLoop.Play();
+    }
+
+    public void UpdateCarModel(CarData carData)
+    {
+        if(currentCarModel)
+            Destroy(currentCarModel);
+
+        currentCarModel = Instantiate(carData.carModel, carParent);
+        currentCarModel.transform.position += carData.offsetPositionCar;
+
+        int layer = LayerMask.NameToLayer(carLayerName);
+        SetLayerRecursively(currentCarModel, layer);
+    }
+
+    private void Collide(float impactSpeed, float impactThreshold)
+    {
+        if (impactSpeed > impactThreshold)
+        {
+            _camera.Shake(shakeDurationLand, ampltitudeGainLand, frequencyGainLand);
+
+            if (canActivateSoundLanding)
+            {
+                SoundManager.Instance.PlaySoundSFX(SoundManager.Landing.audioClip, SoundManager.Landing.volume);
+                canActivateSoundLanding = false;
+                StartCoroutine(SetCanActivateSoundLanding());
+            }
+        }
+    }
+
+    private IEnumerator SetCanActivateSoundLanding()
+    {
+        yield return new WaitForSeconds(0.25f);
+        canActivateSoundLanding = true;
+        yield return null;
     }
 
     private void SetLayerRecursively(GameObject obj, int layer)

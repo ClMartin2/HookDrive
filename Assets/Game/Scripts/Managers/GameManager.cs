@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<WorldData> allWorlds = new();
     [SerializeField] private Menu menu;
     [SerializeField] private Hud hud;
+    [SerializeField] private Shop shop;
     [SerializeField] private WorldClearedScreen worldClearedScreen;
     [SerializeField] private WorldData startWorld;
     [SerializeField] private WorldData SAS;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
         GameEvents.Play += PlayWorldCleared;
         GameEvents.OnRestartRequested += Restart;
         GameEvents.OnRestartWorld += RestartWorld;
+        GameEvents.SelectShop += SelectShop;
 
         skipEndLevelInputs.action.performed += GoToNexLevel;
         restartWorldInput.action.performed += RestartWorldInput;
@@ -155,6 +157,13 @@ public class GameManager : MonoBehaviour
     {
         _ = LoadWorld(startWorld, startScene);
     }
+
+    private void SelectShop(CarData carData)
+    {
+        player.UpdateCarModel(carData);
+        shop.Hide();
+    }
+
 
     private void RestartWorldInput(InputAction.CallbackContext context)
     {

@@ -43,6 +43,16 @@ public class SoundManager : MonoBehaviour
             Instance = this;
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        PauseSound(focus);
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        PauseSound(pause);
+    }
+
     public void PlaySoundSFX(AudioClip audio, float volumeScale = 1)
     {
         sfx.PlayOneShot(audio, volumeScale);
@@ -87,5 +97,23 @@ public class SoundManager : MonoBehaviour
 
         audioLowPassFilter.cutoffFrequency = targetCutOffFrequency;
         yield return null;
+    }
+
+    private void PauseSound(bool pause)
+    {
+        if (!pause)
+        {
+            sfx.Pause();
+            music.Pause();
+            motorLoop.Pause();
+            throttleAudioSource.Pause();
+        }
+        else
+        {
+            sfx.UnPause();
+            music.UnPause();
+            motorLoop.UnPause();
+            throttleAudioSource.UnPause();
+        }
     }
 }
