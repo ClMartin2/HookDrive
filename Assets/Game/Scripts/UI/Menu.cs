@@ -5,6 +5,20 @@ public class Menu : CustomScreen
 {
     [SerializeField] PanelWorldSelection[] allPanelWorldSelection;
 
+    public override void Show()
+    {
+        base.Show();
+
+        SoundManager.Instance.SetMusicInUI(true);
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+
+        SoundManager.Instance.SetMusicInUI(false);
+    }
+
     public void SetLock(Dictionary<WorldData, bool> unlocksWorldData)
     {
         foreach (var panelWorldSelection in allPanelWorldSelection)

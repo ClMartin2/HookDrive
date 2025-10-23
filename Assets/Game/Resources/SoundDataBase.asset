@@ -12,13 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812231e15cc6747479ea1e7a1822ca97, type: 3}
   m_Name: SoundDataBase
   m_EditorClassIdentifier: Assembly-CSharp::SoundDataBase
-  carThrottle: {fileID: 8300000, guid: aaadf1e6589528d40af5657aaaabf847, type: 3}
-  carThrottleLoop: {fileID: 8300000, guid: 184d878c43fdced419bc2ba1ef156193, type: 3}
-  hookStart: {fileID: 8300000, guid: f97192743024671469d0f0e8959ebfb7, type: 3}
-  lockHook: {fileID: 8300000, guid: e6b6ac18a188f81408c6b47d0006f921, type: 3}
-  winLevel: {fileID: 8300000, guid: 4fbf059364834db4ea5ff537eada1d7a, type: 3}
-  cheering: {fileID: 8300000, guid: 3a691d1c80ab07344bb62e33c42af481, type: 3}
-  confetti: {fileID: 8300000, guid: 65ab43edb9e905841be337a27e14b1b8, type: 3}
-  winStar: {fileID: 8300000, guid: df99195aa60a50c44a9b796408591892, type: 3}
-  landing: {fileID: 8300000, guid: b715f16a646be2d4498d9cf408a9d56e, type: 3}
-  clickBtn: {fileID: 8300000, guid: 259c65daabcb15e47a4e8c0407b09bf7, type: 3}
+  carThrottle:
+    audioClip: {fileID: 8300000, guid: aaadf1e6589528d40af5657aaaabf847, type: 3}
+    volume: 0.01
+  carThrottleLoop:
+    audioClip: {fileID: 8300000, guid: 184d878c43fdced419bc2ba1ef156193, type: 3}
+    volume: 0.01
+  hookStart:
+    audioClip: {fileID: 8300000, guid: f97192743024671469d0f0e8959ebfb7, type: 3}
+    volume: 0.5
+  lockHook:
+    audioClip: {fileID: 8300000, guid: e6b6ac18a188f81408c6b47d0006f921, type: 3}
+    volume: 0.05
+  winLevel:
+    audioClip: {fileID: 8300000, guid: 4fbf059364834db4ea5ff537eada1d7a, type: 3}
+    volume: 0.1
+  cheering:
+    audioClip: {fileID: 8300000, guid: 3a691d1c80ab07344bb62e33c42af481, type: 3}
+    volume: 0.1
+  confetti:
+    audioClip: {fileID: 8300000, guid: 65ab43edb9e905841be337a27e14b1b8, type: 3}
+    volume: 0.1
+  winStar:
+    audioClip: {fileID: 8300000, guid: df99195aa60a50c44a9b796408591892, type: 3}
+    volume: 0.5
+  landing:
+    audioClip: {fileID: 8300000, guid: b715f16a646be2d4498d9cf408a9d56e, type: 3}
+    volume: 0.3
+  clickBtn:
+    audioClip: {fileID: 8300000, guid: 259c65daabcb15e47a4e8c0407b09bf7, type: 3}
+    volume: 0.05

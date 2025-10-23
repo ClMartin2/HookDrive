@@ -340,6 +340,8 @@ public class GameManager : MonoBehaviour
 
         }
 
+        currentWorld.actualMedal = actualMedal;
+
         return actualMedal;
     }
 

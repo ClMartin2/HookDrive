@@ -18,7 +18,7 @@ public class HookPoint : MonoBehaviour
     {
         isLocked = true;
         onMesh.SetActive(true);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.LockHook,0.01f);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.LockHook.audioClip, SoundManager.LockHook.volume);
     }
 
     public void Unlock()
