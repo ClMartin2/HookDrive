@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Shop : CustomScreen
 {
-    [SerializeField] private Button btnCloseShop;
+    [SerializeField] private Button[] btnsCloseShop;
     [SerializeField] private RectTransform containerShop;
     [SerializeField] private Vector2 sizeVerticalContainerShop;
 
@@ -19,7 +19,11 @@ public class Shop : CustomScreen
         else
             Instance = this;
 
-        btnCloseShop.onClick.AddListener(Hide);
+        foreach (Button btnCloseShop in btnsCloseShop)
+        {
+            btnCloseShop.onClick.AddListener(Hide);
+        }
+
         GameEvents.ChangeOrientation += ChangeOrientation;
         sizeHorizontalContainerShop = containerShop.sizeDelta;
     }
@@ -28,6 +32,27 @@ public class Shop : CustomScreen
     {
         Hide();
     }
+
+    public override void Hide()
+    {
+        base.Hide();
+
+        foreach (Button btnCloseShop in btnsCloseShop)
+        {
+            btnCloseShop.gameObject.SetActive(false);
+        }
+    }
+
+    public override void Show()
+    {
+        base.Show();
+
+        foreach (Button btnCloseShop in btnsCloseShop)
+        {
+            btnCloseShop.gameObject.SetActive(true);
+        }
+    }
+
     private void ChangeOrientation()
     {
         if (!GameManager.isMobile())
