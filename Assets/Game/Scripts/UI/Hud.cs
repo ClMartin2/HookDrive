@@ -7,6 +7,7 @@ public class Hud : CustomScreen
     [SerializeField] private TextMeshProUGUI[] txtsLevelName;
     [SerializeField] private RectTransform[] controlPanels;
     [SerializeField] private HorizontalLayoutGroup[] horizontalLayoutGroups;
+    [SerializeField] private Button[] optionsButton;
 
     [Header("Hook button")]
     [SerializeField] private GameObject hookButtonHorizontal;
@@ -76,6 +77,14 @@ public class Hud : CustomScreen
                     controlButton.gameObject.SetActive(localActivate);
             }
 
+        }
+    }
+
+    public void ActivateOptionButtons(bool activate)
+    {
+        foreach (var optionButton in optionsButton)
+        {
+            optionButton.interactable = activate;
         }
     }
 

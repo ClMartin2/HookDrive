@@ -220,6 +220,18 @@ public class Player : MonoBehaviour
         particleFinish.Stop();
     }
 
+    public void DeactivateControl()
+    {
+        hookInput.action.Disable();
+        carControl.Deactivate();
+    }
+
+    public void ActivateControl()
+    {
+        carControl.Activate();
+        hookInput.action.Enable();
+    }
+
     public void Activate()
     {
         gameObject.SetActive(true);
@@ -227,7 +239,6 @@ public class Player : MonoBehaviour
         hookInput.action.Enable();
         rb.useGravity = true;
         stopUpdate = false;
-        SoundManager.Instance.motorLoop.Play();
     }
 
     public void UpdateCarModel(CarData carData)

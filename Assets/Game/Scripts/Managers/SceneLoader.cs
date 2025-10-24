@@ -33,6 +33,8 @@ public class SceneLoader : MonoBehaviour
         else
             loadingScreen.Show();
 
+        GameManager.Instance.GameplayStop();
+
         await Task.Yield();
 
         if (currentScene != null)
@@ -79,6 +81,7 @@ public class SceneLoader : MonoBehaviour
             StartCoroutine(LoadingScreenAnimation());
         }
 
+        GameEvents.StartWorld?.Invoke();
         currentScene = sceneToSwitch;
     }
 

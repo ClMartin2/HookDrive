@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
         GameEvents.OnRestartRequested += Restart;
         GameEvents.OnRestartWorld += RestartWorld;
         GameEvents.SelectShop += SelectShop;
+        GameEvents.ShowShop += ShowShop;
+        GameEvents.HideShop += HideShop;
+        GameEvents.StartWorld += StartWorld;
 
         skipEndLevelInputs.action.performed += GoToNexLevel;
         restartWorldInput.action.performed += RestartWorldInput;
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         _mobileTest = mobileTest;
     }
+
 
     private void Start()
     {
@@ -158,12 +162,34 @@ public class GameManager : MonoBehaviour
         _ = LoadWorld(startWorld, startScene);
     }
 
+    public void GameplayStop()
+    {
+        PokiUnitySDK.Instance.gameplayStop();
+        gameplayStart = false;
+    }
+
+
+    private void StartWorld()
+    {
+        hud.ActivateOptionButtons(true);
+    }
+
+    private void ShowShop()
+    {
+        player.DeactivateControl();
+        GameplayStop();
+    }
+
+    private void HideShop()
+    {
+        player.ActivateControl();
+    }
+
     private void SelectShop(CarData carData)
     {
         player.UpdateCarModel(carData);
         shop.Hide();
     }
-
 
     private void RestartWorldInput(InputAction.CallbackContext context)
     {
@@ -211,6 +237,9 @@ public class GameManager : MonoBehaviour
         currentWorld = worldData;
         indexCurrentScene = 0;
         currentScene = currentWorld.scenes[0];
+        GameplayStop();
+        shop.Hide();
+        hud.ActivateOptionButtons(false);
 
         await SceneLoader.Instance.SwitchScene(currentScene, startScene);
 
@@ -219,6 +248,8 @@ public class GameManager : MonoBehaviour
 
     private void GoBackToMenu()
     {
+        GameplayStop();
+
         menu.Show();
         menu.SetLock(unlocksWorldData);
 
@@ -234,6 +265,7 @@ public class GameManager : MonoBehaviour
 
     private void EndScene(bool sas)
     {
+        hud.ActivateOptionButtons(false);
         stopTimer = true;
         player.EndScene();
         _camera.Zoom();
@@ -246,6 +278,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(timeToWaitToSkipLevel);
 
         indexCurrentScene++;
+        shop.Hide();
 
         if (!sas)
         {
@@ -256,6 +289,7 @@ public class GameManager : MonoBehaviour
                 worldClearedScreen.SetWorldClearedScreen(CheckTrophy(), currentScene);
                 skipEndLevelInputs.action.Enable();
                 restartWorldInput.action.Enable();
+                GameplayStop();
                 yield return new WaitForSeconds(timeToSkipAutomaticlyToGoToNewtWorld);
                 PlayWorldCleared();
             }
@@ -318,7 +352,6 @@ public class GameManager : MonoBehaviour
         }
 
         SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
-        SoundManager.Instance.StopAudioSource(SoundManager.Instance.motorLoop);
         Restart();
         hud.UpdateLevelName(currentScene);
         stopTimer = false;

@@ -20,6 +20,8 @@ public class LocalLevelManager : MonoBehaviour
         restartInput.action.Enable();
         restartInput.action.performed += Restart_performed;
 
+        GameEvents.StartWorld?.Invoke();
+
         ActivateFTUE();
     }
 

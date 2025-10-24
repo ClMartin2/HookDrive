@@ -37,6 +37,8 @@ public class Shop : CustomScreen
     {
         base.Hide();
 
+        GameEvents.HideShop?.Invoke();
+
         foreach (Button btnCloseShop in btnsCloseShop)
         {
             btnCloseShop.gameObject.SetActive(false);
@@ -46,6 +48,8 @@ public class Shop : CustomScreen
     public override void Show()
     {
         base.Show();
+
+        GameEvents.ShowShop?.Invoke();
 
         foreach (Button btnCloseShop in btnsCloseShop)
         {
