@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
         currentScreenOrientation = Screen.orientation;
 
         if (currentScreenOrientation != lastScreenOrientation)
-            GameEvents.ChangeOrientation();
+            GameEvents.ChangeOrientation?.Invoke();
 
         lastScreenOrientation = currentScreenOrientation;
 

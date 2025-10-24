@@ -373,7 +373,7 @@ public class Player : MonoBehaviour
 
                 Vector3 toHook = hookPoint.transform.position - player.position;
 
-                if (Vector3.Dot(player.forward, toHook.normalized) < 0f)
+                if (Vector3.Dot(Vector3.forward, toHook.normalized) < 0f)
                     continue;
 
                 float sqrDistance = (hookPoint.transform.position - player.position).sqrMagnitude;
