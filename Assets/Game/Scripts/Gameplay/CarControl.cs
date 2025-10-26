@@ -38,6 +38,11 @@ public class CarControl : MonoBehaviour
     public void Deactivate()
     {
         carControls.Disable();
+
+        btnLeftRotate.OnPointerUp(null);
+        btnRightRotate.OnPointerUp(null);
+        btnForward.OnPointerUp(null);
+        btnBackward.OnPointerUp(null);
     }
 
     public void Restart()

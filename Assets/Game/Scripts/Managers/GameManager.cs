@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WorldClearedScreen worldClearedScreen;
     [SerializeField] private WorldData startWorld;
     [SerializeField] private WorldData SAS;
+    [SerializeField] private _Camera _camera;
 
     [Header("End level")]
     [SerializeField] private float timeToWaitEndLevel = 0.5f;
@@ -45,7 +46,6 @@ public class GameManager : MonoBehaviour
     private int currentWorldUnlock = 1;
     private string currentScene;
     private Coroutine coroutineWaitToGoToNextLevel;
-    private _Camera _camera;
     private bool stopTimer = false;
 
     private static bool _mobileTest;
