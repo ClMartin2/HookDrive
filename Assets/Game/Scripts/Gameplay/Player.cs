@@ -124,16 +124,19 @@ public class Player : MonoBehaviour
             }
         }
 
-        hookPoint = GetClosestHookPoint(transform, hookDetection.hookPoints);
+        hookPoint = GetClosestHookPoint(hookDetection.hookPoints, true);
 
         if (lastHookPoint != null && hookPoint != lastHookPoint)
+        {
             lastHookPoint.Unlock();
+        }
 
         if (hookPoint != null && !hookPoint.isLocked)
         {
             hookPoint.Lock();
-            lastHookPoint = hookPoint;
         }
+
+        lastHookPoint = hookPoint;
 
         if (!canHook)
         {
@@ -363,7 +366,7 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
-    private HookPoint GetClosestHookPoint(Transform player, List<HookPoint> hookPoints)
+    private HookPoint GetClosestHookPoint( List<HookPoint> hookPoints, bool CheckHookPointBehind)
     {
         HookPoint closest = null;
         float closestDistanceSqr = Mathf.Infinity;
@@ -375,18 +378,26 @@ public class Player : MonoBehaviour
                 if (hookPoint == null)
                     continue;
 
-                Vector3 toHook = hookPoint.transform.position - player.position;
+                if (CheckHookPointBehind)
+                {
+                    Vector3 toHook = hookPoint.transform.position - transform.position;
 
-                if (Vector3.Dot(Vector3.forward, toHook.normalized) < 0f)
-                    continue;
+                    if (Vector3.Dot(Vector3.forward, toHook.normalized) < 0f)
+                        continue;
+                }
 
-                float sqrDistance = (hookPoint.transform.position - player.position).sqrMagnitude;
+                float sqrDistance = (hookPoint.transform.position - transform.position).sqrMagnitude;
 
                 if (sqrDistance < closestDistanceSqr)
                 {
                     closestDistanceSqr = sqrDistance;
                     closest = hookPoint;
                 }
+            }
+
+            if (closest == null)
+            {
+                return GetClosestHookPoint(hookPoints, false);
             }
         }
         else if (hookPoints.Count == 1)
