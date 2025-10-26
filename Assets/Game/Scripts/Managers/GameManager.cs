@@ -180,14 +180,16 @@ public class GameManager : MonoBehaviour
         GameplayStop();
     }
 
-    private void HideShop()
+    private void HideShop(bool endScene)
     {
-        player.ActivateControl();
+        if (!endScene)
+            player.ActivateControl();
     }
 
     private void SelectShop(CarData carData)
     {
         player.UpdateCarModel(carData);
+        shop.EndScene = false;
         shop.Hide();
     }
 
@@ -238,6 +240,7 @@ public class GameManager : MonoBehaviour
         indexCurrentScene = 0;
         currentScene = currentWorld.scenes[0];
         GameplayStop();
+        shop.EndScene = true;
         shop.Hide();
         hud.ActivateOptionButtons(false);
 
@@ -278,6 +281,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(timeToWaitToSkipLevel);
 
         indexCurrentScene++;
+        shop.EndScene = true;
         shop.Hide();
 
         if (!sas)

@@ -13,6 +13,6 @@ public class GameEvents : MonoBehaviour
     public static Action Play;
     public static Action<CarData> SelectShop;
     public static Action ShowShop;
-    public static Action HideShop;
+    public static Action <bool> HideShop;
     public static Action StartWorld;
 }

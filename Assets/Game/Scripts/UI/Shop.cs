@@ -8,9 +8,11 @@ public class Shop : CustomScreen
     [SerializeField] private RectTransform containerShop;
     [SerializeField] private Vector2 sizeVerticalContainerShop;
 
-    private Vector2 sizeHorizontalContainerShop;
-
     public static Shop Instance;
+
+    public bool EndScene = false;
+
+    private Vector2 sizeHorizontalContainerShop;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class Shop : CustomScreen
 
         foreach (Button btnCloseShop in btnsCloseShop)
         {
-            btnCloseShop.onClick.AddListener(Hide);
+            btnCloseShop.onClick.AddListener(HideBtnCloseShop);
         }
 
         GameEvents.ChangeOrientation += ChangeOrientation;
@@ -37,7 +39,7 @@ public class Shop : CustomScreen
     {
         base.Hide();
 
-        GameEvents.HideShop?.Invoke();
+        GameEvents.HideShop?.Invoke(EndScene);
 
         foreach (Button btnCloseShop in btnsCloseShop)
         {
@@ -55,6 +57,12 @@ public class Shop : CustomScreen
         {
             btnCloseShop.gameObject.SetActive(true);
         }
+    }
+
+    private void HideBtnCloseShop()
+    {
+        EndScene = false;
+        Hide();
     }
 
     private void ChangeOrientation()
