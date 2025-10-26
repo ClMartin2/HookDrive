@@ -18,11 +18,12 @@ public class CarControl : MonoBehaviour
     [SerializeField] private float centreOfGravityOffset = -1f;
 
     public WheelControl[] wheels { get; private set; }
+    public float maxSpeed { get; private set; }
+    public float speedFactor { get; private set; }
 
     private Rigidbody rb;
     private IA_Player carControls;
     private Quaternion startRotation;
-    private float maxSpeed;
 
     private float vInput = 0;
     private float hInput = 0;
@@ -144,7 +145,7 @@ public class CarControl : MonoBehaviour
 
         maxSpeed = vInput > 0 ? maxForwardSpeed : maxReverseSpeed;
 
-        float speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
+        speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
 
         // Reduce motor torque and steering at high speeds for better handling
         float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);

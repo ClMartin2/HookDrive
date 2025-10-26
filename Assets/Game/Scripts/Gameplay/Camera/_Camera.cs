@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -10,18 +10,24 @@ public class _Camera : MonoBehaviour
     [SerializeField] private AnimationCurve curveZoom;
     [SerializeField] private float yVerticalRotationCam = -43.264f;
     [SerializeField] private float distanceVerticalCamera = 30;
+    [SerializeField] private float maxFOV = 90;
+    [SerializeField] private float lerpingFOVSpeed = 0.1f;
 
     private float yHorizontalRotationCam;
     private float distanceHorizontalCamera;
+    private float startFOV = 80;
 
     public static _Camera Instance;
 
     private CinemachinePositionComposer cinemachinePositionComposer;
     private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
+    private CinemachineCamera cinemachineCamera;
     private float startDistance;
     private float counterZoom;
     private Coroutine coroutineZoom;
     private float counterShake;
+    private Player player;
+    private float fovVelocity = 0f;
 
     public void Awake()
     {
@@ -32,6 +38,7 @@ public class _Camera : MonoBehaviour
 
         cinemachinePositionComposer = GetComponent<CinemachinePositionComposer>();
         cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
+        cinemachineCamera = GetComponent<CinemachineCamera>();
     }
 
     private void Start()
@@ -39,20 +46,36 @@ public class _Camera : MonoBehaviour
         startDistance = cinemachinePositionComposer.CameraDistance;
         distanceHorizontalCamera = startDistance;
         yHorizontalRotationCam = cinemachinePositionComposer.transform.rotation.eulerAngles.y;
+        startFOV = cinemachineCamera.Lens.FieldOfView;
+        player = Player.Instance;
 
         GameEvents.ChangeOrientation += OrientationChange;
         OrientationChange();
     }
 
+    private void Update()
+    {
+        float speedLerp = player.actualSpeed / player.maxSpeed;
+        float targetFOV = Mathf.Lerp(startFOV, maxFOV, speedLerp);
+
+        // Application lissée du FOV
+        cinemachineCamera.Lens.FieldOfView = Mathf.SmoothDamp(
+            cinemachineCamera.Lens.FieldOfView,
+            targetFOV,
+            ref fovVelocity,
+            lerpingFOVSpeed 
+        );
+    }
+
     public void Shake(float shakeDuration, float amplitudeGain, float frequencyGain)
     {
         counterShake = 0;
-        StartCoroutine(_Shake(shakeDuration,amplitudeGain,frequencyGain));
+        StartCoroutine(_Shake(shakeDuration, amplitudeGain, frequencyGain));
     }
 
     private IEnumerator _Shake(float shakeDuration, float amplitudeGain, float frequencyGain)
     {
-        while(counterShake <= shakeDuration)
+        while (counterShake <= shakeDuration)
         {
             counterShake += Time.deltaTime;
             cinemachineBasicMultiChannelPerlin.AmplitudeGain = amplitudeGain;
@@ -76,7 +99,7 @@ public class _Camera : MonoBehaviour
     {
         cinemachinePositionComposer.CameraDistance = startDistance;
 
-        if(coroutineZoom != null)
+        if (coroutineZoom != null)
         {
             StopCoroutine(coroutineZoom);
             coroutineZoom = null;

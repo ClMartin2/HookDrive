@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem particleSystemHookPoint;
     [SerializeField] private Transform groupParticleSystemHookPoint;
     [SerializeField] private float delayToActivateHookParticle = 0.05f;
+    [field : SerializeField] public float maxSpeed { get; private set; } = 40;
 
     [Header("Car")]
     [SerializeField] private CarData carData;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
     public Vector3 hookPointPosition { get; private set; }
     public bool isGrappling { get; private set; }
     public bool attachedToHook { get; private set; }
+    public float actualSpeed { get; private set; }
 
     private float counterHookCooldown = 0;
     private bool canHook = true;
@@ -97,6 +99,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        actualSpeed = rb.linearVelocity.z;
+
         if (stopUpdate)
             return;
 
@@ -112,7 +116,7 @@ public class Player : MonoBehaviour
                 Vector3 wheelVelocity = rb.GetPointVelocity(wheel.wheelCollider.transform.position);
                 float impactSpeed = Mathf.Abs(wheelVelocity.y);
 
-                Collide(impactSpeed, impactThresholdWheel);
+                //Collide(impactSpeed, impactThresholdWheel);
 
                 checkCollision = false;
 

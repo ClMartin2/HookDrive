@@ -182,7 +182,7 @@ MonoBehaviour:
   hud: {fileID: 1984037680}
   shop: {fileID: 1057886752}
   worldClearedScreen: {fileID: 2744206293430746357}
-  startWorld: {fileID: 11400000, guid: e96446ec3c6238d4ea9f6fb4c30c706a, type: 2}
+  startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   _camera: {fileID: 1950206799}
   timeToWaitEndLevel: 0.75
@@ -194,7 +194,7 @@ MonoBehaviour:
   loadMenu: 0
   activateSAS: 1
   testLevel: 0
-  mobileTest: 1
+  mobileTest: 0
 --- !u!114 &123708027 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176775177713290129, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
@@ -6735,6 +6735,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 926607550}
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
+      propertyPath: <maxSpeed>k__BackingField
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: delayToActivateHookParticle
       value: 0.04
       objectReference: {fileID: 0}
@@ -6923,15 +6927,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5123167393244463700, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.846096
+      value: 18.283642
       objectReference: {fileID: 0}
     - target: {fileID: 5123167393244463700, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.879725
+      value: 30.893295
       objectReference: {fileID: 0}
     - target: {fileID: 5123167393244463700, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.6207075
+      value: -8.6178465
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184414937397506670, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
+      propertyPath: maxFOV
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184414937397506670, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
+      propertyPath: lerpingFOVSpeed
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5184414937397506670, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: yVerticalRotationCam
@@ -6983,15 +6995,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7616678572551994644, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.846094
+      value: 18.283642
       objectReference: {fileID: 0}
     - target: {fileID: 7616678572551994644, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.879723
+      value: 30.893295
       objectReference: {fileID: 0}
     - target: {fileID: 7616678572551994644, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.620707
+      value: -8.6178465
       objectReference: {fileID: 0}
     - target: {fileID: 7647716086656439793, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_Enabled
@@ -7003,7 +7015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9208246543435838273, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: Damping.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208246543435838273, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: Damping.y
