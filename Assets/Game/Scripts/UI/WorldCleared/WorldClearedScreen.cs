@@ -115,6 +115,12 @@ public class WorldClearedScreen : CustomScreen
             case "W-3 L5":
                 txtLevelCleared.text = nameWorlds[2] + "\n" + "CLEARED";
                 break;
+            case "W-4 L5":
+                txtLevelCleared.text = nameWorlds[3] + "\n" + "CLEARED";
+                break;
+            case "W-5 L5":
+                txtLevelCleared.text = nameWorlds[4] + "\n" + "CLEARED";
+                break;
         }
 
         animScriptScaleTxtWorld.Scale();
