@@ -1920,10 +1920,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 775938617}
     m_Modifications:
-    - target: {fileID: 8578238473269547489, guid: 61f0d5610182ed1499d99f6d83bc456f, type: 3}
-      propertyPath: m_Name
-      value: HalfCircle (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6778956570007044924, guid: 61f0d5610182ed1499d99f6d83bc456f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.009999998
@@ -1963,6 +1959,10 @@ PrefabInstance:
     - target: {fileID: 6778956570007044924, guid: 61f0d5610182ed1499d99f6d83bc456f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578238473269547489, guid: 61f0d5610182ed1499d99f6d83bc456f, type: 3}
+      propertyPath: m_Name
+      value: HalfCircle (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3052,6 +3052,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7519930193097408034, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
+    - {fileID: 8505876430597102007, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8701069642916180392, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
       insertIndex: 1
@@ -6352,6 +6353,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7519930193097408034, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
+    - {fileID: 8505876430597102007, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8701069642916180392, guid: 277d74dc59249f443b79fb1615fa8237, type: 3}
       insertIndex: 1

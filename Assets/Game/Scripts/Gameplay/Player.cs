@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float hookStrength = 1000;
     [SerializeField] private float hookStartVelocityDivider = 1.2f;
     [SerializeField, Tooltip("In Seconds")] private float hookCooldown = 0.5f;
+    [SerializeField] private HookDetection hookDetection;
+
     [field: SerializeField] public Transform hookStartPoint { get; private set; }
 
     [SerializeField] private float shakeDurationBadHook;
@@ -55,7 +57,6 @@ public class Player : MonoBehaviour
     private bool canHook = true;
     private CarControl carControl;
     private bool stopUpdate = false;
-    private HookDetection hookDetection;
     private HookPoint hookPoint;
     private HookPoint lastHookPoint;
     private HookPoint attachedHookPoint;
@@ -71,7 +72,6 @@ public class Player : MonoBehaviour
         else
             Destroy(gameObject);
 
-        hookDetection = GetComponentInChildren<HookDetection>();
         carControl = GetComponent<CarControl>();
 
         hookInput.action.Enable();

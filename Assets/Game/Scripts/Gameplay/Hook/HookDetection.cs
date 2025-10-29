@@ -5,9 +5,15 @@ using UnityEngine;
 public class HookDetection : MonoBehaviour
 {
     [SerializeField] private Collider _collider;
+    [SerializeField] private Transform playerTransform;
 
     [HideInInspector]
     public List<HookPoint> hookPoints { get; private set; } = new();
+
+    private void Update()
+    {
+        transform.position = playerTransform.position;
+    }
 
     public void Restart()
     {

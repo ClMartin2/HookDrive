@@ -98,8 +98,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3838812892325019682}
-  - component: {fileID: 3311103903717292614}
   - component: {fileID: 2280918206996633792}
+  - component: {fileID: 2456623375617388151}
   m_Layer: 10
   m_Name: HookDetection
   m_TagString: Untagged
@@ -122,8 +122,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6278083283861152170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3311103903717292614
-SphereCollider:
+--- !u!114 &2280918206996633792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609373397434169130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42545773ea4fad48b91b84dd125cff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HookDetection
+  _collider: {fileID: 0}
+--- !u!136 &2456623375617388151
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -140,21 +153,11 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 25
-  m_Center: {x: 0, y: 2.5, z: 5}
---- !u!114 &2280918206996633792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609373397434169130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d42545773ea4fad48b91b84dd125cff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HookDetection
+  serializedVersion: 2
+  m_Radius: 20
+  m_Height: 77
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3061699312369345735
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +709,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 98
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1872592319688797103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,7 +746,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   rb: {fileID: 102874241276430761}
   particleFinish: {fileID: 0}
-  carData: {fileID: 11400000, guid: 638c88b3ab0e7a145928f1a5077c9316, type: 2}
+  particleSystemHookPoint: {fileID: 0}
+  groupParticleSystemHookPoint: {fileID: 0}
+  delayToActivateHookParticle: 0.04
+  <maxSpeed>k__BackingField: 42
+  carData: {fileID: 11400000, guid: a295d8272b69b2748bcb11679e97dffd, type: 2}
   carParent: {fileID: 290427974284944525}
   carLayerName: Player
   hookInput: {fileID: -5321855580925655781, guid: 289c1b55c9541489481df5cc06664110, type: 3}
@@ -752,14 +759,16 @@ MonoBehaviour:
   - {fileID: 0}
   hookStrength: 31.5
   hookStartVelocityDivider: 1.4
-  hookCooldown: 0.1
+  hookCooldown: 0
   <hookStartPoint>k__BackingField: {fileID: 1168398865041844274}
-  shakeDurationBadHook: 0.3
-  ampltitudeGainBadHook: 1
+  shakeDurationBadHook: 0.2
+  ampltitudeGainBadHook: 0.5
   frequencyGainBadHook: 0.15
-  shakeDurationLand: 0
-  ampltitudeGainLand: 0
-  frequencyGainLand: 0
+  impactThresholdWheel: 15
+  impactThresholdCar: 30
+  shakeDurationLand: 0.275
+  ampltitudeGainLand: 0.875
+  frequencyGainLand: 0.3
   diviserVelocity: 3
 --- !u!114 &2066563322115074041
 MonoBehaviour:
