@@ -178,11 +178,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   - {fileID: 11400000, guid: e96446ec3c6238d4ea9f6fb4c30c706a, type: 2}
   - {fileID: 11400000, guid: 751d35022dc1a844da466e04fcd815c5, type: 2}
+  - {fileID: 11400000, guid: 413ffc99e3d6c494caa127653db8ae76, type: 2}
   menu: {fileID: 18390065}
   hud: {fileID: 1984037680}
   shop: {fileID: 1057886752}
   worldClearedScreen: {fileID: 2744206293430746357}
-  startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
+  startWorld: {fileID: 11400000, guid: 413ffc99e3d6c494caa127653db8ae76, type: 2}
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   _camera: {fileID: 1950206799}
   timeToWaitEndLevel: 0.75
@@ -192,7 +193,7 @@ MonoBehaviour:
   skipEndLevelInputs: {fileID: 6418996526674827661, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   restartWorldInput: {fileID: 709102675690817014, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   loadMenu: 0
-  activateSAS: 1
+  activateSAS: 0
   testLevel: 1
   mobileTest: 0
 --- !u!114 &123708027 stripped
@@ -7302,6 +7303,18 @@ PrefabInstance:
       propertyPath: 'optionsButton.Array.data[9]'
       value: 
       objectReference: {fileID: 717502492}
+    - target: {fileID: 1799151012162921835, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
+      propertyPath: nameWorlds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799151012162921835, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
+      propertyPath: 'nameWorlds.Array.data[3]'
+      value: WORLD 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799151012162921835, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
+      propertyPath: 'nameWorlds.Array.data[4]'
+      value: WORLD 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1909989651748506600, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

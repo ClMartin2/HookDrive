@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WorldData
   scenes:
   - W-4 L1
+  - W-4 L2
+  - W-4 L3
+  - W-4 L4
+  - W-4 L5
   medalToTime:
   - medal: 1
-    timeToCompleteWorld: 300
+    timeToCompleteWorld: 600
   - medal: 2
     timeToCompleteWorld: 200
   - medal: 3
-    timeToCompleteWorld: 150
-  actualMedal: 0
+    timeToCompleteWorld: 300
+  actualMedal: 1
