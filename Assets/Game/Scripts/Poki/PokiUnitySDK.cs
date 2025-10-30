@@ -285,7 +285,6 @@ public class PokiUnitySDK : MonoBehaviour {
 		isShowingAd = false;
 		#if UNITY_EDITOR
 		Debug.Log("PokiUnitySDK: rewardedBreak completed, received reward:"+withReward);
-        rewardedBreakCallBack((withReward == "true"));
 #else
 		rewardedBreakCallBack((withReward == "true"));
 #endif

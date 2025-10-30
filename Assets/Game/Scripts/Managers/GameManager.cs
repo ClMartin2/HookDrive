@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         else
             player.Activate();
 
-        SoundManager.Instance.PauseSound(pause);
+        SoundManager.Instance.PauseSound(!pause);
     }
 
 
@@ -198,6 +198,8 @@ public class GameManager : MonoBehaviour
 
     private void HideShop(bool endScene)
     {
+        GameManager.Instance.Pause(false);
+
         if (!endScene)
             player.ActivateControl();
     }

@@ -15,6 +15,9 @@ public class BtnSelectShop : OptionButton
     {
         base.OnEnable();
 
+        if (GameSaveController.Instance == null)
+            return;
+
         bool carUnlock = GameSaveController.Instance.IsCarUnlocked(carData.name);
 
         imageBtn.sprite = carUnlock ? imageSelect : imageAD;
@@ -25,6 +28,11 @@ public class BtnSelectShop : OptionButton
     protected override void OnClick()
     {
         base.OnClick();
+
+#if UNITY_EDITOR
+
+        OnRewardedBreakCompleted(true);
+#else
 
         if (!GameSaveController.Instance.IsCarUnlocked(carData.name))
         {
@@ -38,22 +46,23 @@ public class BtnSelectShop : OptionButton
             GameEvents.SelectShop?.Invoke(carData);
         }
 
+#endif
+
     }
 
     private void OnRewardedBreakCompleted(bool withReward)
     {
-        // Vérifie si la reward est validée
+        GameManager.Instance.Pause(false);
+
         if (withReward)
         {
-            // Action si la reward est donnée
-            GameEvents.SelectShop?.Invoke(carData);
             GameSaveController.Instance.UnlockCar(carData.name);
+            GameEvents.SelectShop?.Invoke(carData);
         }
         else
         {
             Debug.Log("Rewarded break annulée ou sans récompense.");
         }
 
-        GameManager.Instance.Pause(false);
     }
 }
