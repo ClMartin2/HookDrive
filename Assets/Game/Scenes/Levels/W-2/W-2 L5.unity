@@ -1727,6 +1727,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1181133352408076910, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
+      propertyPath: m_EnableTreeColliders
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1398433032099531212, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
       propertyPath: m_Name
       value: Decor_W-2
