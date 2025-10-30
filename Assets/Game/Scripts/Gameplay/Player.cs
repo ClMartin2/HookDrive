@@ -95,6 +95,7 @@ public class Player : MonoBehaviour
         }
 
         _camera = _Camera.Instance;
+        GameSaveController.Instance.UnlockCar(carData.name);
     }
 
     private void Update()

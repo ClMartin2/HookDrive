@@ -99,7 +99,7 @@ public class SoundManager : MonoBehaviour
         yield return null;
     }
 
-    private void PauseSound(bool pause)
+    public void PauseSound(bool pause)
     {
         if (!pause)
         {

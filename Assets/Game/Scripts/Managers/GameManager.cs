@@ -79,11 +79,17 @@ public class GameManager : MonoBehaviour
         skipEndLevelInputs.action.performed += GoToNexLevel;
         restartWorldInput.action.performed += RestartWorldInput;
 
+        if (!GameSaveController.Instance.IsWorldUnlocked(allWorlds[0].name))
+            GameSaveController.Instance.UnlockWorld(allWorlds[0].name);
+
         for (int i = 0; i < allWorlds.Count; i++)
         {
-            bool unlock = i < currentWorldUnlock;
+            bool unlock = GameSaveController.Instance.IsWorldUnlocked(allWorlds[i].name);
             unlocksWorldData.Add(allWorlds[i], unlock);
         }
+
+        //Debloquer tous les trucs pour la save et assigner les temps etc
+        SetWorldTrophy();
 
         _mobileTest = mobileTest;
     }
@@ -166,6 +172,16 @@ public class GameManager : MonoBehaviour
     {
         PokiUnitySDK.Instance.gameplayStop();
         gameplayStart = false;
+    }
+
+    public void Pause(bool pause)
+    {
+        if (pause)
+            player.Deactivate();
+        else
+            player.Activate();
+
+        SoundManager.Instance.PauseSound(pause);
     }
 
 
@@ -290,7 +306,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(timeToWaitToShowWorldClearedScreen);
                 worldClearedScreen.Show();
-                worldClearedScreen.SetWorldClearedScreen(CheckTrophy(), currentScene);
+                worldClearedScreen.SetWorldClearedScreen(CheckTrophyWorldScreen(), currentScene);
                 skipEndLevelInputs.action.Enable();
                 restartWorldInput.action.Enable();
                 GameplayStop();
@@ -336,6 +352,7 @@ public class GameManager : MonoBehaviour
 
                     WorldData worldToUnlock = allWorlds[currentWorldIndexData];
                     unlocksWorldData[worldToUnlock] = true;
+                    GameSaveController.Instance.UnlockWorld(worldToUnlock.name);
 
                     await LoadWorld(worldToUnlock);
                 }
@@ -373,8 +390,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Medal CheckTrophy()
+    private Medal CheckTrophyWorldScreen()
     {
+        float bestTime = GameSaveController.Instance.GetBestTime(currentWorld.name);
+
+        if (timer < bestTime || bestTime == -1)
+            GameSaveController.Instance.SaveBestTime(currentWorld.name, timer);
+
         Medal actualMedal = Medal.bronze;
 
         foreach (MedalToTime medalToTime in currentWorld.medalToTime)
@@ -383,12 +405,35 @@ public class GameManager : MonoBehaviour
             {
                 actualMedal = medalToTime.medal;
             }
-
         }
 
-        currentWorld.actualMedal = actualMedal;
+        if (timer < bestTime || bestTime == -1)
+            currentWorld.actualMedal = actualMedal;
 
         return actualMedal;
+    }
+
+    private void SetWorldTrophy()
+    {
+        foreach (WorldData world in allWorlds)
+        {
+            float bestTime = GameSaveController.Instance.GetBestTime(world.name);
+            Medal actualMedal = Medal.none;
+
+            if (bestTime != -1)
+            {
+                foreach (MedalToTime medalToTime in world.medalToTime)
+                {
+                    if (bestTime < medalToTime.timeToCompleteWorld)
+                    {
+                        actualMedal = medalToTime.medal;
+                    }
+
+                }
+            }
+
+            world.actualMedal = actualMedal;
+        }
     }
 
     private void OnDestroy()

@@ -5,7 +5,7 @@ public class OptionButton : CustomButton
 {
     private AnimScriptScale animScriptScale;
 
-    private void OnEnable()
+    virtual protected void OnEnable()
     {
         animScriptScale = GetComponent<AnimScriptScale>();
     }
