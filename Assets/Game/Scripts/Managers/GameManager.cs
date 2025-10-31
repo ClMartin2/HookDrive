@@ -82,13 +82,21 @@ public class GameManager : MonoBehaviour
         if (!GameSaveController.Instance.IsWorldUnlocked(allWorlds[0].name))
             GameSaveController.Instance.UnlockWorld(allWorlds[0].name);
 
+        WorldData lastWorldUnlock = allWorlds[0];
+
         for (int i = 0; i < allWorlds.Count; i++)
         {
+            WorldData currentWorld = allWorlds[i];
             bool unlock = GameSaveController.Instance.IsWorldUnlocked(allWorlds[i].name);
+
+            if (!unlock)
+                startWorld = lastWorldUnlock;
+            else
+                lastWorldUnlock = currentWorld;
+
             unlocksWorldData.Add(allWorlds[i], unlock);
         }
 
-        //Debloquer tous les trucs pour la save et assigner les temps etc
         SetWorldTrophy();
 
         _mobileTest = mobileTest;
@@ -198,10 +206,11 @@ public class GameManager : MonoBehaviour
 
     private void HideShop(bool endScene)
     {
-        GameManager.Instance.Pause(false);
-
         if (!endScene)
+        {
+            GameManager.Instance.Pause(false);
             player.ActivateControl();
+        }
     }
 
     private void SelectShop(CarData carData)
