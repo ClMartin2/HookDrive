@@ -31,9 +31,10 @@ public class SceneLoader : MonoBehaviour
         if (startScene)
             startLoadingScreen.Show();
         else
+        {
+            GameManager.Instance.GameplayStop();
             loadingScreen.Show();
-
-        GameManager.Instance.GameplayStop();
+        }
 
         await Task.Yield();
 
