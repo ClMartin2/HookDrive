@@ -30,11 +30,6 @@ public class Shop : CustomScreen
         sizeHorizontalContainerShop = containerShop.sizeDelta;
     }
 
-    private void Start()
-    {
-        Hide();
-    }
-
     public override void Hide()
     {
         base.Hide();

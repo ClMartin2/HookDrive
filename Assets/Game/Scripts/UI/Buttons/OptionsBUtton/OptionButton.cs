@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AnimScriptScale))]
 public class OptionButton : CustomButton
 {
-    private AnimScriptScale animScriptScale;
+    protected AnimScriptScale animScriptScale;
 
     virtual protected void OnEnable()
     {

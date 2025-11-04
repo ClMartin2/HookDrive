@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class AnimScriptScale : MonoBehaviour
 {
-    [SerializeField] private float duration;
+    [SerializeField] public float duration;
     [SerializeField] private AnimationCurve animCurve;
     [SerializeField] private Vector3 endScale;
     [SerializeField] private Vector3 startScale;
     [SerializeField] private bool scaleDown = true;
     [SerializeField] private bool useStartScale;
 
-    public bool endAnim { get; private set; }
+    public bool loop = false;
+    public bool endAnim { get; private set; } = true;
 
     private Vector3 _startScale;
+    private Coroutine coroutineScale = null;
 
     [ContextMenu("Scale")]
     public void Scale()
@@ -24,7 +26,16 @@ public class AnimScriptScale : MonoBehaviour
 
         transform.localScale = _startScale;
         endAnim = false;
-        StartCoroutine(_Scale());
+        coroutineScale = StartCoroutine(_Scale());
+    }
+
+    public void Reset()
+    {
+        if (coroutineScale != null)
+            StopCoroutine(coroutineScale);
+
+        transform.localScale = _startScale;
+        endAnim = true;
     }
 
     private IEnumerator _Scale()
@@ -42,8 +53,9 @@ public class AnimScriptScale : MonoBehaviour
         }
 
         transform.localScale = endScale;
+
         if (scaleDown)
-            StartCoroutine(ScaleDown());
+            coroutineScale = StartCoroutine(ScaleDown());
         else
             endAnim = true;
 
@@ -65,7 +77,12 @@ public class AnimScriptScale : MonoBehaviour
         }
 
         transform.localScale = _startScale;
-        endAnim = true;
+
+        if (loop)
+            Scale();
+        else
+            endAnim = true;
+
         yield return null;
     }
 }
