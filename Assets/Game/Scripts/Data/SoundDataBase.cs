@@ -4,8 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SoundDataBase", menuName = "Scriptable Objects/SoundDataBase")]
 public class SoundDataBase : ScriptableObject
 {
-    public AudioClipToVolume carThrottle;
-    public AudioClipToVolume carThrottleLoop;
+    public AudioClipToVolume carStart;
+    public AudioClipToVolume carAccelLoop;
+    public AudioClipToVolume carAccelStart;
+    public AudioClipToVolume carDecelerate;
+    public AudioClipToVolume carIdleLoop;
     public AudioClipToVolume hookStart;
     public AudioClipToVolume lockHook;
     public AudioClipToVolume winLevel;

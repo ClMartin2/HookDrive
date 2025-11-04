@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     [field: SerializeField] public AudioSource carAccelLoop { get; private set; }
     [field: SerializeField] public AudioSource cardIlde { get; private set; }
     [field: SerializeField] public AudioSource hookLoop { get; private set; }
+    [field: SerializeField] public AudioSource car { get; private set; }
 
     [SerializeField] private SoundDataBase soundDatabase;
 
@@ -19,8 +20,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private float muffledCutoffFrequency = 430;
     [SerializeField] private float durationProgressive = 0.3f;
 
-    public static AudioClipToVolume CarThrottle { get { return Instance.soundDatabase.carThrottle; } }
-    public static AudioClipToVolume CarThrottleLoop { get { return Instance.soundDatabase.carThrottleLoop; } }
+    public static AudioClipToVolume CarStart { get { return Instance.soundDatabase.carStart; } }
+    public static AudioClipToVolume CarAccelLoop { get { return Instance.soundDatabase.carAccelLoop; } }
+    public static AudioClipToVolume CarAccelStart { get { return Instance.soundDatabase.carAccelStart; } }
+    public static AudioClipToVolume CarDecelerate { get { return Instance.soundDatabase.carDecelerate; } }
+    public static AudioClipToVolume CarIdleLoop { get { return Instance.soundDatabase.carIdleLoop; } }
     public static AudioClipToVolume HookStart { get { return Instance.soundDatabase.hookStart; } }
     public static AudioClipToVolume LockHook { get { return Instance.soundDatabase.lockHook; } }
     public static AudioClipToVolume WinLevel { get { return Instance.soundDatabase.winLevel; } }
@@ -61,16 +65,25 @@ public class SoundManager : MonoBehaviour
         sfx.pitch = pitchVariation? Random.Range(0.9f, 1.1f) : 1f;
     }
 
-    public void PlaySoundThrottle(AudioClip audio, bool loop,float volumeScale = 1)
+    public void PlaySoundCar(AudioClip audio, float volumeScale = 1, bool pitchVariation = true)
     {
-        cardIlde.loop = loop;
-        cardIlde.PlayOneShot(audio, volumeScale);
-        cardIlde.pitch = Random.Range(0.95f, 1.05f);
+        car.PlayOneShot(audio, volumeScale);
+        car.pitch = pitchVariation? Random.Range(0.9f, 1.1f) : 1f;
     }
 
     public void PlayHookLoop()
     {
         hookLoop.Play();
+    }
+
+    public void PlayCarAccelLoop()
+    {
+        carAccelLoop.Play();
+    }
+
+    public void PlayCarIdleLoop()
+    {
+        cardIlde.Play();
     }
 
     public void StopAudioSource(AudioSource audioSource)
@@ -115,6 +128,7 @@ public class SoundManager : MonoBehaviour
             carAccelLoop.Pause();
             cardIlde.Pause();
             hookLoop.Pause();
+            car.Pause();
         }
         else
         {
@@ -123,6 +137,7 @@ public class SoundManager : MonoBehaviour
             carAccelLoop.UnPause();
             cardIlde.UnPause();
             hookLoop.UnPause();
+            car.UnPause();
         }
     }
 }

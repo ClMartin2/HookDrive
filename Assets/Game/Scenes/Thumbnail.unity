@@ -167,18 +167,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
   - {fileID: 11400000, guid: e96446ec3c6238d4ea9f6fb4c30c706a, type: 2}
   - {fileID: 11400000, guid: 751d35022dc1a844da466e04fcd815c5, type: 2}
+  startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
+  SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
+  _camera: {fileID: 0}
   menu: {fileID: 0}
   hud: {fileID: 0}
   shop: {fileID: 0}
+  proposeSkinScreen: {fileID: 0}
   worldClearedScreen: {fileID: 0}
-  startWorld: {fileID: 11400000, guid: 6738d68a2cc4a124a9411a27e6d66e2d, type: 2}
-  SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   timeToWaitEndLevel: 0.75
   timeToWaitToShowWorldClearedScreen: 0.75
   timeToWaitToSkipLevel: 0.25
   timeToSkipAutomaticlyToGoToNewtWorld: 4
   skipEndLevelInputs: {fileID: 6418996526674827661, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   restartWorldInput: {fileID: 709102675690817014, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  numberOfClearedLevelToProposeSkin: 6
   loadMenu: 0
   activateSAS: 0
   testLevel: 0
@@ -1104,8 +1107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   sfx: {fileID: 144058617}
   music: {fileID: 487944212}
-  <motorLoop>k__BackingField: {fileID: 985125701}
-  <throttleAudioSource>k__BackingField: {fileID: 1651130308}
+  <carAccelLoop>k__BackingField: {fileID: 0}
+  <cardIlde>k__BackingField: {fileID: 0}
+  <hookLoop>k__BackingField: {fileID: 0}
   soundDatabase: {fileID: 11400000, guid: f50d450ee57368e429f3b2d6ab48cc5f, type: 2}
   audioLowPassFilter: {fileID: 487944213}
   startCutoffFrequency: 22000
@@ -6220,7 +6224,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 61.7
+  field of view: 62.4
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -6246,13 +6250,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981867468}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.014022617, y: 0.99835104, z: -0.019054597, w: 0.05230354}
-  m_LocalPosition: {x: 0.47, y: 0.7, z: 5.23}
+  m_LocalRotation: {x: 0.010430015, y: 0.99185413, z: -0.021235067, w: -0.12516305}
+  m_LocalPosition: {x: 0.8, y: 0.95, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 2.265, y: 174.032, z: 1.491}
+  m_LocalEulerAnglesHint: {x: 2.265, y: 194.414, z: 1.491}
 --- !u!114 &981867472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6963,6 +6967,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6279198073460321305, guid: 0b21ebdee9fdd5b4fbacfd5a0231548b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279198073460321305, guid: 0b21ebdee9fdd5b4fbacfd5a0231548b, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -7215,8 +7223,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364333195}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.081737295, y: 0.17812379, z: 0.021029497, w: 0.9803819}
-  m_LocalPosition: {x: -0.06, y: -0.3, z: -0.23}
+  m_LocalRotation: {x: -0.11317418, y: -0.14543362, z: -0.0019778837, w: 0.9828717}
+  m_LocalPosition: {x: -0.12629339, y: -0.29293323, z: -0.1862874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7224,7 +7232,7 @@ Transform:
   - {fileID: 1317263591}
   - {fileID: 6775824289417699195}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -9.658, y: 20.536, z: 0.704}
+  m_LocalEulerAnglesHint: {x: -12.888, y: -17.027, z: 1.707}
 --- !u!1 &1430442642
 GameObject:
   m_ObjectHideFlags: 0
@@ -8600,8 +8608,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979896702}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5796925, y: -0.23855712, z: 0.16590461, w: 0.76126397}
-  m_LocalPosition: {x: 0.182, y: 0.967, z: 3.214}
+  m_LocalRotation: {x: 0.60291535, y: 0.025109591, z: -0.03166535, w: 0.79678106}
+  m_LocalPosition: {x: -0.01, y: 0.96690655, z: 3.15802}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8617,7 +8625,7 @@ Transform:
   - {fileID: 2094529130}
   - {fileID: 946818955}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 74.103, y: -38.592, z: -5.023}
+  m_LocalEulerAnglesHint: {x: 74.233, y: 0.386, z: -4.26}
 --- !u!1 &1984191088
 GameObject:
   m_ObjectHideFlags: 0

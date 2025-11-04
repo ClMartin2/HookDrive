@@ -12,33 +12,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812231e15cc6747479ea1e7a1822ca97, type: 3}
   m_Name: SoundDataBase
   m_EditorClassIdentifier: Assembly-CSharp::SoundDataBase
-  carThrottle:
-    audioClip: {fileID: 8300000, guid: aaadf1e6589528d40af5657aaaabf847, type: 3}
-    volume: 0.01
-  carThrottleLoop:
-    audioClip: {fileID: 8300000, guid: 184d878c43fdced419bc2ba1ef156193, type: 3}
-    volume: 0.01
+  carStart:
+    audioClip: {fileID: 8300000, guid: b5059d1f7a68d9b48b1d409ff9d5f5fb, type: 3}
+    volume: 1
+    pitchVarition: 1
+  carAccelLoop:
+    audioClip: {fileID: 8300000, guid: 38391974aa4e05f48b932f1aa3fe83da, type: 3}
+    volume: 1
+    pitchVarition: 1
+  carAccelStart:
+    audioClip: {fileID: 8300000, guid: ba5e6c02b3f697a4982c7afbd0087efa, type: 3}
+    volume: 1
+    pitchVarition: 1
+  carDecelerate:
+    audioClip: {fileID: 8300000, guid: 34d86853050a1b84db1331ceb85dbae8, type: 3}
+    volume: 1
+    pitchVarition: 1
+  carIdleLoop:
+    audioClip: {fileID: 8300000, guid: 935bba4ddd64c9f479c81b7490ae8ee3, type: 3}
+    volume: 1
+    pitchVarition: 1
   hookStart:
     audioClip: {fileID: 8300000, guid: 77428656961526b4b92e6cb3e22832e5, type: 3}
     volume: 1
+    pitchVarition: 1
   lockHook:
     audioClip: {fileID: 8300000, guid: 8859f0f6037678745b41febf47436af8, type: 3}
     volume: 1
+    pitchVarition: 1
   winLevel:
     audioClip: {fileID: 8300000, guid: 62a66ef0fa68db44984b590598a6e1b6, type: 3}
     volume: 1
+    pitchVarition: 1
   cheering:
     audioClip: {fileID: 8300000, guid: 3a691d1c80ab07344bb62e33c42af481, type: 3}
     volume: 0.1
+    pitchVarition: 1
   confetti:
     audioClip: {fileID: 8300000, guid: 65ab43edb9e905841be337a27e14b1b8, type: 3}
     volume: 0.1
+    pitchVarition: 1
   winStar:
     audioClip: {fileID: 8300000, guid: d5a70283db30fbf4cbec35c1c72f0558, type: 3}
     volume: 1
+    pitchVarition: 0
   landing:
     audioClip: {fileID: 8300000, guid: 3e619434aa2f5874898cc09604aae8bf, type: 3}
     volume: 1
+    pitchVarition: 1
   clickBtn:
     audioClip: {fileID: 8300000, guid: 42c859b1d3ee99a4b82ef4860c96c8c9, type: 3}
     volume: 1
+    pitchVarition: 1
+  hookOff:
+    audioClip: {fileID: 8300000, guid: 61bf88ce2d371f5468b02a7c37791203, type: 3}
+    volume: 1
+    pitchVarition: 1

@@ -28,8 +28,13 @@ public class CarControl : MonoBehaviour
     private float vInput = 0;
     private float hInput = 0;
     private float lastVInput = 0;
+    private bool decelerate = false;
+    private bool spawn = true;
+    private Coroutine coroutineCarAccelLoop;
+    private Coroutine coroutineCarIdleLoop;
 
-    private float timeToWaitToPlayLoopMotor;
+    private float timeToWaitToPlayCarAccelLoop;
+    private float timeToWaitToPlayCarIdleLoop = 0;
 
     public void Activate()
     {
@@ -50,6 +55,7 @@ public class CarControl : MonoBehaviour
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        spawn = true;
 
         foreach (var wheel in wheels)
         {
@@ -60,6 +66,10 @@ public class CarControl : MonoBehaviour
             // Désactive temporairement le WheelCollider
             wheel.wheelCollider.enabled = false;
         }
+
+        SoundManager.Instance.PlaySoundCar(SoundManager.CarStart.audioClip, SoundManager.CarStart.volume, SoundManager.CarStart.pitchVarition);
+        timeToWaitToPlayCarIdleLoop = SoundManager.CarStart.audioClip.length;
+        coroutineCarIdleLoop = StartCoroutine(StartLoopingCarIdle());
 
         StartCoroutine(ReenableWheels());
         transform.rotation = startRotation;
@@ -73,6 +83,7 @@ public class CarControl : MonoBehaviour
     public void Init()
     {
         carControls = new IA_Player();
+        spawn = true;
 
         rb = GetComponent<Rigidbody>();
 
@@ -118,21 +129,42 @@ public class CarControl : MonoBehaviour
             hInput = inputVector.x;
         }
 
-        if(!GameManager.Instance.gameplayStart && (hInput != 0 || vInput != 0))
+        if (!GameManager.Instance.gameplayStart && (hInput != 0 || vInput != 0))
         {
             GameEvents.GameplayStart?.Invoke();
         }
 
-        if(Mathf.Abs(vInput) > 0 && hInput == 0 && lastVInput != vInput)
+        if (Mathf.Abs(vInput) > 0 && lastVInput != vInput)
         {
-            SoundManager.Instance.StopAudioSource(SoundManager.Instance.cardIlde);
-            SoundManager.Instance.PlaySoundThrottle(SoundManager.CarThrottle.audioClip,false, SoundManager.CarThrottle.volume);
-            timeToWaitToPlayLoopMotor = SoundManager.CarThrottle.audioClip.length;
-            StartCoroutine(startLoopingMotor());
+            decelerate = true;
+
+            if (coroutineCarIdleLoop != null)
+                StopCoroutine(coroutineCarIdleLoop);
+
+            SoundManager.Instance.carAccelLoop.Stop();
+            SoundManager.Instance.car.Stop();
+            SoundManager.Instance.cardIlde.Stop();
+
+            SoundManager.Instance.PlaySoundCar(SoundManager.CarAccelStart.audioClip, SoundManager.CarAccelStart.volume, SoundManager.CarAccelStart.pitchVarition);
+            timeToWaitToPlayCarAccelLoop = SoundManager.CarAccelStart.audioClip.length;
+
+            coroutineCarAccelLoop = StartCoroutine(StartLoopingCarAccel());
         }
-        else if(vInput == 0)
+        else if (vInput == 0 && lastVInput != vInput)
         {
-            SoundManager.Instance.StopAudioSource(SoundManager.Instance.cardIlde);
+            SoundManager.Instance.StopAudioSource(SoundManager.Instance.carAccelLoop);
+            SoundManager.Instance.car.Stop();
+
+            if (coroutineCarAccelLoop != null)
+                StopCoroutine(coroutineCarAccelLoop);
+
+            if (decelerate)
+            {
+                SoundManager.Instance.PlaySoundCar(SoundManager.CarDecelerate.audioClip, SoundManager.CarDecelerate.volume, SoundManager.CarDecelerate.pitchVarition);
+                timeToWaitToPlayCarIdleLoop = SoundManager.CarDecelerate.audioClip.length;
+            }
+
+            coroutineCarIdleLoop = StartCoroutine(StartLoopingCarIdle());
         }
 
         lastVInput = vInput;
@@ -178,10 +210,18 @@ public class CarControl : MonoBehaviour
         SetWheelTorque(desiredMotor, desiredBrake);
     }
 
-    private IEnumerator startLoopingMotor()
+    private IEnumerator StartLoopingCarAccel()
     {
-        yield return new WaitForSeconds(timeToWaitToPlayLoopMotor);
-        SoundManager.Instance.PlaySoundThrottle(SoundManager.CarThrottleLoop.audioClip,true, SoundManager.CarThrottleLoop.volume);
+        yield return new WaitForSeconds(timeToWaitToPlayCarAccelLoop);
+        SoundManager.Instance.PlayCarAccelLoop();
+        yield return null;
+    }
+
+
+    private IEnumerator StartLoopingCarIdle()
+    {
+        yield return new WaitForSeconds(timeToWaitToPlayCarIdleLoop);
+        SoundManager.Instance.PlayCarIdleLoop();
         yield return null;
     }
 
