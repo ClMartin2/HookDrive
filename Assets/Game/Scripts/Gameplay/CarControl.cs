@@ -125,14 +125,14 @@ public class CarControl : MonoBehaviour
 
         if(Mathf.Abs(vInput) > 0 && hInput == 0 && lastVInput != vInput)
         {
-            SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+            SoundManager.Instance.StopAudioSource(SoundManager.Instance.cardIlde);
             SoundManager.Instance.PlaySoundThrottle(SoundManager.CarThrottle.audioClip,false, SoundManager.CarThrottle.volume);
             timeToWaitToPlayLoopMotor = SoundManager.CarThrottle.audioClip.length;
             StartCoroutine(startLoopingMotor());
         }
         else if(vInput == 0)
         {
-            SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+            SoundManager.Instance.StopAudioSource(SoundManager.Instance.cardIlde);
         }
 
         lastVInput = vInput;

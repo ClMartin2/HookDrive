@@ -7,8 +7,9 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioSource sfx;
     [SerializeField] private AudioSource music;
-    [field: SerializeField] public AudioSource motorLoop { get; private set; }
-    [field: SerializeField] public AudioSource throttleAudioSource { get; private set; }
+    [field: SerializeField] public AudioSource carAccelLoop { get; private set; }
+    [field: SerializeField] public AudioSource cardIlde { get; private set; }
+    [field: SerializeField] public AudioSource hookLoop { get; private set; }
 
     [SerializeField] private SoundDataBase soundDatabase;
 
@@ -28,6 +29,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClipToVolume WinStar { get { return Instance.soundDatabase.winStar; } }
     public static AudioClipToVolume Landing { get { return Instance.soundDatabase.landing; } }
     public static AudioClipToVolume ClickBtn { get { return Instance.soundDatabase.clickBtn; } }
+    public static AudioClipToVolume HookOff { get { return Instance.soundDatabase.hookOff; } }
 
     public static SoundManager Instance { get; private set; }
 
@@ -53,17 +55,22 @@ public class SoundManager : MonoBehaviour
         PauseSound(pause);
     }
 
-    public void PlaySoundSFX(AudioClip audio, float volumeScale = 1)
+    public void PlaySoundSFX(AudioClip audio, float volumeScale = 1, bool pitchVariation = true)
     {
         sfx.PlayOneShot(audio, volumeScale);
-        sfx.pitch = Random.Range(0.9f, 1.1f);
+        sfx.pitch = pitchVariation? Random.Range(0.9f, 1.1f) : 1f;
     }
 
     public void PlaySoundThrottle(AudioClip audio, bool loop,float volumeScale = 1)
     {
-        throttleAudioSource.loop = loop;
-        throttleAudioSource.PlayOneShot(audio, volumeScale);
-        throttleAudioSource.pitch = Random.Range(0.95f, 1.05f);
+        cardIlde.loop = loop;
+        cardIlde.PlayOneShot(audio, volumeScale);
+        cardIlde.pitch = Random.Range(0.95f, 1.05f);
+    }
+
+    public void PlayHookLoop()
+    {
+        hookLoop.Play();
     }
 
     public void StopAudioSource(AudioSource audioSource)
@@ -105,15 +112,17 @@ public class SoundManager : MonoBehaviour
         {
             sfx.Pause();
             music.Pause();
-            motorLoop.Pause();
-            throttleAudioSource.Pause();
+            carAccelLoop.Pause();
+            cardIlde.Pause();
+            hookLoop.Pause();
         }
         else
         {
             sfx.UnPause();
             music.UnPause();
-            motorLoop.UnPause();
-            throttleAudioSource.UnPause();
+            carAccelLoop.UnPause();
+            cardIlde.UnPause();
+            hookLoop.UnPause();
         }
     }
 }

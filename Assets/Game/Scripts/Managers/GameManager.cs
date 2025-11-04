@@ -13,13 +13,16 @@ using System.Runtime.InteropServices;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private List<WorldData> allWorlds = new();
-    [SerializeField] private Menu menu;
-    [SerializeField] private Hud hud;
-    [SerializeField] private Shop shop;
-    [SerializeField] private WorldClearedScreen worldClearedScreen;
     [SerializeField] private WorldData startWorld;
     [SerializeField] private WorldData SAS;
     [SerializeField] private _Camera _camera;
+
+    [Header("Screen")]
+    [SerializeField] private Menu menu;
+    [SerializeField] private Hud hud;
+    [SerializeField] private Shop shop;
+    [SerializeField] private ProposeSkinScreen proposeSkinScreen;
+    [SerializeField] private WorldClearedScreen worldClearedScreen;
 
     [Header("End level")]
     [SerializeField] private float timeToWaitEndLevel = 0.5f;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeToSkipAutomaticlyToGoToNewtWorld = 2f;
     [SerializeField] private InputActionReference skipEndLevelInputs;
     [SerializeField] private InputActionReference restartWorldInput;
+    [SerializeField] private int numberOfClearedLevelToProposeSkin = 6;
 
     [Header("Debug"), Space(10)]
     [SerializeField] private bool loadMenu;
@@ -43,10 +47,10 @@ public class GameManager : MonoBehaviour
     private int indexCurrentScene;
     private Player player;
     private Dictionary<WorldData, bool> unlocksWorldData = new();
-    private int currentWorldUnlock = 1;
     private string currentScene;
     private Coroutine coroutineWaitToGoToNextLevel;
     private bool stopTimer = false;
+    private int levelPassed = 0;
 
     private static bool _mobileTest;
     private ScreenOrientation currentScreenOrientation;
@@ -178,6 +182,9 @@ public class GameManager : MonoBehaviour
 
     public void GameplayStop()
     {
+        if (!gameplayStart)
+            return;
+
         PokiUnitySDK.Instance.gameplayStop();
         gameplayStart = false;
     }
@@ -295,6 +302,7 @@ public class GameManager : MonoBehaviour
 
     private void EndScene(bool sas)
     {
+        levelPassed++;
         hud.ActivateOptionButtons(false);
         stopTimer = true;
         player.EndScene();
@@ -326,7 +334,15 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                skipEndLevelInputs.action.Enable();
+                if(levelPassed >= numberOfClearedLevelToProposeSkin)
+                {
+                    proposeSkinScreen.Show();
+                }
+                else
+                {
+                    skipEndLevelInputs.action.Enable();
+                }
+
                 yield return new WaitForSeconds(timeToWaitEndLevel);
                 GoToNexLevel();
             }
@@ -359,7 +375,6 @@ public class GameManager : MonoBehaviour
                 if (currentWorldIndexData < allWorlds.Count - 1)
                 {
                     currentWorldIndexData++;
-                    currentWorldUnlock++;
 
                     WorldData worldToUnlock = allWorlds[currentWorldIndexData];
                     unlocksWorldData[worldToUnlock] = true;
@@ -383,7 +398,7 @@ public class GameManager : MonoBehaviour
             LoadFirstWorld();
         }
 
-        SoundManager.Instance.StopAudioSource(SoundManager.Instance.throttleAudioSource);
+        SoundManager.Instance.StopAudioSource(SoundManager.Instance.cardIlde);
         Restart();
         hud.UpdateLevelName(currentScene);
         stopTimer = false;

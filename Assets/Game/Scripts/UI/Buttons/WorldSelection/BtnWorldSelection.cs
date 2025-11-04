@@ -14,7 +14,7 @@ public class BtnWorldSelection : CustomButton
     {
         base.OnClick();
         GameEvents.LoadWorld?.Invoke(worldData);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.ClickBtn.audioClip, SoundManager.ClickBtn.volume);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.ClickBtn.audioClip, SoundManager.ClickBtn.volume, SoundManager.ClickBtn.pitchVarition);
     }
 
     public void Lock()

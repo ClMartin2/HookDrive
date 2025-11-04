@@ -14,6 +14,7 @@ public class SoundDataBase : ScriptableObject
     public AudioClipToVolume winStar;
     public AudioClipToVolume landing;
     public AudioClipToVolume clickBtn;
+    public AudioClipToVolume hookOff;
 }
 
 [Serializable]
@@ -21,4 +22,5 @@ public class AudioClipToVolume
 {
     public AudioClip audioClip;
     public float volume = 1f;
+    public bool pitchVarition = true;
 }

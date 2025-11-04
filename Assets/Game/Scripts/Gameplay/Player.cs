@@ -269,7 +269,7 @@ public class Player : MonoBehaviour
 
             if (canActivateSoundLanding)
             {
-                SoundManager.Instance.PlaySoundSFX(SoundManager.Landing.audioClip, SoundManager.Landing.volume);
+                SoundManager.Instance.PlaySoundSFX(SoundManager.Landing.audioClip, SoundManager.Landing.volume, SoundManager.Landing.pitchVarition);
                 canActivateSoundLanding = false;
                 StartCoroutine(SetCanActivateSoundLanding());
             }
@@ -321,6 +321,8 @@ public class Player : MonoBehaviour
             {
                 attachedHookPoint.UnAttached();
                 attachedHookPoint = null;
+                SoundManager.Instance.StopAudioSource(SoundManager.Instance.hookLoop);
+                SoundManager.Instance.PlaySoundSFX(SoundManager.HookOff.audioClip, SoundManager.HookOff.volume, SoundManager.HookOff.pitchVarition);
             }
         }
 
@@ -348,7 +350,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.PlaySoundSFX(SoundManager.HookStart.audioClip, SoundManager.HookStart.volume);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.HookStart.audioClip, SoundManager.HookStart.volume, SoundManager.HookStart.pitchVarition);
+            SoundManager.Instance.PlayHookLoop();
             attachedHookPoint = hookPoint;
             hookPoint.Attached();
             isGrappling = true;

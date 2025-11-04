@@ -65,8 +65,8 @@ public class WorldClearedScreen : CustomScreen
         }
 
         SoundManager.Instance.SetMusicInUI(true);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.Cheering.audioClip, SoundManager.Cheering.volume);
-        SoundManager.Instance.PlaySoundSFX(SoundManager.Confetti.audioClip, SoundManager.Confetti.volume);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Cheering.audioClip, SoundManager.Cheering.volume, SoundManager.Cheering.pitchVarition);
+        SoundManager.Instance.PlaySoundSFX(SoundManager.Confetti.audioClip, SoundManager.Confetti.volume, SoundManager.Confetti.pitchVarition);
     }
 
     public override void Hide()
@@ -154,7 +154,7 @@ public class WorldClearedScreen : CustomScreen
         {
             Star star = stars[i];
             star.FillStar();
-            SoundManager.Instance.PlaySoundSFX(SoundManager.WinStar.audioClip, SoundManager.WinStar.volume);
+            SoundManager.Instance.PlaySoundSFX(SoundManager.WinStar.audioClip, SoundManager.WinStar.volume,SoundManager.WinStar.pitchVarition);
             uiScreenShake.Shake();
             yield return new WaitUntil(() => star.animScriptScale.endAnim);
             yield return new WaitForSeconds(delayBetweenStarAnimation);
