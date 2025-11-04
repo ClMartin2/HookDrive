@@ -40,7 +40,7 @@ public class ProposeSkinScreen : CustomScreen
 
     private void RefreshRemainingCars()
     {
-        carDataRemaining = GameManager.Instance.allCars;
+        carDataRemaining = GameManager.Instance.allCarsNotUnlocked;
     }
 
     private void Update()

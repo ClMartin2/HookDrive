@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [field : SerializeField] public float maxSpeed { get; private set; } = 40;
 
     [Header("Car")]
-    [SerializeField] private CarData carData;
+    [field: SerializeField] public CarData carData { get; private set; }
     [SerializeField] private Transform carParent;
     [SerializeField] private string carLayerName = "Player";
 
@@ -79,12 +79,22 @@ public class Player : MonoBehaviour
         hookInput.action.canceled += Hook_canceled;
 
         carControl.Init();
-
-        UpdateCarModel(carData);
     }
 
     private void Start()
     {
+        CarData startCarData = carData;
+
+        foreach (CarData car in GameManager.Instance.allCars)
+        {
+            if (car.name == GameSaveController.Instance.GetLastSelectedCar())
+            {
+                startCarData = car;
+            }
+        }
+
+        UpdateCarModel(startCarData);
+
         if (GameManager.isMobile())
         {
             foreach (var btnHook in btnsHook)
@@ -95,7 +105,9 @@ public class Player : MonoBehaviour
         }
 
         _camera = _Camera.Instance;
-        GameSaveController.Instance.UnlockCar(carData.name);
+
+        if(!GameSaveController.Instance.IsCarUnlocked(carData.name))
+            GameSaveController.Instance.UnlockCar(carData.name);
     }
 
     private void Update()

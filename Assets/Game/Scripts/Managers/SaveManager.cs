@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Système de sauvegarde JSON sur WebGL (PlayerPrefs / LocalStorage)
-/// Extensible pour Poki.
+/// Système de sauvegarde JSON basé sur PlayerPrefs.
+/// Compatible WebGL / Poki.
 /// </summary>
 public static class SaveManager
 {
@@ -16,6 +16,7 @@ public static class SaveManager
         public List<string> unlockedCars;
         public List<string> bestTimesKeys;
         public List<float> bestTimesValues;
+        public string lastSelectedCar;
     }
 
     private static GameData data;
@@ -31,7 +32,7 @@ public static class SaveManager
     }
 
     /// <summary>
-    /// Sauvegarde dans PlayerPrefs
+    /// Sauvegarde les données actuelles dans PlayerPrefs.
     /// </summary>
     public static void Save()
     {
@@ -40,7 +41,8 @@ public static class SaveManager
             unlockedWorlds = Data.unlockedWorlds,
             unlockedCars = Data.unlockedCars,
             bestTimesKeys = new List<string>(Data.bestTimes.Keys),
-            bestTimesValues = new List<float>(Data.bestTimes.Values)
+            bestTimesValues = new List<float>(Data.bestTimes.Values),
+            lastSelectedCar = Data.lastSelectedCar
         };
 
         string json = JsonUtility.ToJson(s);
@@ -49,7 +51,7 @@ public static class SaveManager
     }
 
     /// <summary>
-    /// Charge depuis PlayerPrefs
+    /// Charge les données depuis PlayerPrefs.
     /// </summary>
     public static void Load()
     {
@@ -66,7 +68,8 @@ public static class SaveManager
         {
             unlockedWorlds = s.unlockedWorlds ?? new(),
             unlockedCars = s.unlockedCars ?? new(),
-            bestTimes = new Dictionary<string, float>()
+            bestTimes = new Dictionary<string, float>(),
+            lastSelectedCar = s.lastSelectedCar ?? string.Empty
         };
 
         if (s.bestTimesKeys != null && s.bestTimesValues != null)
@@ -77,7 +80,7 @@ public static class SaveManager
     }
 
     /// <summary>
-    /// Supprime toutes les données
+    /// Supprime complètement la sauvegarde.
     /// </summary>
     public static void ClearAll()
     {

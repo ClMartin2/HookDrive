@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Script MonoBehaviour pour gérer sauvegarde automatique et debug.
-/// Droppez sur un GameObject dans la scène.
+/// Contrôleur central de la sauvegarde.
+/// Droppez ce script sur un GameObject dans la scène.
 /// </summary>
 public class GameSaveController : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class GameSaveController : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject); // Persiste entre les scènes
         SaveManager.Load();
     }
 
@@ -31,7 +32,7 @@ public class GameSaveController : MonoBehaviour
         SaveManager.Save();
     }
 
-    #region API publiques pour le jeu
+    #region === MONDES ===
 
     // Débloquer un monde
     public void UnlockWorld(string worldName)
@@ -49,6 +50,10 @@ public class GameSaveController : MonoBehaviour
         return SaveManager.Data.unlockedWorlds.Contains(worldName);
     }
 
+    #endregion
+
+    #region === TEMPS ===
+
     // Enregistrer un meilleur temps
     public void SaveBestTime(string worldName, float time)
     {
@@ -64,8 +69,12 @@ public class GameSaveController : MonoBehaviour
     {
         if (SaveManager.Data.bestTimes.TryGetValue(worldName, out float time))
             return time;
-        return -1f; // pas encore de temps
+        return -1f;
     }
+
+    #endregion
+
+    #region === VOITURES ===
 
     // Débloquer une voiture
     public void UnlockCar(string carName)
@@ -83,8 +92,24 @@ public class GameSaveController : MonoBehaviour
         return SaveManager.Data.unlockedCars.Contains(carName);
     }
 
+    // Définir la dernière voiture sélectionnée
+    public void SetLastSelectedCar(string carName)
+    {
+        SaveManager.Data.lastSelectedCar = carName;
+        SaveManager.Save();
+    }
+
+    // Obtenir la dernière voiture sélectionnée
+    public string GetLastSelectedCar()
+    {
+        return SaveManager.Data.lastSelectedCar;
+    }
+
+    #endregion
+
+    #region === DEBUG ===
+
     [ContextMenu("Reset Save")]
-    // Reset complet (debug)
     public void ResetSave()
     {
         SaveManager.ClearAll();

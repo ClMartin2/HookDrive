@@ -419,6 +419,7 @@ MonoBehaviour:
   SAS: {fileID: 11400000, guid: 75078f7ab3e5ce0438d97c9649a93746, type: 2}
   _camera: {fileID: 1950206799}
   <allCars>k__BackingField:
+  - {fileID: 11400000, guid: a295d8272b69b2748bcb11679e97dffd, type: 2}
   - {fileID: 11400000, guid: 5949209b3b896a2459c00098bdc39976, type: 2}
   - {fileID: 11400000, guid: b8691a6d24da27542a911e2da1f7c9f9, type: 2}
   - {fileID: 11400000, guid: 638c88b3ab0e7a145928f1a5077c9316, type: 2}
@@ -443,7 +444,7 @@ MonoBehaviour:
   numberOfClearedLevelToProposeSkin: 4
   loadMenu: 0
   activateSAS: 0
-  testLevel: 0
+  testLevel: 1
   mobileTest: 0
 --- !u!114 &123708027 stripped
 MonoBehaviour:
@@ -7191,6 +7192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PropositionScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 5150780588761339820, guid: 5a396b0d855c1824c86b15f222fa313b, type: 3}
+      propertyPath: watchAdInput
+      value: 
+      objectReference: {fileID: -9145806655956625968, guid: 289c1b55c9541489481df5cc06664110, type: 3}
     - target: {fileID: 9092420728862723374, guid: 5a396b0d855c1824c86b15f222fa313b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7368,6 +7373,10 @@ PrefabInstance:
       propertyPath: particleSystemHookPoint
       value: 
       objectReference: {fileID: 926607550}
+    - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
+      propertyPath: <carData>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: a295d8272b69b2748bcb11679e97dffd, type: 2}
     - target: {fileID: 8248266691032299964, guid: e80862f66e4231443a27bbfd6c782db6, type: 3}
       propertyPath: groupParticleSystemHookPoint
       value: 
@@ -7554,7 +7563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5123167393244463700, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.283642
+      value: 18.28364
       objectReference: {fileID: 0}
     - target: {fileID: 5123167393244463700, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7626,7 +7635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7616678572551994644, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.893295
+      value: 30.893297
       objectReference: {fileID: 0}
     - target: {fileID: 7616678572551994644, guid: 2e624b19cfa2012438b27fa72b57e52e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8787,7 +8796,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7057546977529365083, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
-      insertIndex: 5
+      insertIndex: 4
       addedObject: {fileID: 1561255730}
     - targetCorrespondingSourceObject: {fileID: 2927172436008763795, guid: 85c50939379cc8d45b8e7d5fb6958e7d, type: 3}
       insertIndex: -1

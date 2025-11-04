@@ -785,6 +785,15 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""WatchAD"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbb9d333-8dd3-4baa-b3cf-3577dd62d84d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""RestarWorld"",
                     ""type"": ""Button"",
                     ""id"": ""d68dccd6-0098-4dbd-8426-9f6fe4b515e2"",
@@ -841,12 +850,12 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""74a96f37-8532-4e33-8208-18eb57401f52"",
-                    ""path"": ""<Touchscreen>/touch*/Press"",
+                    ""id"": ""5af9605d-40c0-4369-8a97-08301bae9fa4"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Touch;Keyboard&Mouse"",
-                    ""action"": ""SkipEndLevel"",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""WatchAD"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -947,6 +956,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player_Hook = m_Player.FindAction("Hook", throwIfNotFound: true);
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
         m_Player_SkipEndLevel = m_Player.FindAction("SkipEndLevel", throwIfNotFound: true);
+        m_Player_WatchAD = m_Player.FindAction("WatchAD", throwIfNotFound: true);
         m_Player_RestarWorld = m_Player.FindAction("RestarWorld", throwIfNotFound: true);
     }
 
@@ -1324,6 +1334,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Hook;
     private readonly InputAction m_Player_Restart;
     private readonly InputAction m_Player_SkipEndLevel;
+    private readonly InputAction m_Player_WatchAD;
     private readonly InputAction m_Player_RestarWorld;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -1348,6 +1359,10 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SkipEndLevel".
         /// </summary>
         public InputAction @SkipEndLevel => m_Wrapper.m_Player_SkipEndLevel;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/WatchAD".
+        /// </summary>
+        public InputAction @WatchAD => m_Wrapper.m_Player_WatchAD;
         /// <summary>
         /// Provides access to the underlying input action "Player/RestarWorld".
         /// </summary>
@@ -1387,6 +1402,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @SkipEndLevel.started += instance.OnSkipEndLevel;
             @SkipEndLevel.performed += instance.OnSkipEndLevel;
             @SkipEndLevel.canceled += instance.OnSkipEndLevel;
+            @WatchAD.started += instance.OnWatchAD;
+            @WatchAD.performed += instance.OnWatchAD;
+            @WatchAD.canceled += instance.OnWatchAD;
             @RestarWorld.started += instance.OnRestarWorld;
             @RestarWorld.performed += instance.OnRestarWorld;
             @RestarWorld.canceled += instance.OnRestarWorld;
@@ -1410,6 +1428,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @SkipEndLevel.started -= instance.OnSkipEndLevel;
             @SkipEndLevel.performed -= instance.OnSkipEndLevel;
             @SkipEndLevel.canceled -= instance.OnSkipEndLevel;
+            @WatchAD.started -= instance.OnWatchAD;
+            @WatchAD.performed -= instance.OnWatchAD;
+            @WatchAD.canceled -= instance.OnWatchAD;
             @RestarWorld.started -= instance.OnRestarWorld;
             @RestarWorld.performed -= instance.OnRestarWorld;
             @RestarWorld.canceled -= instance.OnRestarWorld;
@@ -1632,6 +1653,13 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkipEndLevel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "WatchAD" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWatchAD(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "RestarWorld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

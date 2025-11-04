@@ -129,6 +129,13 @@ public class SoundManager : MonoBehaviour
             cardIlde.Pause();
             hookLoop.Pause();
             car.Pause();
+
+            sfx.mute = true;
+            music.mute = true;
+            carAccelLoop.mute = true;
+            cardIlde.mute = true;
+            hookLoop.mute = true;
+            car.mute = true;
         }
         else
         {
@@ -138,6 +145,13 @@ public class SoundManager : MonoBehaviour
             cardIlde.UnPause();
             hookLoop.UnPause();
             car.UnPause();
+
+            sfx.mute = false;
+            music.mute = false;
+            carAccelLoop.mute = false;
+            cardIlde.mute = false;
+            hookLoop.mute = false;
+            car.mute = false;
         }
     }
 }

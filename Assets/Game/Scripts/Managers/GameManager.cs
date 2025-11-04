@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool testLevel = false;
     [SerializeField] private bool mobileTest = false;
 
+    [HideInInspector] public List<CarData> allCarsNotUnlocked { get; private set; } = new();
+
     public static GameManager Instance;
     public float timer { get; private set; }
     public bool gameplayStart { get; private set; } = false;
@@ -108,25 +110,31 @@ public class GameManager : MonoBehaviour
         SetWorldTrophy();
 
         _mobileTest = mobileTest;
-
-        for (int i = allCars.Count - 1; i >= 0; i--)
-        {
-            CarData car = allCars[i];
-
-            if (GameSaveController.Instance.IsCarUnlocked(car.name))
-            {
-                allCars.Remove(car);
-            }
-        }
     }
 
 
     private void Start()
     {
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         PokiUnitySDK.Instance.gameLoadingFinished();
 #endif
         player = Player.Instance;
+
+        allCarsNotUnlocked = allCars;
+
+        for (int i = allCarsNotUnlocked.Count - 1; i >= 0; i--)
+        {
+            CarData car = allCarsNotUnlocked[i];
+
+            if (GameSaveController.Instance.IsCarUnlocked(car.name) || player.carData == car)
+            {
+                allCarsNotUnlocked.Remove(car);
+            }
+        }
+
+        _camera = _Camera.Instance;
+        shop.Hide();
 
 #if UNITY_EDITOR
 
@@ -160,8 +168,6 @@ public class GameManager : MonoBehaviour
 #endif
 
         }
-
-        _camera = _Camera.Instance;
     }
 
     private void Update()
@@ -249,7 +255,7 @@ public class GameManager : MonoBehaviour
         if (withReward)
         {
             GameSaveController.Instance.UnlockCar(carToUnlock.name);
-            allCars.Remove(carToUnlock);
+            allCarsNotUnlocked.Remove(carToUnlock);
             GameEvents.SelectShop?.Invoke(carToUnlock);
         }
         else
@@ -285,6 +291,7 @@ public class GameManager : MonoBehaviour
         player.UpdateCarModel(carData);
         shop.EndScene = false;
         shop.Hide();
+        GameSaveController.Instance.SetLastSelectedCar(carData.name);
     }
 
     private void RestartWorldInput(InputAction.CallbackContext context)
@@ -395,7 +402,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if(levelPassed >= numberOfClearedLevelToProposeSkin && allCars.Count > 0)
+                if(levelPassed >= numberOfClearedLevelToProposeSkin && allCarsNotUnlocked.Count > 0)
                 {
                     yield return new WaitForSeconds(timeToWaitToShowWorldClearedScreen);
                     proposeSkinScreen.Show();
