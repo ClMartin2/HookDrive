@@ -26,44 +26,6 @@ public class BtnSelectShop : OptionButton
 
     protected override void OnClick()
     {
-        if (!GameSaveController.Instance.IsCarUnlocked(carData.name))
-        {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        if (PokiUnitySDK.Instance != null)
-        {
-            GameManager.Instance.Pause(true);
-            PokiUnitySDK.Instance.rewardedBreakCallBack = OnRewardedBreakCompleted;
-            PokiUnitySDK.Instance.rewardedBreak();
-        }
-        else
-        {
-            Debug.LogWarning("Poki SDK not ready, simulating reward.");
-            OnRewardedBreakCompleted(true);
-        }
-#else
-            OnRewardedBreakCompleted(true); // Simulation en Editor
-#endif
-        }
-        else
-        {
-            GameEvents.SelectShop?.Invoke(carData);
-        }
-
-    }
-
-    private void OnRewardedBreakCompleted(bool withReward)
-    {
-        GameManager.Instance.Pause(false);
-
-        if (withReward)
-        {
-            GameSaveController.Instance.UnlockCar(carData.name);
-            GameEvents.SelectShop?.Invoke(carData);
-        }
-        else
-        {
-            Debug.Log("Rewarded break annulée ou sans récompense.");
-        }
-
+        GameManager.Instance.UnlockSkin(carData);   
     }
 }

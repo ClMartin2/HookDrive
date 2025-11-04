@@ -9,6 +9,7 @@ public class AnimScriptScale : MonoBehaviour
     [SerializeField] private Vector3 startScale;
     [SerializeField] private bool scaleDown = true;
     [SerializeField] private bool useStartScale;
+    [SerializeField] private bool startOnEnable;
 
     public bool loop = false;
     public bool endAnim { get; private set; } = true;
@@ -16,13 +17,24 @@ public class AnimScriptScale : MonoBehaviour
     private Vector3 _startScale;
     private Coroutine coroutineScale = null;
 
+    private void OnEnable()
+    {
+        if (!startOnEnable)
+            return;
+
+        Reset();
+        Scale();
+    }
+
+    private void Awake()
+    {
+        SetStartScale();
+    }
+
     [ContextMenu("Scale")]
     public void Scale()
     {
-        if (!useStartScale)
-            _startScale = transform.localScale;
-        else
-            _startScale = startScale;
+        SetStartScale();
 
         transform.localScale = _startScale;
         endAnim = false;
@@ -36,6 +48,14 @@ public class AnimScriptScale : MonoBehaviour
 
         transform.localScale = _startScale;
         endAnim = true;
+    }
+
+    private void SetStartScale()
+    {
+        if (!useStartScale)
+            _startScale = transform.localScale;
+        else
+            _startScale = startScale;
     }
 
     private IEnumerator _Scale()

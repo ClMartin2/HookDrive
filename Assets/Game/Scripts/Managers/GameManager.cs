@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WorldData startWorld;
     [SerializeField] private WorldData SAS;
     [SerializeField] private _Camera _camera;
+    [field: SerializeField] public List<CarData> allCars { get; private set; } = new();
 
     [Header("Screen")]
     [SerializeField] private Menu menu;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("End level")]
     [SerializeField] private float timeToWaitEndLevel = 0.5f;
+    [SerializeField] private float timeToWaitEndLevelPropositionScreen = 5f;
     [SerializeField] private float timeToWaitToShowWorldClearedScreen = 0.5f;
     [SerializeField] private float timeToWaitToSkipLevel = 0.1f;
     [SerializeField] private float timeToSkipAutomaticlyToGoToNewtWorld = 2f;
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour
     private Coroutine coroutineWaitToGoToNextLevel;
     private bool stopTimer = false;
     private int levelPassed = 0;
+    private CarData carToUnlock = null;
 
     private static bool _mobileTest;
     private ScreenOrientation currentScreenOrientation;
@@ -104,6 +108,16 @@ public class GameManager : MonoBehaviour
         SetWorldTrophy();
 
         _mobileTest = mobileTest;
+
+        for (int i = allCars.Count - 1; i >= 0; i--)
+        {
+            CarData car = allCars[i];
+
+            if (GameSaveController.Instance.IsCarUnlocked(car.name))
+            {
+                allCars.Remove(car);
+            }
+        }
     }
 
 
@@ -199,6 +213,52 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PauseSound(!pause);
     }
 
+    public void UnlockSkin(CarData carData)
+    {
+        carToUnlock = carData;
+
+        if (!GameSaveController.Instance.IsCarUnlocked(carData.name))
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (PokiUnitySDK.Instance != null)
+        {
+            Pause(true);
+            PokiUnitySDK.Instance.rewardedBreakCallBack = OnRewardedBreakCompleted;
+            PokiUnitySDK.Instance.rewardedBreak();
+        }
+        else
+        {
+            Debug.LogWarning("Poki SDK not ready, simulating reward.");
+            OnRewardedBreakCompleted(true);
+        }
+#else
+            OnRewardedBreakCompleted(true); // Simulation en Editor
+#endif
+        }
+        else
+        {
+            GameEvents.SelectShop?.Invoke(carData);
+        }
+
+    }
+
+    private void OnRewardedBreakCompleted(bool withReward)
+    {
+        GameManager.Instance.Pause(false);
+
+        if (withReward)
+        {
+            GameSaveController.Instance.UnlockCar(carToUnlock.name);
+            allCars.Remove(carToUnlock);
+            GameEvents.SelectShop?.Invoke(carToUnlock);
+        }
+        else
+        {
+            Debug.Log("Rewarded break annulée ou sans récompense.");
+        }
+
+    }
+
 
     private void StartWorld()
     {
@@ -248,6 +308,7 @@ public class GameManager : MonoBehaviour
     private void Restart()
     {
         worldClearedScreen.Hide();
+        proposeSkinScreen.Hide();
         hud.ActivateControlButtons(true);
         _camera.DeZoom();
         StopWaitToGoToNextLevel();
@@ -334,16 +395,19 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if(levelPassed >= numberOfClearedLevelToProposeSkin)
+                if(levelPassed >= numberOfClearedLevelToProposeSkin && allCars.Count > 0)
                 {
+                    yield return new WaitForSeconds(timeToWaitToShowWorldClearedScreen);
                     proposeSkinScreen.Show();
+                    levelPassed = 0;
+                    yield return new WaitForSeconds(timeToWaitEndLevelPropositionScreen);
                 }
                 else
                 {
                     skipEndLevelInputs.action.Enable();
+                    yield return new WaitForSeconds(timeToWaitEndLevel);
                 }
 
-                yield return new WaitForSeconds(timeToWaitEndLevel);
                 GoToNexLevel();
             }
         }

@@ -5,7 +5,7 @@ public class BtnShop : OptionButton
     [SerializeField] private float durationScaleLoop = 0.5f;
     [SerializeField] private float durationScaleClick = 0.1f;
 
-    private bool Click = true;
+    [HideInInspector] public CarData carData;
 
     private void Update()
     {
