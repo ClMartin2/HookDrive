@@ -93,7 +93,9 @@ public class BatchFBXExporter : EditorWindow
 
             // Crée les options pour forcer le binaire
             var exportOptions = new ExportModelOptions();
-            exportOptions.ExportFormat = ExportFormat.Binary; // Force Binary
+            exportOptions.ExportFormat = ExportFormat.Binary;
+            exportOptions.PreserveImportSettings = true;
+            exportOptions.ModelAnimIncludeOption = Include.Model;
 
             // Exporte un objet à la fois
             ModelExporter.ExportObjects(path, new GameObject[] { obj }, exportOptions);
