@@ -222,6 +222,8 @@ public class Player : MonoBehaviour
     public void EndScene()
     {
         Pause();
+        hookDetection.Restart();
+        ResetHook();
         rb.linearVelocity /= diviserVelocity;
 
         particleFinish.transform.position = transform.position;

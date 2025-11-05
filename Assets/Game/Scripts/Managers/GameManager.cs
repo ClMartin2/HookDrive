@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool activateSAS;
     [SerializeField] private bool testLevel = false;
     [SerializeField] private bool mobileTest = false;
+    [SerializeField] private bool simulateReward = false;
 
     [HideInInspector] public List<CarData> allCarsNotUnlocked { get; private set; } = new();
 
@@ -226,13 +227,13 @@ public class GameManager : MonoBehaviour
         if (!GameSaveController.Instance.IsCarUnlocked(carData.name))
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (PokiUnitySDK.Instance != null)
+        if (PokiUnitySDK.Instance != null && !simulateReward)
         {
             Pause(true);
             PokiUnitySDK.Instance.rewardedBreakCallBack = OnRewardedBreakCompleted;
             PokiUnitySDK.Instance.rewardedBreak();
         }
-        else
+        else if (simulateReward)
         {
             Debug.LogWarning("Poki SDK not ready, simulating reward.");
             OnRewardedBreakCompleted(true);
