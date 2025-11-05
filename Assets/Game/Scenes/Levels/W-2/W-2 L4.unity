@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: a9c9a94fa17571b42a836c5eb8436b16, type: 2}
+  m_LightingDataAsset: {fileID: 112000002, guid: a6b5d53b28ec04a4484317c1de8531f4, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: ef4074408c8dd174fa9b3f88e906a1b1, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -3025,6 +3025,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 117996999}
     m_Modifications:
+    - target: {fileID: 226325416403320051, guid: d0e5c81299516ab4db05ec25fa995ecf, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 3471574289805621150, guid: d0e5c81299516ab4db05ec25fa995ecf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3671,10 +3675,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Decor_W-2
       objectReference: {fileID: 0}
-    - target: {fileID: 1398433032099531212, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8817311378918943975, guid: 2ba4378ccaca91c4a966a5f01f5ed19a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -71.2
@@ -3736,6 +3736,10 @@ PrefabInstance:
     - target: {fileID: 5538232632279859365, guid: d14d0c4141c6eb841918230e58a70fe8, type: 3}
       propertyPath: m_Name
       value: JumpPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764236758546576395, guid: d14d0c4141c6eb841918230e58a70fe8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 5970513522184557988, guid: d14d0c4141c6eb841918230e58a70fe8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3857,6 +3861,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 117996999}
     m_Modifications:
+    - target: {fileID: 1833998427110233780, guid: 70a7f86f88b2e884e92a579d6c4433bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 5966450140938190927, guid: 70a7f86f88b2e884e92a579d6c4433bd, type: 3}
       propertyPath: m_Name
       value: JumpBambooPlatform
