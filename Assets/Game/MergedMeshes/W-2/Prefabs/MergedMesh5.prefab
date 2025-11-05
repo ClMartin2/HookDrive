@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0676614
       objectReference: {fileID: 0}
@@ -18,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 39.830734
+      value: 39.83074
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,25 +60,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
+    - target: {fileID: -2660732103581429490, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a19b6f4f90b79d64590f80dd94fbbb4f, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
       propertyPath: m_Name
       value: MergedMesh5
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 8ffc135f9a77cad4f982a4327ba7459b, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 126
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
