@@ -1,11 +1,9 @@
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using CrazyGames;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices;
@@ -116,10 +114,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        PokiUnitySDK.Instance.gameLoadingFinished();
-#endif
         player = Player.Instance;
 
         allCarsNotUnlocked = allCars;
@@ -206,7 +200,7 @@ public class GameManager : MonoBehaviour
         if (!gameplayStart)
             return;
 
-        PokiUnitySDK.Instance.gameplayStop();
+        CrazySDK.Game.GameplayStop();
         gameplayStart = false;
     }
 
@@ -227,17 +221,27 @@ public class GameManager : MonoBehaviour
         if (!GameSaveController.Instance.IsCarUnlocked(carData.name))
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        if (PokiUnitySDK.Instance != null && !simulateReward)
-        {
-            Pause(true);
-            PokiUnitySDK.Instance.rewardedBreakCallBack = OnRewardedBreakCompleted;
-            PokiUnitySDK.Instance.rewardedBreak();
-        }
-        else if (simulateReward)
-        {
-            Debug.LogWarning("Poki SDK not ready, simulating reward.");
-            OnRewardedBreakCompleted(true);
-        }
+            if (CrazySDK.IsAvailable && !simulateReward)
+            {
+                Pause(true);
+                CrazySDK.Ad.RequestAd(CrazyAdType.Rewarded, () =>
+                {
+                    // ad started
+                }, (error) =>
+                {
+                    // ad error
+                    OnRewardedBreakCompleted(false);
+                }, () =>
+                {
+                    // ad finished, for rewarded ads give reward here
+                    OnRewardedBreakCompleted(true);
+                });
+            }
+            else if (simulateReward)
+            {
+                Debug.LogWarning("Poki SDK not ready, simulating reward.");
+                OnRewardedBreakCompleted(true);
+            }
 #else
             OnRewardedBreakCompleted(true); // Simulation en Editor
 #endif
@@ -325,7 +329,7 @@ public class GameManager : MonoBehaviour
 
     private void GameplayStart()
     {
-        PokiUnitySDK.Instance.gameplayStart();
+        CrazySDK.Game.GameplayStart();
         gameplayStart = true;
     }
 
@@ -403,7 +407,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if(levelPassed >= numberOfClearedLevelToProposeSkin && allCarsNotUnlocked.Count > 0)
+                if (levelPassed >= numberOfClearedLevelToProposeSkin && allCarsNotUnlocked.Count > 0)
                 {
                     yield return new WaitForSeconds(timeToWaitToShowWorldClearedScreen);
                     proposeSkinScreen.Show();
